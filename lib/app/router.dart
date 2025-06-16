@@ -3,12 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../presentation/screens/place/place_main.dart';
+import '../presentation/screens/region_select/region_select_main.dart';
 import '../presentation/screens/restaurant/restaurant_main.dart';
 
 // router 정의 추가
 final GoRouter router = GoRouter(
-  initialLocation: '/restaurant',
+  initialLocation: '/region-select',
   routes: [
+    GoRoute(
+      path: '/region-select',
+      builder: (context, state) => RegionSelectMain(),
+    ),
     ShellRoute(
       builder: (context, state, child) {
         return MainScaffold(child: child);
