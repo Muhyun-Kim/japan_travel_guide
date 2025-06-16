@@ -1,10 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:japan_travel_guide/core/constants/app_constants.dart';
+import 'package:japan_travel_guide/presentation/screens/region_select/others_screen.dart';
 
 class RegionSelectMain extends StatelessWidget {
   const RegionSelectMain({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final List<String> preferredRegionList = [
+      'tokyo',
+      'osaka',
+      'kyoto',
+      'fukuoka',
+      'hokkaido',
+    ];
+
+    final List<String> preferredRegionImages = [
+      '🏙️',
+      '🏯',
+      '⛩️',
+      '🍜',
+      '❄️',
+    ];
+
+    final List<Map<String, String>>
+    preferredRegions =
+        regions
+            .where(
+              (region) => preferredRegionList
+                  .contains(region['en']),
+            )
+            .toList();
+
+    final List<Map<String, String>> otherRegions =
+        regions
+            .where(
+              (region) =>
+                  !preferredRegionList.contains(
+                    region['en'],
+                  ),
+            )
+            .toList();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -40,35 +77,29 @@ class RegionSelectMain extends StatelessWidget {
                 mainAxisSpacing: 16,
                 childAspectRatio: 1.0,
                 children: [
+                  // 선호 지역들을 map으로 동적 생성
+                  ...preferredRegions
+                      .asMap()
+                      .entries
+                      .map((entry) {
+                        int index = entry.key;
+                        Map<String, String>
+                        region = entry.value;
+                        return _buildRegionCard(
+                          context,
+                          preferredRegionImages[index],
+                          region['kr']!,
+                          region['en']!,
+                        );
+                      })
+                      .toList(),
+                  // 이 외 지역 카드
                   _buildRegionCard(
-                    '🏙️',
-                    '도쿄',
-                    'tokyo',
-                  ),
-                  _buildRegionCard(
-                    '🏯',
-                    '오사카',
-                    'osaka',
-                  ),
-                  _buildRegionCard(
-                    '⛩️',
-                    '교토',
-                    'kyoto',
-                  ),
-                  _buildRegionCard(
-                    '🍜',
-                    '후쿠오카',
-                    'fukuoka',
-                  ),
-                  _buildRegionCard(
-                    '❄️',
-                    '홋카이도',
-                    'hokkaido',
-                  ),
-                  _buildRegionCard(
+                    context,
                     '📍',
                     '이 외 지역',
                     'others',
+                    regions: otherRegions,
                   ),
                 ],
               ),
@@ -80,10 +111,12 @@ class RegionSelectMain extends StatelessWidget {
   }
 
   Widget _buildRegionCard(
+    BuildContext context,
     String emoji,
     String korean,
-    String english,
-  ) {
+    String english, {
+    List<Map<String, String>> regions = const [],
+  }) {
     return Card(
       elevation: 3,
       shape: RoundedRectangleBorder(
@@ -91,7 +124,17 @@ class RegionSelectMain extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          print('$korean 선택됨');
+          english == 'others'
+              ? Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder:
+                      (context) => OthersScreen(
+                        regions: regions,
+                      ),
+                ),
+              )
+              : print('$korean 선택됨');
         },
         borderRadius: BorderRadius.circular(12),
         child: Column(
