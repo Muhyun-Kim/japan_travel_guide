@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:japan_travel_guide/core/constants/app_constants.dart';
 import 'package:japan_travel_guide/core/utils/region_utils.dart';
+import 'package:japan_travel_guide/presentation/providers/selected_regions_provider.dart';
 import 'package:japan_travel_guide/presentation/screens/region_select/others_screen.dart';
 
-class RegionSelectMain extends StatelessWidget {
+class RegionSelectMain extends ConsumerWidget {
   const RegionSelectMain({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final notifier = ref.read(selectedRegionsProvider.notifier);
     final List<String> preferredRegionList = [
       'tokyo',
       'osaka',
@@ -24,19 +27,13 @@ class RegionSelectMain extends StatelessWidget {
       '❄️',
     ];
 
-    final List<Map<String, String>>
-    preferredRegions = RegionUtils.searchRegions(
-      preferredRegionList,
-      'en',
-    );
+    final List<Map<String, String>> preferredRegions =
+        RegionUtils.searchRegions(preferredRegionList, 'en');
 
     final List<Map<String, String>> otherRegions =
         regions
             .where(
-              (region) =>
-                  !preferredRegionList.contains(
-                    region['en'],
-                  ),
+              (region) => !preferredRegionList.contains(region['en']),
             )
             .toList();
 
@@ -44,26 +41,20 @@ class RegionSelectMain extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           '좋아하는 지역은?',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         centerTitle: false,
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment:
-              CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // 헤더
             SizedBox(height: 8),
             Text(
               '맞춤 정보를 제공해드려요',
-              style: TextStyle(
-                color: Colors.grey[600],
-              ),
+              style: TextStyle(color: Colors.grey[600]),
             ),
             SizedBox(height: 24),
 
@@ -76,23 +67,20 @@ class RegionSelectMain extends StatelessWidget {
                 childAspectRatio: 1.0,
                 children: [
                   // 선호 지역들을 map으로 동적 생성
-                  ...preferredRegions
-                      .asMap()
-                      .entries
-                      .map((entry) {
-                        int index = entry.key;
-                        Map<String, String>
-                        region = entry.value;
-                        return _buildRegionCard(
-                          context,
-                          preferredRegionImages[index],
-                          region['kr']!,
-                          region['en']!,
-                        );
-                      })
-                      .toList(),
+                  ...preferredRegions.asMap().entries.map((entry) {
+                    int index = entry.key;
+                    Map<String, String> region = entry.value;
+                    return _buildRegionCard(
+                      context,
+                      notifier,
+                      preferredRegionImages[index],
+                      region['kr']!,
+                      region['en']!,
+                    );
+                  }).toList(),
                   _buildRegionCard(
                     context,
+                    notifier,
                     '📍',
                     '이 외 지역',
                     'others',
@@ -109,6 +97,7 @@ class RegionSelectMain extends StatelessWidget {
 
   Widget _buildRegionCard(
     BuildContext context,
+    SelectedRegionsNotifier notifier,
     String emoji,
     String korean,
     String english, {
@@ -121,27 +110,22 @@ class RegionSelectMain extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          english == 'others'
-              ? Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder:
-                      (context) => OthersScreen(
-                        regions: regions,
-                      ),
-                ),
-              )
-              : print('$korean 선택됨');
+          if (english == 'others') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => OthersScreen(regions: regions),
+              ),
+            );
+          } else {
+            notifier.addRegion(english);
+          }
         },
         borderRadius: BorderRadius.circular(12),
         child: Column(
-          mainAxisAlignment:
-              MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              emoji,
-              style: TextStyle(fontSize: 40),
-            ),
+            Text(emoji, style: TextStyle(fontSize: 40)),
             SizedBox(height: 12),
             Text(
               korean,
@@ -152,10 +136,7 @@ class RegionSelectMain extends StatelessWidget {
             ),
             Text(
               english,
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.grey[600],
-              ),
+              style: TextStyle(fontSize: 12, color: Colors.grey[600]),
             ),
           ],
         ),
