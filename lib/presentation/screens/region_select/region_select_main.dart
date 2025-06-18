@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:japan_travel_guide/core/constants/app_constants.dart';
+import 'package:japan_travel_guide/core/utils/region_utils.dart';
 import 'package:japan_travel_guide/presentation/screens/region_select/others_screen.dart';
 
 class RegionSelectMain extends StatelessWidget {
@@ -24,13 +25,10 @@ class RegionSelectMain extends StatelessWidget {
     ];
 
     final List<Map<String, String>>
-    preferredRegions =
-        regions
-            .where(
-              (region) => preferredRegionList
-                  .contains(region['en']),
-            )
-            .toList();
+    preferredRegions = RegionUtils.searchRegions(
+      preferredRegionList,
+      'en',
+    );
 
     final List<Map<String, String>> otherRegions =
         regions
@@ -93,7 +91,6 @@ class RegionSelectMain extends StatelessWidget {
                         );
                       })
                       .toList(),
-                  // 이 외 지역 카드
                   _buildRegionCard(
                     context,
                     '📍',
