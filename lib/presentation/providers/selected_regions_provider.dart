@@ -8,7 +8,9 @@ class SelectedRegionsNotifier extends StateNotifier<List<String>> {
 
   // 데이터 불러오기
   Future<void> loadData() async {
-    state = await RegionStorage.loadRegions();
+    final loadedRegions = await RegionStorage.loadRegions();
+    state = loadedRegions;
+    print(state);
   }
 
   // 지역 설정 (덮어쓰기)

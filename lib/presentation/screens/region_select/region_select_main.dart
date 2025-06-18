@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:japan_travel_guide/core/constants/app_constants.dart';
 import 'package:japan_travel_guide/core/utils/region_utils.dart';
 import 'package:japan_travel_guide/presentation/providers/selected_regions_provider.dart';
@@ -119,6 +120,7 @@ class RegionSelectMain extends ConsumerWidget {
             );
           } else {
             notifier.addRegion(english);
+            context.go('/restaurant');
           }
         },
         borderRadius: BorderRadius.circular(12),

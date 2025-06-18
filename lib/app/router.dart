@@ -1,15 +1,19 @@
-// app/router.dart 전체 내용
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../presentation/screens/place/place_main.dart';
 import '../presentation/screens/region_select/region_select_main.dart';
 import '../presentation/screens/restaurant/restaurant_main.dart';
+import '../presentation/screens/splash_screen.dart';
 
 // router 정의 추가
 final GoRouter router = GoRouter(
-  initialLocation: '/region-select',
+  initialLocation: '/splash',
   routes: [
+    GoRoute(
+      path: '/splash',
+      builder: (context, state) => SplashScreen(),
+    ),
     GoRoute(
       path: '/region-select',
       builder: (context, state) => RegionSelectMain(),
