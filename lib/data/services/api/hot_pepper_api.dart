@@ -9,7 +9,7 @@ class HotPepperApi {
   ) async {
     try {
       final url =
-          '${HotPepperEndpoints.master.largeArea}&format=json&address=$region';
+          '${HotPepperEndpoints.master.area.largeArea}&format=json&address=$region';
       print(url);
       final response = await http.get(Uri.parse(url));
       final res = jsonDecode(response.body);
