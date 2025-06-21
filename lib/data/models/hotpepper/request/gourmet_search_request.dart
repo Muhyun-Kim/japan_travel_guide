@@ -1,9 +1,9 @@
-import 'common_enums.dart';
+import '../common_enums.dart';
 
 /// Hotpepper Gourmet Search API Request 파라미터
 class GourmetSearchRequest {
   /// 필수 파라미터 (API key는 HotPepperEndpoints에서 자동 추가)
-  
+
   /// 기본 검색 파라미터
   final List<String>? id; // 店舗ID (최대 20개)
   final String? name; // 掲載店名
@@ -11,36 +11,36 @@ class GourmetSearchRequest {
   final String? nameAny; // 掲載店名 OR かな
   final String? tel; // 電話番号 (하이픈 없는 반각숫자)
   final String? address; // 住所
-  
+
   /// 위치 검색 파라미터
   final double? lat; // 緯度
   final double? lng; // 経度
   final SearchRange? range; // 検索範囲
   final Datum? datum; // 測地系
-  
+
   /// 지역 검색 파라미터
   final String? largeServiceArea; // 大サービスエリアコード
   final List<String>? serviceArea; // サービスエリアコード (최대 3개)
   final List<String>? largeArea; // 大エリアコード (최대 3개)
   final List<String>? middleArea; // 中エリアコード (최대 5개)
   final List<String>? smallArea; // 小エリアコード (최대 5개)
-  
+
   /// 키워드 검색
   final List<String>? keyword; // キーワード (스페이스로 AND 검색)
-  
+
   /// 특집 관련
   final List<String>? special; // 特集 (AND)
   final List<String>? specialOr; // 特集 (OR)
   final List<String>? specialCategory; // 特集カテゴリ (AND)
   final List<String>? specialCategoryOr; // 特集カテゴリ (OR)
-  
+
   /// 장르 및 예산
   final List<String>? genre; // お店ジャンルコード
   final List<String>? budget; // 検索用ディナー予算コード (최대 2개)
-  
+
   /// 수용 인원
   final int? partyCapacity; // 宴会収容人数
-  
+
   /// Boolean 필터들 (0: 필터 안함, 1: 필터 적용)
   final BooleanFilter? wifi; // WiFi有無
   final BooleanFilter? wedding; // ウェディング二次会等
@@ -74,7 +74,7 @@ class GourmetSearchRequest {
   final BooleanFilter? english; // 英語メニューあり
   final BooleanFilter? pet; // ペット可
   final BooleanFilter? child; // お子様連れOK
-  
+
   /// 기타 파라미터
   final KtaiCoupon? ktaiCoupon; // 携帯クーポン掲載
   final List<String>? creditCard; // クレジットカード
@@ -170,9 +170,12 @@ class GourmetSearchRequest {
     if (datum != null) params['datum'] = datum!.value;
 
     // 지역 검색 파라미터
-    if (largeServiceArea != null) params['large_service_area'] = largeServiceArea!;
+    if (largeServiceArea != null)
+      params['large_service_area'] = largeServiceArea!;
     if (serviceArea != null && serviceArea!.isNotEmpty) {
-      params['service_area'] = serviceArea!.take(3).join(','); // 최대 3개
+      params['service_area'] = serviceArea!
+          .take(3)
+          .join(','); // 최대 3개
     }
     if (largeArea != null && largeArea!.isNotEmpty) {
       params['large_area'] = largeArea!.take(3).join(','); // 최대 3개
@@ -218,40 +221,59 @@ class GourmetSearchRequest {
 
     // Boolean 필터들
     if (wifi != null) params['wifi'] = wifi!.value.toString();
-    if (wedding != null) params['wedding'] = wedding!.value.toString();
+    if (wedding != null)
+      params['wedding'] = wedding!.value.toString();
     if (course != null) params['course'] = course!.value.toString();
-    if (freeDrink != null) params['free_drink'] = freeDrink!.value.toString();
-    if (freeFood != null) params['free_food'] = freeFood!.value.toString();
-    if (privateRoom != null) params['private_room'] = privateRoom!.value.toString();
-    if (horigotatsu != null) params['horigotatsu'] = horigotatsu!.value.toString();
+    if (freeDrink != null)
+      params['free_drink'] = freeDrink!.value.toString();
+    if (freeFood != null)
+      params['free_food'] = freeFood!.value.toString();
+    if (privateRoom != null)
+      params['private_room'] = privateRoom!.value.toString();
+    if (horigotatsu != null)
+      params['horigotatsu'] = horigotatsu!.value.toString();
     if (tatami != null) params['tatami'] = tatami!.value.toString();
-    if (cocktail != null) params['cocktail'] = cocktail!.value.toString();
+    if (cocktail != null)
+      params['cocktail'] = cocktail!.value.toString();
     if (shochu != null) params['shochu'] = shochu!.value.toString();
     if (sake != null) params['sake'] = sake!.value.toString();
     if (wine != null) params['wine'] = wine!.value.toString();
     if (card != null) params['card'] = card!.value.toString();
-    if (nonSmoking != null) params['non_smoking'] = nonSmoking!.value.toString();
-    if (charter != null) params['charter'] = charter!.value.toString();
+    if (nonSmoking != null)
+      params['non_smoking'] = nonSmoking!.value.toString();
+    if (charter != null)
+      params['charter'] = charter!.value.toString();
     if (ktai != null) params['ktai'] = ktai!.value.toString();
-    if (parking != null) params['parking'] = parking!.value.toString();
-    if (barrierFree != null) params['barrier_free'] = barrierFree!.value.toString();
-    if (sommelier != null) params['sommelier'] = sommelier!.value.toString();
-    if (nightView != null) params['night_view'] = nightView!.value.toString();
-    if (openAir != null) params['open_air'] = openAir!.value.toString();
+    if (parking != null)
+      params['parking'] = parking!.value.toString();
+    if (barrierFree != null)
+      params['barrier_free'] = barrierFree!.value.toString();
+    if (sommelier != null)
+      params['sommelier'] = sommelier!.value.toString();
+    if (nightView != null)
+      params['night_view'] = nightView!.value.toString();
+    if (openAir != null)
+      params['open_air'] = openAir!.value.toString();
     if (show != null) params['show'] = show!.value.toString();
-    if (equipment != null) params['equipment'] = equipment!.value.toString();
-    if (karaoke != null) params['karaoke'] = karaoke!.value.toString();
+    if (equipment != null)
+      params['equipment'] = equipment!.value.toString();
+    if (karaoke != null)
+      params['karaoke'] = karaoke!.value.toString();
     if (band != null) params['band'] = band!.value.toString();
     if (tv != null) params['tv'] = tv!.value.toString();
     if (lunch != null) params['lunch'] = lunch!.value.toString();
-    if (midnight != null) params['midnight'] = midnight!.value.toString();
-    if (midnightMeal != null) params['midnight_meal'] = midnightMeal!.value.toString();
-    if (english != null) params['english'] = english!.value.toString();
+    if (midnight != null)
+      params['midnight'] = midnight!.value.toString();
+    if (midnightMeal != null)
+      params['midnight_meal'] = midnightMeal!.value.toString();
+    if (english != null)
+      params['english'] = english!.value.toString();
     if (pet != null) params['pet'] = pet!.value.toString();
     if (child != null) params['child'] = child!.value.toString();
 
     // 기타 파라미터
-    if (ktaiCoupon != null) params['ktai_coupon'] = ktaiCoupon!.value.toString();
+    if (ktaiCoupon != null)
+      params['ktai_coupon'] = ktaiCoupon!.value.toString();
     if (creditCard != null && creditCard!.isNotEmpty) {
       params['credit_card'] = creditCard!.join(',');
     }

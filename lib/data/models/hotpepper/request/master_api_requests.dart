@@ -1,12 +1,10 @@
-import 'common_enums.dart';
+import '../common_enums.dart';
 
 /// Budget Master API Request (검색용 디너 예산 마스터)
 class BudgetMasterRequest {
   final ResponseFormat? format;
 
-  const BudgetMasterRequest({
-    this.format,
-  });
+  const BudgetMasterRequest({this.format});
 
   Map<String, String> toQueryParams() {
     final Map<String, String> params = {};
@@ -14,12 +12,8 @@ class BudgetMasterRequest {
     return params;
   }
 
-  BudgetMasterRequest copyWith({
-    ResponseFormat? format,
-  }) {
-    return BudgetMasterRequest(
-      format: format ?? this.format,
-    );
+  BudgetMasterRequest copyWith({ResponseFormat? format}) {
+    return BudgetMasterRequest(format: format ?? this.format);
   }
 }
 
@@ -27,9 +21,7 @@ class BudgetMasterRequest {
 class LargeServiceAreaMasterRequest {
   final ResponseFormat? format;
 
-  const LargeServiceAreaMasterRequest({
-    this.format,
-  });
+  const LargeServiceAreaMasterRequest({this.format});
 
   Map<String, String> toQueryParams() {
     final Map<String, String> params = {};
@@ -37,9 +29,7 @@ class LargeServiceAreaMasterRequest {
     return params;
   }
 
-  LargeServiceAreaMasterRequest copyWith({
-    ResponseFormat? format,
-  }) {
+  LargeServiceAreaMasterRequest copyWith({ResponseFormat? format}) {
     return LargeServiceAreaMasterRequest(
       format: format ?? this.format,
     );
@@ -50,9 +40,7 @@ class LargeServiceAreaMasterRequest {
 class ServiceAreaMasterRequest {
   final ResponseFormat? format;
 
-  const ServiceAreaMasterRequest({
-    this.format,
-  });
+  const ServiceAreaMasterRequest({this.format});
 
   Map<String, String> toQueryParams() {
     final Map<String, String> params = {};
@@ -60,12 +48,8 @@ class ServiceAreaMasterRequest {
     return params;
   }
 
-  ServiceAreaMasterRequest copyWith({
-    ResponseFormat? format,
-  }) {
-    return ServiceAreaMasterRequest(
-      format: format ?? this.format,
-    );
+  ServiceAreaMasterRequest copyWith({ResponseFormat? format}) {
+    return ServiceAreaMasterRequest(format: format ?? this.format);
   }
 }
 
@@ -83,13 +67,13 @@ class LargeAreaMasterRequest {
 
   Map<String, String> toQueryParams() {
     final Map<String, String> params = {};
-    
+
     if (largeArea != null && largeArea!.isNotEmpty) {
       params['large_area'] = largeArea!.take(3).join(','); // 최대 3개
     }
     if (keyword != null) params['keyword'] = keyword!;
     if (format != null) params['format'] = format!.value;
-    
+
     return params;
   }
 
@@ -126,7 +110,7 @@ class MiddleAreaMasterRequest {
 
   Map<String, String> toQueryParams() {
     final Map<String, String> params = {};
-    
+
     if (middleArea != null && middleArea!.isNotEmpty) {
       params['middle_area'] = middleArea!.take(5).join(','); // 최대 5개
     }
@@ -137,7 +121,7 @@ class MiddleAreaMasterRequest {
     if (start != null) params['start'] = start!.toString();
     if (count != null) params['count'] = count!.toString();
     if (format != null) params['format'] = format!.value;
-    
+
     return params;
   }
 
@@ -180,7 +164,7 @@ class SmallAreaMasterRequest {
 
   Map<String, String> toQueryParams() {
     final Map<String, String> params = {};
-    
+
     if (smallArea != null && smallArea!.isNotEmpty) {
       params['small_area'] = smallArea!.take(5).join(','); // 최대 5개
     }
@@ -191,7 +175,7 @@ class SmallAreaMasterRequest {
     if (start != null) params['start'] = start!.toString();
     if (count != null) params['count'] = count!.toString();
     if (format != null) params['format'] = format!.value;
-    
+
     return params;
   }
 
@@ -220,21 +204,17 @@ class GenreMasterRequest {
   final String? keyword; // ジャンル名
   final ResponseFormat? format;
 
-  const GenreMasterRequest({
-    this.code,
-    this.keyword,
-    this.format,
-  });
+  const GenreMasterRequest({this.code, this.keyword, this.format});
 
   Map<String, String> toQueryParams() {
     final Map<String, String> params = {};
-    
+
     if (code != null && code!.isNotEmpty) {
       params['code'] = code!.take(2).join(','); // 최대 2개
     }
     if (keyword != null) params['keyword'] = keyword!;
     if (format != null) params['format'] = format!.value;
-    
+
     return params;
   }
 
@@ -255,9 +235,7 @@ class GenreMasterRequest {
 class CreditCardMasterRequest {
   final ResponseFormat? format;
 
-  const CreditCardMasterRequest({
-    this.format,
-  });
+  const CreditCardMasterRequest({this.format});
 
   Map<String, String> toQueryParams() {
     final Map<String, String> params = {};
@@ -265,12 +243,8 @@ class CreditCardMasterRequest {
     return params;
   }
 
-  CreditCardMasterRequest copyWith({
-    ResponseFormat? format,
-  }) {
-    return CreditCardMasterRequest(
-      format: format ?? this.format,
-    );
+  CreditCardMasterRequest copyWith({ResponseFormat? format}) {
+    return CreditCardMasterRequest(format: format ?? this.format);
   }
 }
 
@@ -288,7 +262,7 @@ class SpecialMasterRequest {
 
   Map<String, String> toQueryParams() {
     final Map<String, String> params = {};
-    
+
     if (special != null && special!.isNotEmpty) {
       params['special'] = special!.join(',');
     }
@@ -296,7 +270,7 @@ class SpecialMasterRequest {
       params['special_category'] = specialCategory!.join(',');
     }
     if (format != null) params['format'] = format!.value;
-    
+
     return params;
   }
 
@@ -325,12 +299,12 @@ class SpecialCategoryMasterRequest {
 
   Map<String, String> toQueryParams() {
     final Map<String, String> params = {};
-    
+
     if (specialCategory != null && specialCategory!.isNotEmpty) {
       params['special_category'] = specialCategory!.join(',');
     }
     if (format != null) params['format'] = format!.value;
-    
+
     return params;
   }
 
