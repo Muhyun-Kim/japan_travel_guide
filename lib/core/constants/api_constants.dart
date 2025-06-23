@@ -33,4 +33,5 @@ abstract class HotPepperEndpoints {
     specialCategory: '$_baseUrl/special_category/v1/$_baseParams',
   );
   static final gourmet = '$_baseUrl/gourmet/v1/$_baseParams';
+  static final shopNameSearch = '$_baseUrl/shop/v1/$_baseParams';
 }
