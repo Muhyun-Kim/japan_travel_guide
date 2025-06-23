@@ -19,7 +19,8 @@ class RestaurantMain extends ConsumerWidget {
       body: Center(
         child: TextButton(
           onPressed: () {
-            HotPepperApi.getRestaurantWithRegion(selectedRegionsJp);
+            final res = HotPepperApi().getBudgetMaster();
+            print(res);
           },
           child: Text('test'),
         ),
