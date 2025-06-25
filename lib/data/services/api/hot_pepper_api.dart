@@ -3,8 +3,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:japan_travel_guide/core/constants/api_constants.dart';
 
-// Request 모델들
-import '../../models/hotpepper/request/master_requests.dart';
 // Response 모델들
 import '../../models/hotpepper/response/master_response.dart';
 
@@ -35,7 +33,7 @@ class HotPepperApi {
   /// Hot Pepper에서 제공하는 예산 구간 정보를 가져옵니다.
   /// 예: "~1000엔", "1001~1500엔", "1501~2000엔" 등
   ///
-  /// [request] - API 요청 파라미터 (null인 경우 기본값 사용)
+  /// 추가 파라미터가 필요하지 않은 단순한 마스터 데이터 조회입니다.
   ///
   /// 사용 예시:
   /// ```dart
@@ -43,22 +41,13 @@ class HotPepperApi {
   /// final budgets = await api.getBudgetMaster();
   ///
   /// for (final budget in budgets.budgets) {
-  ///   print('${budget.name}: ${budget.average}');
+  ///   print('${budget.name}: ${budget.code}');
   /// }
   /// ```
-  Future<BudgetResponse> getBudgetMaster([
-    BudgetMasterRequest? request,
-  ]) async {
+  Future<BudgetResponse> getBudgetMaster() async {
     try {
-      // 기본 request 설정
-      request ??= const BudgetMasterRequest();
-
-      // URL 구성
-      final queryParams = request.toQueryParams();
-      final url = _buildUrl(
-        HotPepperEndpoints.master.budget,
-        queryParams,
-      );
+      // URL은 이미 필요한 모든 파라미터(API key, format)를 포함
+      final url = HotPepperEndpoints.master.budget;
 
       // HTTP GET 요청
       final response = await _client.get(Uri.parse(url));
@@ -70,46 +59,69 @@ class HotPepperApi {
         );
       }
 
-      // JSON 파싱
       final jsonData =
           jsonDecode(response.body) as Map<String, dynamic>;
 
-      print('jsonData: $jsonData');
       final res = BudgetResponse.fromHotPepperApi(jsonData);
-      print('res: $res');
-      // 🎯 Hot Pepper API 전용 파싱 메서드 사용
       return res;
     } catch (e) {
       throw Exception('Budget Master API 호출 실패: $e');
     }
   }
 
-  // ==========================================================================
-  // 기존 메서드 (호환성 유지)
-  // ==========================================================================
-
-  /// 지역별 레스토랑 조회 (기존 메서드)
-  ///
-  /// 주의: 이 메서드는 기존 코드와의 호환성을 위해 유지됩니다.
-  /// 새로운 코드에서는 다른 Master API 메서드 사용을 권장합니다.
-  static Future<Map<String, dynamic>> getRestaurantWithRegion(
-    String region,
-  ) async {
+  Future<LargeServiceAreaResponse> getLargeServiceAreaMaster() async {
     try {
-      final url =
-          '${HotPepperEndpoints.master.largeArea}&format=json&address=$region';
-      print(url);
-      final response = await http.get(Uri.parse(url));
-      final res = jsonDecode(response.body);
+      final url = HotPepperEndpoints.master.largeServiceArea;
+
+      // HTTP GET 요청
+      final response = await _client.get(Uri.parse(url));
+
+      // HTTP 상태 코드 체크
+      if (response.statusCode != 200) {
+        throw Exception(
+          'HTTP ${response.statusCode}: ${response.reasonPhrase}',
+        );
+      }
+
+      final jsonData =
+          jsonDecode(response.body) as Map<String, dynamic>;
+
+      final res = LargeServiceAreaResponse.fromHotPepperApi(jsonData);
       print(res);
       return res;
     } catch (e) {
-      throw Exception(e);
+      throw Exception('Large Service Area Master API 호출 실패: $e');
+    }
+  }
+
+  Future<ServiceAreaResponse> getServiceAreaMaster() async {
+    try {
+      final url = HotPepperEndpoints.master.serviceArea;
+
+      // HTTP GET 요청
+      final response = await _client.get(Uri.parse(url));
+
+      // HTTP 상태 코드 체크
+      if (response.statusCode != 200) {
+        throw Exception(
+          'HTTP ${response.statusCode}: ${response.reasonPhrase}',
+        );
+      }
+
+      final jsonData =
+          jsonDecode(response.body) as Map<String, dynamic>;
+      print(jsonData);
+
+      final res = ServiceAreaResponse.fromHotPepperApi(jsonData);
+      print(res);
+      return res;
+    } catch (e) {
+      throw Exception('Service Area Master API 호출 실패: $e');
     }
   }
 
   // ==========================================================================
-  // Private 헬퍼 메서드들
+  // Private 헬퍼 메서드들 (향후 파라미터가 있는 API를 위해 유지)
   // ==========================================================================
 
   /// URL과 쿼리 파라미터를 조합하여 최종 URL을 생성
