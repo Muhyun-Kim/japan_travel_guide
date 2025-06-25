@@ -6,18 +6,11 @@ part of 'master_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$BudgetImpl _$$BudgetImplFromJson(Map<String, dynamic> json) => _$BudgetImpl(
-  code: json['code'] as String,
-  name: json['name'] as String,
-  average: json['average'] as String?,
-);
+_$BudgetImpl _$$BudgetImplFromJson(Map<String, dynamic> json) =>
+    _$BudgetImpl(code: json['code'] as String, name: json['name'] as String);
 
 Map<String, dynamic> _$$BudgetImplToJson(_$BudgetImpl instance) =>
-    <String, dynamic>{
-      'code': instance.code,
-      'name': instance.name,
-      'average': instance.average,
-    };
+    <String, dynamic>{'code': instance.code, 'name': instance.name};
 
 _$BudgetResponseImpl _$$BudgetResponseImplFromJson(Map<String, dynamic> json) =>
     _$BudgetResponseImpl(

@@ -23,7 +23,6 @@ Budget _$BudgetFromJson(Map<String, dynamic> json) {
 mixin _$Budget {
   String get code => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String? get average => throw _privateConstructorUsedError;
 
   /// Serializes this Budget to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -39,7 +38,7 @@ abstract class $BudgetCopyWith<$Res> {
   factory $BudgetCopyWith(Budget value, $Res Function(Budget) then) =
       _$BudgetCopyWithImpl<$Res, Budget>;
   @useResult
-  $Res call({String code, String name, String? average});
+  $Res call({String code, String name});
 }
 
 /// @nodoc
@@ -56,11 +55,7 @@ class _$BudgetCopyWithImpl<$Res, $Val extends Budget>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? code = null,
-    Object? name = null,
-    Object? average = freezed,
-  }) {
+  $Res call({Object? code = null, Object? name = null}) {
     return _then(
       _value.copyWith(
             code:
@@ -73,11 +68,6 @@ class _$BudgetCopyWithImpl<$Res, $Val extends Budget>
                     ? _value.name
                     : name // ignore: cast_nullable_to_non_nullable
                         as String,
-            average:
-                freezed == average
-                    ? _value.average
-                    : average // ignore: cast_nullable_to_non_nullable
-                        as String?,
           )
           as $Val,
     );
@@ -92,7 +82,7 @@ abstract class _$$BudgetImplCopyWith<$Res> implements $BudgetCopyWith<$Res> {
   ) = __$$BudgetImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String code, String name, String? average});
+  $Res call({String code, String name});
 }
 
 /// @nodoc
@@ -108,11 +98,7 @@ class __$$BudgetImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? code = null,
-    Object? name = null,
-    Object? average = freezed,
-  }) {
+  $Res call({Object? code = null, Object? name = null}) {
     return _then(
       _$BudgetImpl(
         code:
@@ -125,11 +111,6 @@ class __$$BudgetImplCopyWithImpl<$Res>
                 ? _value.name
                 : name // ignore: cast_nullable_to_non_nullable
                     as String,
-        average:
-            freezed == average
-                ? _value.average
-                : average // ignore: cast_nullable_to_non_nullable
-                    as String?,
       ),
     );
   }
@@ -138,7 +119,7 @@ class __$$BudgetImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$BudgetImpl implements _Budget {
-  const _$BudgetImpl({required this.code, required this.name, this.average});
+  const _$BudgetImpl({required this.code, required this.name});
 
   factory _$BudgetImpl.fromJson(Map<String, dynamic> json) =>
       _$$BudgetImplFromJson(json);
@@ -147,12 +128,10 @@ class _$BudgetImpl implements _Budget {
   final String code;
   @override
   final String name;
-  @override
-  final String? average;
 
   @override
   String toString() {
-    return 'Budget(code: $code, name: $name, average: $average)';
+    return 'Budget(code: $code, name: $name)';
   }
 
   @override
@@ -161,13 +140,12 @@ class _$BudgetImpl implements _Budget {
         (other.runtimeType == runtimeType &&
             other is _$BudgetImpl &&
             (identical(other.code, code) || other.code == code) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.average, average) || other.average == average));
+            (identical(other.name, name) || other.name == name));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, code, name, average);
+  int get hashCode => Object.hash(runtimeType, code, name);
 
   /// Create a copy of Budget
   /// with the given fields replaced by the non-null parameter values.
@@ -187,7 +165,6 @@ abstract class _Budget implements Budget {
   const factory _Budget({
     required final String code,
     required final String name,
-    final String? average,
   }) = _$BudgetImpl;
 
   factory _Budget.fromJson(Map<String, dynamic> json) = _$BudgetImpl.fromJson;
@@ -196,8 +173,6 @@ abstract class _Budget implements Budget {
   String get code;
   @override
   String get name;
-  @override
-  String? get average;
 
   /// Create a copy of Budget
   /// with the given fields replaced by the non-null parameter values.

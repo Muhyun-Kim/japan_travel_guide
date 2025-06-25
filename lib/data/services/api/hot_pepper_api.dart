@@ -75,8 +75,10 @@ class HotPepperApi {
           jsonDecode(response.body) as Map<String, dynamic>;
 
       print('jsonData: $jsonData');
+      final res = BudgetResponse.fromHotPepperApi(jsonData);
+      print('res: $res');
       // 🎯 Hot Pepper API 전용 파싱 메서드 사용
-      return BudgetResponse.fromHotPepperApi(jsonData);
+      return res;
     } catch (e) {
       throw Exception('Budget Master API 호출 실패: $e');
     }
