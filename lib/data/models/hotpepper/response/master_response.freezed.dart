@@ -15,12 +15,12 @@ final _privateConstructorUsedError = UnsupportedError(
   'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
 );
 
-Budget _$BudgetFromJson(Map<String, dynamic> json) {
-  return _Budget.fromJson(json);
+CodeName _$CodeNameFromJson(Map<String, dynamic> json) {
+  return _CodeName.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Budget {
+mixin _$CodeName {
   @SafeStringConverter()
   @JsonKey(name: 'code', defaultValue: '')
   String get code => throw _privateConstructorUsedError;
@@ -28,19 +28,20 @@ mixin _$Budget {
   @JsonKey(name: 'name', defaultValue: '')
   String get name => throw _privateConstructorUsedError;
 
-  /// Serializes this Budget to a JSON map.
+  /// Serializes this CodeName to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of Budget
+  /// Create a copy of CodeName
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $BudgetCopyWith<Budget> get copyWith => throw _privateConstructorUsedError;
+  $CodeNameCopyWith<CodeName> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $BudgetCopyWith<$Res> {
-  factory $BudgetCopyWith(Budget value, $Res Function(Budget) then) =
-      _$BudgetCopyWithImpl<$Res, Budget>;
+abstract class $CodeNameCopyWith<$Res> {
+  factory $CodeNameCopyWith(CodeName value, $Res Function(CodeName) then) =
+      _$CodeNameCopyWithImpl<$Res, CodeName>;
   @useResult
   $Res call({
     @SafeStringConverter() @JsonKey(name: 'code', defaultValue: '') String code,
@@ -49,16 +50,16 @@ abstract class $BudgetCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$BudgetCopyWithImpl<$Res, $Val extends Budget>
-    implements $BudgetCopyWith<$Res> {
-  _$BudgetCopyWithImpl(this._value, this._then);
+class _$CodeNameCopyWithImpl<$Res, $Val extends CodeName>
+    implements $CodeNameCopyWith<$Res> {
+  _$CodeNameCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of Budget
+  /// Create a copy of CodeName
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -82,11 +83,12 @@ class _$BudgetCopyWithImpl<$Res, $Val extends Budget>
 }
 
 /// @nodoc
-abstract class _$$BudgetImplCopyWith<$Res> implements $BudgetCopyWith<$Res> {
-  factory _$$BudgetImplCopyWith(
-    _$BudgetImpl value,
-    $Res Function(_$BudgetImpl) then,
-  ) = __$$BudgetImplCopyWithImpl<$Res>;
+abstract class _$$CodeNameImplCopyWith<$Res>
+    implements $CodeNameCopyWith<$Res> {
+  factory _$$CodeNameImplCopyWith(
+    _$CodeNameImpl value,
+    $Res Function(_$CodeNameImpl) then,
+  ) = __$$CodeNameImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({
@@ -96,21 +98,21 @@ abstract class _$$BudgetImplCopyWith<$Res> implements $BudgetCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$BudgetImplCopyWithImpl<$Res>
-    extends _$BudgetCopyWithImpl<$Res, _$BudgetImpl>
-    implements _$$BudgetImplCopyWith<$Res> {
-  __$$BudgetImplCopyWithImpl(
-    _$BudgetImpl _value,
-    $Res Function(_$BudgetImpl) _then,
+class __$$CodeNameImplCopyWithImpl<$Res>
+    extends _$CodeNameCopyWithImpl<$Res, _$CodeNameImpl>
+    implements _$$CodeNameImplCopyWith<$Res> {
+  __$$CodeNameImplCopyWithImpl(
+    _$CodeNameImpl _value,
+    $Res Function(_$CodeNameImpl) _then,
   ) : super(_value, _then);
 
-  /// Create a copy of Budget
+  /// Create a copy of CodeName
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({Object? code = null, Object? name = null}) {
     return _then(
-      _$BudgetImpl(
+      _$CodeNameImpl(
         code:
             null == code
                 ? _value.code
@@ -128,8 +130,8 @@ class __$$BudgetImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$BudgetImpl implements _Budget {
-  const _$BudgetImpl({
+class _$CodeNameImpl implements _CodeName {
+  const _$CodeNameImpl({
     @SafeStringConverter()
     @JsonKey(name: 'code', defaultValue: '')
     required this.code,
@@ -138,8 +140,8 @@ class _$BudgetImpl implements _Budget {
     required this.name,
   });
 
-  factory _$BudgetImpl.fromJson(Map<String, dynamic> json) =>
-      _$$BudgetImplFromJson(json);
+  factory _$CodeNameImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CodeNameImplFromJson(json);
 
   @override
   @SafeStringConverter()
@@ -152,14 +154,14 @@ class _$BudgetImpl implements _Budget {
 
   @override
   String toString() {
-    return 'Budget(code: $code, name: $name)';
+    return 'CodeName(code: $code, name: $name)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$BudgetImpl &&
+            other is _$CodeNameImpl &&
             (identical(other.code, code) || other.code == code) &&
             (identical(other.name, name) || other.name == name));
   }
@@ -168,31 +170,32 @@ class _$BudgetImpl implements _Budget {
   @override
   int get hashCode => Object.hash(runtimeType, code, name);
 
-  /// Create a copy of Budget
+  /// Create a copy of CodeName
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$BudgetImplCopyWith<_$BudgetImpl> get copyWith =>
-      __$$BudgetImplCopyWithImpl<_$BudgetImpl>(this, _$identity);
+  _$$CodeNameImplCopyWith<_$CodeNameImpl> get copyWith =>
+      __$$CodeNameImplCopyWithImpl<_$CodeNameImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$BudgetImplToJson(this);
+    return _$$CodeNameImplToJson(this);
   }
 }
 
-abstract class _Budget implements Budget {
-  const factory _Budget({
+abstract class _CodeName implements CodeName {
+  const factory _CodeName({
     @SafeStringConverter()
     @JsonKey(name: 'code', defaultValue: '')
     required final String code,
     @SafeStringConverter()
     @JsonKey(name: 'name', defaultValue: '')
     required final String name,
-  }) = _$BudgetImpl;
+  }) = _$CodeNameImpl;
 
-  factory _Budget.fromJson(Map<String, dynamic> json) = _$BudgetImpl.fromJson;
+  factory _CodeName.fromJson(Map<String, dynamic> json) =
+      _$CodeNameImpl.fromJson;
 
   @override
   @SafeStringConverter()
@@ -203,11 +206,11 @@ abstract class _Budget implements Budget {
   @JsonKey(name: 'name', defaultValue: '')
   String get name;
 
-  /// Create a copy of Budget
+  /// Create a copy of CodeName
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$BudgetImplCopyWith<_$BudgetImpl> get copyWith =>
+  _$$CodeNameImplCopyWith<_$CodeNameImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -229,8 +232,8 @@ mixin _$BudgetResponse {
   @SafeIntConverter()
   @JsonKey(name: 'results_start', defaultValue: 0)
   int get resultsStart => throw _privateConstructorUsedError;
-  @JsonKey(name: 'budget', defaultValue: <Budget>[])
-  List<Budget> get budgets => throw _privateConstructorUsedError;
+  @JsonKey(name: 'budget', defaultValue: <CodeName>[])
+  List<CodeName> get budgets => throw _privateConstructorUsedError;
 
   /// Serializes this BudgetResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -262,7 +265,7 @@ abstract class $BudgetResponseCopyWith<$Res> {
     @SafeIntConverter()
     @JsonKey(name: 'results_start', defaultValue: 0)
     int resultsStart,
-    @JsonKey(name: 'budget', defaultValue: <Budget>[]) List<Budget> budgets,
+    @JsonKey(name: 'budget', defaultValue: <CodeName>[]) List<CodeName> budgets,
   });
 }
 
@@ -313,7 +316,7 @@ class _$BudgetResponseCopyWithImpl<$Res, $Val extends BudgetResponse>
                 null == budgets
                     ? _value.budgets
                     : budgets // ignore: cast_nullable_to_non_nullable
-                        as List<Budget>,
+                        as List<CodeName>,
           )
           as $Val,
     );
@@ -342,7 +345,7 @@ abstract class _$$BudgetResponseImplCopyWith<$Res>
     @SafeIntConverter()
     @JsonKey(name: 'results_start', defaultValue: 0)
     int resultsStart,
-    @JsonKey(name: 'budget', defaultValue: <Budget>[]) List<Budget> budgets,
+    @JsonKey(name: 'budget', defaultValue: <CodeName>[]) List<CodeName> budgets,
   });
 }
 
@@ -392,7 +395,7 @@ class __$$BudgetResponseImplCopyWithImpl<$Res>
             null == budgets
                 ? _value._budgets
                 : budgets // ignore: cast_nullable_to_non_nullable
-                    as List<Budget>,
+                    as List<CodeName>,
       ),
     );
   }
@@ -414,8 +417,8 @@ class _$BudgetResponseImpl implements _BudgetResponse {
     @SafeIntConverter()
     @JsonKey(name: 'results_start', defaultValue: 0)
     required this.resultsStart,
-    @JsonKey(name: 'budget', defaultValue: <Budget>[])
-    required final List<Budget> budgets,
+    @JsonKey(name: 'budget', defaultValue: <CodeName>[])
+    required final List<CodeName> budgets,
   }) : _budgets = budgets;
 
   factory _$BudgetResponseImpl.fromJson(Map<String, dynamic> json) =>
@@ -437,10 +440,10 @@ class _$BudgetResponseImpl implements _BudgetResponse {
   @SafeIntConverter()
   @JsonKey(name: 'results_start', defaultValue: 0)
   final int resultsStart;
-  final List<Budget> _budgets;
+  final List<CodeName> _budgets;
   @override
-  @JsonKey(name: 'budget', defaultValue: <Budget>[])
-  List<Budget> get budgets {
+  @JsonKey(name: 'budget', defaultValue: <CodeName>[])
+  List<CodeName> get budgets {
     if (_budgets is EqualUnmodifiableListView) return _budgets;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_budgets);
@@ -509,8 +512,8 @@ abstract class _BudgetResponse implements BudgetResponse {
     @SafeIntConverter()
     @JsonKey(name: 'results_start', defaultValue: 0)
     required final int resultsStart,
-    @JsonKey(name: 'budget', defaultValue: <Budget>[])
-    required final List<Budget> budgets,
+    @JsonKey(name: 'budget', defaultValue: <CodeName>[])
+    required final List<CodeName> budgets,
   }) = _$BudgetResponseImpl;
 
   factory _BudgetResponse.fromJson(Map<String, dynamic> json) =
@@ -533,218 +536,14 @@ abstract class _BudgetResponse implements BudgetResponse {
   @JsonKey(name: 'results_start', defaultValue: 0)
   int get resultsStart;
   @override
-  @JsonKey(name: 'budget', defaultValue: <Budget>[])
-  List<Budget> get budgets;
+  @JsonKey(name: 'budget', defaultValue: <CodeName>[])
+  List<CodeName> get budgets;
 
   /// Create a copy of BudgetResponse
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$BudgetResponseImplCopyWith<_$BudgetResponseImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-LargeServiceArea _$LargeServiceAreaFromJson(Map<String, dynamic> json) {
-  return _LargeServiceArea.fromJson(json);
-}
-
-/// @nodoc
-mixin _$LargeServiceArea {
-  @SafeStringConverter()
-  @JsonKey(name: 'code', defaultValue: '')
-  String get code => throw _privateConstructorUsedError;
-  @SafeStringConverter()
-  @JsonKey(name: 'name', defaultValue: '')
-  String get name => throw _privateConstructorUsedError;
-
-  /// Serializes this LargeServiceArea to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of LargeServiceArea
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $LargeServiceAreaCopyWith<LargeServiceArea> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $LargeServiceAreaCopyWith<$Res> {
-  factory $LargeServiceAreaCopyWith(
-    LargeServiceArea value,
-    $Res Function(LargeServiceArea) then,
-  ) = _$LargeServiceAreaCopyWithImpl<$Res, LargeServiceArea>;
-  @useResult
-  $Res call({
-    @SafeStringConverter() @JsonKey(name: 'code', defaultValue: '') String code,
-    @SafeStringConverter() @JsonKey(name: 'name', defaultValue: '') String name,
-  });
-}
-
-/// @nodoc
-class _$LargeServiceAreaCopyWithImpl<$Res, $Val extends LargeServiceArea>
-    implements $LargeServiceAreaCopyWith<$Res> {
-  _$LargeServiceAreaCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of LargeServiceArea
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? code = null, Object? name = null}) {
-    return _then(
-      _value.copyWith(
-            code:
-                null == code
-                    ? _value.code
-                    : code // ignore: cast_nullable_to_non_nullable
-                        as String,
-            name:
-                null == name
-                    ? _value.name
-                    : name // ignore: cast_nullable_to_non_nullable
-                        as String,
-          )
-          as $Val,
-    );
-  }
-}
-
-/// @nodoc
-abstract class _$$LargeServiceAreaImplCopyWith<$Res>
-    implements $LargeServiceAreaCopyWith<$Res> {
-  factory _$$LargeServiceAreaImplCopyWith(
-    _$LargeServiceAreaImpl value,
-    $Res Function(_$LargeServiceAreaImpl) then,
-  ) = __$$LargeServiceAreaImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({
-    @SafeStringConverter() @JsonKey(name: 'code', defaultValue: '') String code,
-    @SafeStringConverter() @JsonKey(name: 'name', defaultValue: '') String name,
-  });
-}
-
-/// @nodoc
-class __$$LargeServiceAreaImplCopyWithImpl<$Res>
-    extends _$LargeServiceAreaCopyWithImpl<$Res, _$LargeServiceAreaImpl>
-    implements _$$LargeServiceAreaImplCopyWith<$Res> {
-  __$$LargeServiceAreaImplCopyWithImpl(
-    _$LargeServiceAreaImpl _value,
-    $Res Function(_$LargeServiceAreaImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of LargeServiceArea
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? code = null, Object? name = null}) {
-    return _then(
-      _$LargeServiceAreaImpl(
-        code:
-            null == code
-                ? _value.code
-                : code // ignore: cast_nullable_to_non_nullable
-                    as String,
-        name:
-            null == name
-                ? _value.name
-                : name // ignore: cast_nullable_to_non_nullable
-                    as String,
-      ),
-    );
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$LargeServiceAreaImpl implements _LargeServiceArea {
-  const _$LargeServiceAreaImpl({
-    @SafeStringConverter()
-    @JsonKey(name: 'code', defaultValue: '')
-    required this.code,
-    @SafeStringConverter()
-    @JsonKey(name: 'name', defaultValue: '')
-    required this.name,
-  });
-
-  factory _$LargeServiceAreaImpl.fromJson(Map<String, dynamic> json) =>
-      _$$LargeServiceAreaImplFromJson(json);
-
-  @override
-  @SafeStringConverter()
-  @JsonKey(name: 'code', defaultValue: '')
-  final String code;
-  @override
-  @SafeStringConverter()
-  @JsonKey(name: 'name', defaultValue: '')
-  final String name;
-
-  @override
-  String toString() {
-    return 'LargeServiceArea(code: $code, name: $name)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LargeServiceAreaImpl &&
-            (identical(other.code, code) || other.code == code) &&
-            (identical(other.name, name) || other.name == name));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, code, name);
-
-  /// Create a copy of LargeServiceArea
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LargeServiceAreaImplCopyWith<_$LargeServiceAreaImpl> get copyWith =>
-      __$$LargeServiceAreaImplCopyWithImpl<_$LargeServiceAreaImpl>(
-        this,
-        _$identity,
-      );
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$LargeServiceAreaImplToJson(this);
-  }
-}
-
-abstract class _LargeServiceArea implements LargeServiceArea {
-  const factory _LargeServiceArea({
-    @SafeStringConverter()
-    @JsonKey(name: 'code', defaultValue: '')
-    required final String code,
-    @SafeStringConverter()
-    @JsonKey(name: 'name', defaultValue: '')
-    required final String name,
-  }) = _$LargeServiceAreaImpl;
-
-  factory _LargeServiceArea.fromJson(Map<String, dynamic> json) =
-      _$LargeServiceAreaImpl.fromJson;
-
-  @override
-  @SafeStringConverter()
-  @JsonKey(name: 'code', defaultValue: '')
-  String get code;
-  @override
-  @SafeStringConverter()
-  @JsonKey(name: 'name', defaultValue: '')
-  String get name;
-
-  /// Create a copy of LargeServiceArea
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$LargeServiceAreaImplCopyWith<_$LargeServiceAreaImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -768,9 +567,8 @@ mixin _$LargeServiceAreaResponse {
   @SafeIntConverter()
   @JsonKey(name: 'results_start', defaultValue: 0)
   int get resultsStart => throw _privateConstructorUsedError;
-  @JsonKey(name: 'large_service_area', defaultValue: <LargeServiceArea>[])
-  List<LargeServiceArea> get largeServiceAreas =>
-      throw _privateConstructorUsedError;
+  @JsonKey(name: 'large_service_area', defaultValue: <CodeName>[])
+  List<CodeName> get largeServiceAreas => throw _privateConstructorUsedError;
 
   /// Serializes this LargeServiceAreaResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -802,8 +600,8 @@ abstract class $LargeServiceAreaResponseCopyWith<$Res> {
     @SafeIntConverter()
     @JsonKey(name: 'results_start', defaultValue: 0)
     int resultsStart,
-    @JsonKey(name: 'large_service_area', defaultValue: <LargeServiceArea>[])
-    List<LargeServiceArea> largeServiceAreas,
+    @JsonKey(name: 'large_service_area', defaultValue: <CodeName>[])
+    List<CodeName> largeServiceAreas,
   });
 }
 
@@ -857,7 +655,7 @@ class _$LargeServiceAreaResponseCopyWithImpl<
                 null == largeServiceAreas
                     ? _value.largeServiceAreas
                     : largeServiceAreas // ignore: cast_nullable_to_non_nullable
-                        as List<LargeServiceArea>,
+                        as List<CodeName>,
           )
           as $Val,
     );
@@ -886,8 +684,8 @@ abstract class _$$LargeServiceAreaResponseImplCopyWith<$Res>
     @SafeIntConverter()
     @JsonKey(name: 'results_start', defaultValue: 0)
     int resultsStart,
-    @JsonKey(name: 'large_service_area', defaultValue: <LargeServiceArea>[])
-    List<LargeServiceArea> largeServiceAreas,
+    @JsonKey(name: 'large_service_area', defaultValue: <CodeName>[])
+    List<CodeName> largeServiceAreas,
   });
 }
 
@@ -941,7 +739,7 @@ class __$$LargeServiceAreaResponseImplCopyWithImpl<$Res>
             null == largeServiceAreas
                 ? _value._largeServiceAreas
                 : largeServiceAreas // ignore: cast_nullable_to_non_nullable
-                    as List<LargeServiceArea>,
+                    as List<CodeName>,
       ),
     );
   }
@@ -963,8 +761,8 @@ class _$LargeServiceAreaResponseImpl implements _LargeServiceAreaResponse {
     @SafeIntConverter()
     @JsonKey(name: 'results_start', defaultValue: 0)
     required this.resultsStart,
-    @JsonKey(name: 'large_service_area', defaultValue: <LargeServiceArea>[])
-    required final List<LargeServiceArea> largeServiceAreas,
+    @JsonKey(name: 'large_service_area', defaultValue: <CodeName>[])
+    required final List<CodeName> largeServiceAreas,
   }) : _largeServiceAreas = largeServiceAreas;
 
   factory _$LargeServiceAreaResponseImpl.fromJson(Map<String, dynamic> json) =>
@@ -986,10 +784,10 @@ class _$LargeServiceAreaResponseImpl implements _LargeServiceAreaResponse {
   @SafeIntConverter()
   @JsonKey(name: 'results_start', defaultValue: 0)
   final int resultsStart;
-  final List<LargeServiceArea> _largeServiceAreas;
+  final List<CodeName> _largeServiceAreas;
   @override
-  @JsonKey(name: 'large_service_area', defaultValue: <LargeServiceArea>[])
-  List<LargeServiceArea> get largeServiceAreas {
+  @JsonKey(name: 'large_service_area', defaultValue: <CodeName>[])
+  List<CodeName> get largeServiceAreas {
     if (_largeServiceAreas is EqualUnmodifiableListView)
       return _largeServiceAreas;
     // ignore: implicit_dynamic_type
@@ -1061,8 +859,8 @@ abstract class _LargeServiceAreaResponse implements LargeServiceAreaResponse {
     @SafeIntConverter()
     @JsonKey(name: 'results_start', defaultValue: 0)
     required final int resultsStart,
-    @JsonKey(name: 'large_service_area', defaultValue: <LargeServiceArea>[])
-    required final List<LargeServiceArea> largeServiceAreas,
+    @JsonKey(name: 'large_service_area', defaultValue: <CodeName>[])
+    required final List<CodeName> largeServiceAreas,
   }) = _$LargeServiceAreaResponseImpl;
 
   factory _LargeServiceAreaResponse.fromJson(Map<String, dynamic> json) =
@@ -1085,8 +883,8 @@ abstract class _LargeServiceAreaResponse implements LargeServiceAreaResponse {
   @JsonKey(name: 'results_start', defaultValue: 0)
   int get resultsStart;
   @override
-  @JsonKey(name: 'large_service_area', defaultValue: <LargeServiceArea>[])
-  List<LargeServiceArea> get largeServiceAreas;
+  @JsonKey(name: 'large_service_area', defaultValue: <CodeName>[])
+  List<CodeName> get largeServiceAreas;
 
   /// Create a copy of LargeServiceAreaResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -1109,7 +907,7 @@ mixin _$ServiceArea {
   @JsonKey(name: 'name', defaultValue: '')
   String get name => throw _privateConstructorUsedError;
   @JsonKey(name: 'large_service_area')
-  LargeServiceArea get largeServiceArea => throw _privateConstructorUsedError;
+  CodeName get largeServiceArea => throw _privateConstructorUsedError;
 
   /// Serializes this ServiceArea to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -1131,10 +929,10 @@ abstract class $ServiceAreaCopyWith<$Res> {
   $Res call({
     @SafeStringConverter() @JsonKey(name: 'code', defaultValue: '') String code,
     @SafeStringConverter() @JsonKey(name: 'name', defaultValue: '') String name,
-    @JsonKey(name: 'large_service_area') LargeServiceArea largeServiceArea,
+    @JsonKey(name: 'large_service_area') CodeName largeServiceArea,
   });
 
-  $LargeServiceAreaCopyWith<$Res> get largeServiceArea;
+  $CodeNameCopyWith<$Res> get largeServiceArea;
 }
 
 /// @nodoc
@@ -1172,7 +970,7 @@ class _$ServiceAreaCopyWithImpl<$Res, $Val extends ServiceArea>
                 null == largeServiceArea
                     ? _value.largeServiceArea
                     : largeServiceArea // ignore: cast_nullable_to_non_nullable
-                        as LargeServiceArea,
+                        as CodeName,
           )
           as $Val,
     );
@@ -1182,8 +980,8 @@ class _$ServiceAreaCopyWithImpl<$Res, $Val extends ServiceArea>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $LargeServiceAreaCopyWith<$Res> get largeServiceArea {
-    return $LargeServiceAreaCopyWith<$Res>(_value.largeServiceArea, (value) {
+  $CodeNameCopyWith<$Res> get largeServiceArea {
+    return $CodeNameCopyWith<$Res>(_value.largeServiceArea, (value) {
       return _then(_value.copyWith(largeServiceArea: value) as $Val);
     });
   }
@@ -1201,11 +999,11 @@ abstract class _$$ServiceAreaImplCopyWith<$Res>
   $Res call({
     @SafeStringConverter() @JsonKey(name: 'code', defaultValue: '') String code,
     @SafeStringConverter() @JsonKey(name: 'name', defaultValue: '') String name,
-    @JsonKey(name: 'large_service_area') LargeServiceArea largeServiceArea,
+    @JsonKey(name: 'large_service_area') CodeName largeServiceArea,
   });
 
   @override
-  $LargeServiceAreaCopyWith<$Res> get largeServiceArea;
+  $CodeNameCopyWith<$Res> get largeServiceArea;
 }
 
 /// @nodoc
@@ -1242,7 +1040,7 @@ class __$$ServiceAreaImplCopyWithImpl<$Res>
             null == largeServiceArea
                 ? _value.largeServiceArea
                 : largeServiceArea // ignore: cast_nullable_to_non_nullable
-                    as LargeServiceArea,
+                    as CodeName,
       ),
     );
   }
@@ -1274,7 +1072,7 @@ class _$ServiceAreaImpl implements _ServiceArea {
   final String name;
   @override
   @JsonKey(name: 'large_service_area')
-  final LargeServiceArea largeServiceArea;
+  final CodeName largeServiceArea;
 
   @override
   String toString() {
@@ -1319,7 +1117,7 @@ abstract class _ServiceArea implements ServiceArea {
     @JsonKey(name: 'name', defaultValue: '')
     required final String name,
     @JsonKey(name: 'large_service_area')
-    required final LargeServiceArea largeServiceArea,
+    required final CodeName largeServiceArea,
   }) = _$ServiceAreaImpl;
 
   factory _ServiceArea.fromJson(Map<String, dynamic> json) =
@@ -1335,7 +1133,7 @@ abstract class _ServiceArea implements ServiceArea {
   String get name;
   @override
   @JsonKey(name: 'large_service_area')
-  LargeServiceArea get largeServiceArea;
+  CodeName get largeServiceArea;
 
   /// Create a copy of ServiceArea
   /// with the given fields replaced by the non-null parameter values.
@@ -1696,9 +1494,9 @@ mixin _$LargeArea {
   @JsonKey(name: 'name', defaultValue: '')
   String get name => throw _privateConstructorUsedError;
   @JsonKey(name: 'service_area')
-  ServiceArea get serviceArea => throw _privateConstructorUsedError;
+  CodeName get serviceArea => throw _privateConstructorUsedError;
   @JsonKey(name: 'large_service_area')
-  LargeServiceArea get largeServiceArea => throw _privateConstructorUsedError;
+  CodeName get largeServiceArea => throw _privateConstructorUsedError;
 
   /// Serializes this LargeArea to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -1718,12 +1516,12 @@ abstract class $LargeAreaCopyWith<$Res> {
   $Res call({
     @SafeStringConverter() @JsonKey(name: 'code', defaultValue: '') String code,
     @SafeStringConverter() @JsonKey(name: 'name', defaultValue: '') String name,
-    @JsonKey(name: 'service_area') ServiceArea serviceArea,
-    @JsonKey(name: 'large_service_area') LargeServiceArea largeServiceArea,
+    @JsonKey(name: 'service_area') CodeName serviceArea,
+    @JsonKey(name: 'large_service_area') CodeName largeServiceArea,
   });
 
-  $ServiceAreaCopyWith<$Res> get serviceArea;
-  $LargeServiceAreaCopyWith<$Res> get largeServiceArea;
+  $CodeNameCopyWith<$Res> get serviceArea;
+  $CodeNameCopyWith<$Res> get largeServiceArea;
 }
 
 /// @nodoc
@@ -1762,12 +1560,12 @@ class _$LargeAreaCopyWithImpl<$Res, $Val extends LargeArea>
                 null == serviceArea
                     ? _value.serviceArea
                     : serviceArea // ignore: cast_nullable_to_non_nullable
-                        as ServiceArea,
+                        as CodeName,
             largeServiceArea:
                 null == largeServiceArea
                     ? _value.largeServiceArea
                     : largeServiceArea // ignore: cast_nullable_to_non_nullable
-                        as LargeServiceArea,
+                        as CodeName,
           )
           as $Val,
     );
@@ -1777,8 +1575,8 @@ class _$LargeAreaCopyWithImpl<$Res, $Val extends LargeArea>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $ServiceAreaCopyWith<$Res> get serviceArea {
-    return $ServiceAreaCopyWith<$Res>(_value.serviceArea, (value) {
+  $CodeNameCopyWith<$Res> get serviceArea {
+    return $CodeNameCopyWith<$Res>(_value.serviceArea, (value) {
       return _then(_value.copyWith(serviceArea: value) as $Val);
     });
   }
@@ -1787,8 +1585,8 @@ class _$LargeAreaCopyWithImpl<$Res, $Val extends LargeArea>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $LargeServiceAreaCopyWith<$Res> get largeServiceArea {
-    return $LargeServiceAreaCopyWith<$Res>(_value.largeServiceArea, (value) {
+  $CodeNameCopyWith<$Res> get largeServiceArea {
+    return $CodeNameCopyWith<$Res>(_value.largeServiceArea, (value) {
       return _then(_value.copyWith(largeServiceArea: value) as $Val);
     });
   }
@@ -1806,14 +1604,14 @@ abstract class _$$LargeAreaImplCopyWith<$Res>
   $Res call({
     @SafeStringConverter() @JsonKey(name: 'code', defaultValue: '') String code,
     @SafeStringConverter() @JsonKey(name: 'name', defaultValue: '') String name,
-    @JsonKey(name: 'service_area') ServiceArea serviceArea,
-    @JsonKey(name: 'large_service_area') LargeServiceArea largeServiceArea,
+    @JsonKey(name: 'service_area') CodeName serviceArea,
+    @JsonKey(name: 'large_service_area') CodeName largeServiceArea,
   });
 
   @override
-  $ServiceAreaCopyWith<$Res> get serviceArea;
+  $CodeNameCopyWith<$Res> get serviceArea;
   @override
-  $LargeServiceAreaCopyWith<$Res> get largeServiceArea;
+  $CodeNameCopyWith<$Res> get largeServiceArea;
 }
 
 /// @nodoc
@@ -1851,12 +1649,12 @@ class __$$LargeAreaImplCopyWithImpl<$Res>
             null == serviceArea
                 ? _value.serviceArea
                 : serviceArea // ignore: cast_nullable_to_non_nullable
-                    as ServiceArea,
+                    as CodeName,
         largeServiceArea:
             null == largeServiceArea
                 ? _value.largeServiceArea
                 : largeServiceArea // ignore: cast_nullable_to_non_nullable
-                    as LargeServiceArea,
+                    as CodeName,
       ),
     );
   }
@@ -1889,10 +1687,10 @@ class _$LargeAreaImpl implements _LargeArea {
   final String name;
   @override
   @JsonKey(name: 'service_area')
-  final ServiceArea serviceArea;
+  final CodeName serviceArea;
   @override
   @JsonKey(name: 'large_service_area')
-  final LargeServiceArea largeServiceArea;
+  final CodeName largeServiceArea;
 
   @override
   String toString() {
@@ -1939,9 +1737,9 @@ abstract class _LargeArea implements LargeArea {
     @SafeStringConverter()
     @JsonKey(name: 'name', defaultValue: '')
     required final String name,
-    @JsonKey(name: 'service_area') required final ServiceArea serviceArea,
+    @JsonKey(name: 'service_area') required final CodeName serviceArea,
     @JsonKey(name: 'large_service_area')
-    required final LargeServiceArea largeServiceArea,
+    required final CodeName largeServiceArea,
   }) = _$LargeAreaImpl;
 
   factory _LargeArea.fromJson(Map<String, dynamic> json) =
@@ -1957,10 +1755,10 @@ abstract class _LargeArea implements LargeArea {
   String get name;
   @override
   @JsonKey(name: 'service_area')
-  ServiceArea get serviceArea;
+  CodeName get serviceArea;
   @override
   @JsonKey(name: 'large_service_area')
-  LargeServiceArea get largeServiceArea;
+  CodeName get largeServiceArea;
 
   /// Create a copy of LargeArea
   /// with the given fields replaced by the non-null parameter values.

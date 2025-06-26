@@ -120,6 +120,32 @@ class HotPepperApi {
     }
   }
 
+  Future<LargeAreaResponse> getLargeAreaMaster() async {
+    try {
+      final url = HotPepperEndpoints.master.largeArea;
+
+      // HTTP GET 요청
+      final response = await _client.get(Uri.parse(url));
+
+      // HTTP 상태 코드 체크
+      if (response.statusCode != 200) {
+        throw Exception(
+          'HTTP ${response.statusCode}: ${response.reasonPhrase}',
+        );
+      }
+
+      final jsonData =
+          jsonDecode(response.body) as Map<String, dynamic>;
+      print(jsonData);
+
+      final res = LargeAreaResponse.fromHotPepperApi(jsonData);
+      print(res);
+      return res;
+    } catch (e) {
+      throw Exception('Large Area Master API 호출 실패: $e');
+    }
+  }
+
   // ==========================================================================
   // Private 헬퍼 메서드들 (향후 파라미터가 있는 API를 위해 유지)
   // ==========================================================================

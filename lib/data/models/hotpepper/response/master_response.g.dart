@@ -6,18 +6,19 @@ part of 'master_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$BudgetImpl _$$BudgetImplFromJson(Map<String, dynamic> json) => _$BudgetImpl(
-  code:
-      json['code'] == null
-          ? ''
-          : const SafeStringConverter().fromJson(json['code']),
-  name:
-      json['name'] == null
-          ? ''
-          : const SafeStringConverter().fromJson(json['name']),
-);
+_$CodeNameImpl _$$CodeNameImplFromJson(Map<String, dynamic> json) =>
+    _$CodeNameImpl(
+      code:
+          json['code'] == null
+              ? ''
+              : const SafeStringConverter().fromJson(json['code']),
+      name:
+          json['name'] == null
+              ? ''
+              : const SafeStringConverter().fromJson(json['name']),
+    );
 
-Map<String, dynamic> _$$BudgetImplToJson(_$BudgetImpl instance) =>
+Map<String, dynamic> _$$CodeNameImplToJson(_$CodeNameImpl instance) =>
     <String, dynamic>{
       'code': const SafeStringConverter().toJson(instance.code),
       'name': const SafeStringConverter().toJson(instance.name),
@@ -43,7 +44,7 @@ _$BudgetResponseImpl _$$BudgetResponseImplFromJson(Map<String, dynamic> json) =>
               : const SafeIntConverter().fromJson(json['results_start']),
       budgets:
           (json['budget'] as List<dynamic>?)
-              ?.map((e) => Budget.fromJson(e as Map<String, dynamic>))
+              ?.map((e) => CodeName.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
     );
@@ -58,26 +59,6 @@ Map<String, dynamic> _$$BudgetResponseImplToJson(
   'results_returned': const SafeIntConverter().toJson(instance.resultsReturned),
   'results_start': const SafeIntConverter().toJson(instance.resultsStart),
   'budget': instance.budgets,
-};
-
-_$LargeServiceAreaImpl _$$LargeServiceAreaImplFromJson(
-  Map<String, dynamic> json,
-) => _$LargeServiceAreaImpl(
-  code:
-      json['code'] == null
-          ? ''
-          : const SafeStringConverter().fromJson(json['code']),
-  name:
-      json['name'] == null
-          ? ''
-          : const SafeStringConverter().fromJson(json['name']),
-);
-
-Map<String, dynamic> _$$LargeServiceAreaImplToJson(
-  _$LargeServiceAreaImpl instance,
-) => <String, dynamic>{
-  'code': const SafeStringConverter().toJson(instance.code),
-  'name': const SafeStringConverter().toJson(instance.name),
 };
 
 _$LargeServiceAreaResponseImpl _$$LargeServiceAreaResponseImplFromJson(
@@ -101,7 +82,7 @@ _$LargeServiceAreaResponseImpl _$$LargeServiceAreaResponseImplFromJson(
           : const SafeIntConverter().fromJson(json['results_start']),
   largeServiceAreas:
       (json['large_service_area'] as List<dynamic>?)
-          ?.map((e) => LargeServiceArea.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => CodeName.fromJson(e as Map<String, dynamic>))
           .toList() ??
       [],
 );
@@ -128,7 +109,7 @@ _$ServiceAreaImpl _$$ServiceAreaImplFromJson(Map<String, dynamic> json) =>
           json['name'] == null
               ? ''
               : const SafeStringConverter().fromJson(json['name']),
-      largeServiceArea: LargeServiceArea.fromJson(
+      largeServiceArea: CodeName.fromJson(
         json['large_service_area'] as Map<String, dynamic>,
       ),
     );
@@ -188,10 +169,10 @@ _$LargeAreaImpl _$$LargeAreaImplFromJson(Map<String, dynamic> json) =>
           json['name'] == null
               ? ''
               : const SafeStringConverter().fromJson(json['name']),
-      serviceArea: ServiceArea.fromJson(
+      serviceArea: CodeName.fromJson(
         json['service_area'] as Map<String, dynamic>,
       ),
-      largeServiceArea: LargeServiceArea.fromJson(
+      largeServiceArea: CodeName.fromJson(
         json['large_service_area'] as Map<String, dynamic>,
       ),
     );

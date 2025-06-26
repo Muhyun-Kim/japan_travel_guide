@@ -11,18 +11,18 @@ part 'master_response.g.dart';
 // ============================================================================
 
 @freezed
-class Budget with _$Budget {
-  const factory Budget({
+class CodeName with _$CodeName {
+  const factory CodeName({
     @SafeStringConverter()
     @JsonKey(name: 'code', defaultValue: '')
     required String code,
     @SafeStringConverter()
     @JsonKey(name: 'name', defaultValue: '')
     required String name,
-  }) = _Budget;
+  }) = _CodeName;
 
-  factory Budget.fromJson(Map<String, dynamic> json) =>
-      _$BudgetFromJson(json);
+  factory CodeName.fromJson(Map<String, dynamic> json) =>
+      _$CodeNameFromJson(json);
 }
 
 // ============================================================================
@@ -44,8 +44,8 @@ class BudgetResponse with _$BudgetResponse {
     @SafeIntConverter()
     @JsonKey(name: 'results_start', defaultValue: 0)
     required int resultsStart,
-    @JsonKey(name: 'budget', defaultValue: <Budget>[])
-    required List<Budget> budgets,
+    @JsonKey(name: 'budget', defaultValue: <CodeName>[])
+    required List<CodeName> budgets,
   }) = _BudgetResponse;
 
   /// 표준 JSON 직렬화 (freezed 자동 생성)
@@ -53,7 +53,7 @@ class BudgetResponse with _$BudgetResponse {
       _$BudgetResponseFromJson(json);
 
   /// Hot Pepper API 응답 전용 파싱
-  /// 
+  ///
   /// HotPepper API의 특수한 응답 구조를 처리합니다.
   /// - 'results' 래퍼 제거
   /// - 에러 응답 체크
@@ -71,25 +71,6 @@ class BudgetResponse with _$BudgetResponse {
     // @JsonKey의 defaultValue와 name 매핑이 자동으로 처리됨
     return BudgetResponse.fromJson(results);
   }
-}
-
-// ============================================================================
-// LargeServiceArea 모델 (대서비스 지역 - SS10, SS20 등)
-// ============================================================================
-
-@freezed
-class LargeServiceArea with _$LargeServiceArea {
-  const factory LargeServiceArea({
-    @SafeStringConverter()
-    @JsonKey(name: 'code', defaultValue: '')
-    required String code,
-    @SafeStringConverter()
-    @JsonKey(name: 'name', defaultValue: '')
-    required String name,
-  }) = _LargeServiceArea;
-
-  factory LargeServiceArea.fromJson(Map<String, dynamic> json) =>
-      _$LargeServiceAreaFromJson(json);
 }
 
 // ============================================================================
@@ -111,8 +92,8 @@ class LargeServiceAreaResponse with _$LargeServiceAreaResponse {
     @SafeIntConverter()
     @JsonKey(name: 'results_start', defaultValue: 0)
     required int resultsStart,
-    @JsonKey(name: 'large_service_area', defaultValue: <LargeServiceArea>[])
-    required List<LargeServiceArea> largeServiceAreas,
+    @JsonKey(name: 'large_service_area', defaultValue: <CodeName>[])
+    required List<CodeName> largeServiceAreas,
   }) = _LargeServiceAreaResponse;
 
   factory LargeServiceAreaResponse.fromJson(
@@ -148,7 +129,7 @@ class ServiceArea with _$ServiceArea {
     @JsonKey(name: 'name', defaultValue: '')
     required String name,
     @JsonKey(name: 'large_service_area')
-    required LargeServiceArea largeServiceArea,
+    required CodeName largeServiceArea,
   }) = _ServiceArea;
 
   factory ServiceArea.fromJson(Map<String, dynamic> json) =>
@@ -209,10 +190,9 @@ class LargeArea with _$LargeArea {
     @SafeStringConverter()
     @JsonKey(name: 'name', defaultValue: '')
     required String name,
-    @JsonKey(name: 'service_area')
-    required ServiceArea serviceArea,
+    @JsonKey(name: 'service_area') required CodeName serviceArea,
     @JsonKey(name: 'large_service_area')
-    required LargeServiceArea largeServiceArea,
+    required CodeName largeServiceArea,
   }) = _LargeArea;
 
   factory LargeArea.fromJson(Map<String, dynamic> json) =>
