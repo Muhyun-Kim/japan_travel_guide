@@ -2105,3 +2105,675 @@ abstract class _LargeAreaResponse implements LargeAreaResponse {
   _$$LargeAreaResponseImplCopyWith<_$LargeAreaResponseImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+MiddleArea _$MiddleAreaFromJson(Map<String, dynamic> json) {
+  return _MiddleArea.fromJson(json);
+}
+
+/// @nodoc
+mixin _$MiddleArea {
+  @SafeStringConverter()
+  @JsonKey(name: 'code', defaultValue: '')
+  String get code => throw _privateConstructorUsedError;
+  @SafeStringConverter()
+  @JsonKey(name: 'name', defaultValue: '')
+  String get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'large_area')
+  CodeName get largeArea => throw _privateConstructorUsedError;
+  @JsonKey(name: 'service_area')
+  CodeName get serviceArea => throw _privateConstructorUsedError;
+  @JsonKey(name: 'large_service_area')
+  CodeName get largeServiceArea => throw _privateConstructorUsedError;
+
+  /// Serializes this MiddleArea to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of MiddleArea
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $MiddleAreaCopyWith<MiddleArea> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $MiddleAreaCopyWith<$Res> {
+  factory $MiddleAreaCopyWith(
+    MiddleArea value,
+    $Res Function(MiddleArea) then,
+  ) = _$MiddleAreaCopyWithImpl<$Res, MiddleArea>;
+  @useResult
+  $Res call({
+    @SafeStringConverter() @JsonKey(name: 'code', defaultValue: '') String code,
+    @SafeStringConverter() @JsonKey(name: 'name', defaultValue: '') String name,
+    @JsonKey(name: 'large_area') CodeName largeArea,
+    @JsonKey(name: 'service_area') CodeName serviceArea,
+    @JsonKey(name: 'large_service_area') CodeName largeServiceArea,
+  });
+
+  $CodeNameCopyWith<$Res> get largeArea;
+  $CodeNameCopyWith<$Res> get serviceArea;
+  $CodeNameCopyWith<$Res> get largeServiceArea;
+}
+
+/// @nodoc
+class _$MiddleAreaCopyWithImpl<$Res, $Val extends MiddleArea>
+    implements $MiddleAreaCopyWith<$Res> {
+  _$MiddleAreaCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of MiddleArea
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? code = null,
+    Object? name = null,
+    Object? largeArea = null,
+    Object? serviceArea = null,
+    Object? largeServiceArea = null,
+  }) {
+    return _then(
+      _value.copyWith(
+            code:
+                null == code
+                    ? _value.code
+                    : code // ignore: cast_nullable_to_non_nullable
+                        as String,
+            name:
+                null == name
+                    ? _value.name
+                    : name // ignore: cast_nullable_to_non_nullable
+                        as String,
+            largeArea:
+                null == largeArea
+                    ? _value.largeArea
+                    : largeArea // ignore: cast_nullable_to_non_nullable
+                        as CodeName,
+            serviceArea:
+                null == serviceArea
+                    ? _value.serviceArea
+                    : serviceArea // ignore: cast_nullable_to_non_nullable
+                        as CodeName,
+            largeServiceArea:
+                null == largeServiceArea
+                    ? _value.largeServiceArea
+                    : largeServiceArea // ignore: cast_nullable_to_non_nullable
+                        as CodeName,
+          )
+          as $Val,
+    );
+  }
+
+  /// Create a copy of MiddleArea
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CodeNameCopyWith<$Res> get largeArea {
+    return $CodeNameCopyWith<$Res>(_value.largeArea, (value) {
+      return _then(_value.copyWith(largeArea: value) as $Val);
+    });
+  }
+
+  /// Create a copy of MiddleArea
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CodeNameCopyWith<$Res> get serviceArea {
+    return $CodeNameCopyWith<$Res>(_value.serviceArea, (value) {
+      return _then(_value.copyWith(serviceArea: value) as $Val);
+    });
+  }
+
+  /// Create a copy of MiddleArea
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CodeNameCopyWith<$Res> get largeServiceArea {
+    return $CodeNameCopyWith<$Res>(_value.largeServiceArea, (value) {
+      return _then(_value.copyWith(largeServiceArea: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$MiddleAreaImplCopyWith<$Res>
+    implements $MiddleAreaCopyWith<$Res> {
+  factory _$$MiddleAreaImplCopyWith(
+    _$MiddleAreaImpl value,
+    $Res Function(_$MiddleAreaImpl) then,
+  ) = __$$MiddleAreaImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({
+    @SafeStringConverter() @JsonKey(name: 'code', defaultValue: '') String code,
+    @SafeStringConverter() @JsonKey(name: 'name', defaultValue: '') String name,
+    @JsonKey(name: 'large_area') CodeName largeArea,
+    @JsonKey(name: 'service_area') CodeName serviceArea,
+    @JsonKey(name: 'large_service_area') CodeName largeServiceArea,
+  });
+
+  @override
+  $CodeNameCopyWith<$Res> get largeArea;
+  @override
+  $CodeNameCopyWith<$Res> get serviceArea;
+  @override
+  $CodeNameCopyWith<$Res> get largeServiceArea;
+}
+
+/// @nodoc
+class __$$MiddleAreaImplCopyWithImpl<$Res>
+    extends _$MiddleAreaCopyWithImpl<$Res, _$MiddleAreaImpl>
+    implements _$$MiddleAreaImplCopyWith<$Res> {
+  __$$MiddleAreaImplCopyWithImpl(
+    _$MiddleAreaImpl _value,
+    $Res Function(_$MiddleAreaImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of MiddleArea
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? code = null,
+    Object? name = null,
+    Object? largeArea = null,
+    Object? serviceArea = null,
+    Object? largeServiceArea = null,
+  }) {
+    return _then(
+      _$MiddleAreaImpl(
+        code:
+            null == code
+                ? _value.code
+                : code // ignore: cast_nullable_to_non_nullable
+                    as String,
+        name:
+            null == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                    as String,
+        largeArea:
+            null == largeArea
+                ? _value.largeArea
+                : largeArea // ignore: cast_nullable_to_non_nullable
+                    as CodeName,
+        serviceArea:
+            null == serviceArea
+                ? _value.serviceArea
+                : serviceArea // ignore: cast_nullable_to_non_nullable
+                    as CodeName,
+        largeServiceArea:
+            null == largeServiceArea
+                ? _value.largeServiceArea
+                : largeServiceArea // ignore: cast_nullable_to_non_nullable
+                    as CodeName,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$MiddleAreaImpl implements _MiddleArea {
+  const _$MiddleAreaImpl({
+    @SafeStringConverter()
+    @JsonKey(name: 'code', defaultValue: '')
+    required this.code,
+    @SafeStringConverter()
+    @JsonKey(name: 'name', defaultValue: '')
+    required this.name,
+    @JsonKey(name: 'large_area') required this.largeArea,
+    @JsonKey(name: 'service_area') required this.serviceArea,
+    @JsonKey(name: 'large_service_area') required this.largeServiceArea,
+  });
+
+  factory _$MiddleAreaImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MiddleAreaImplFromJson(json);
+
+  @override
+  @SafeStringConverter()
+  @JsonKey(name: 'code', defaultValue: '')
+  final String code;
+  @override
+  @SafeStringConverter()
+  @JsonKey(name: 'name', defaultValue: '')
+  final String name;
+  @override
+  @JsonKey(name: 'large_area')
+  final CodeName largeArea;
+  @override
+  @JsonKey(name: 'service_area')
+  final CodeName serviceArea;
+  @override
+  @JsonKey(name: 'large_service_area')
+  final CodeName largeServiceArea;
+
+  @override
+  String toString() {
+    return 'MiddleArea(code: $code, name: $name, largeArea: $largeArea, serviceArea: $serviceArea, largeServiceArea: $largeServiceArea)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MiddleAreaImpl &&
+            (identical(other.code, code) || other.code == code) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.largeArea, largeArea) ||
+                other.largeArea == largeArea) &&
+            (identical(other.serviceArea, serviceArea) ||
+                other.serviceArea == serviceArea) &&
+            (identical(other.largeServiceArea, largeServiceArea) ||
+                other.largeServiceArea == largeServiceArea));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+    runtimeType,
+    code,
+    name,
+    largeArea,
+    serviceArea,
+    largeServiceArea,
+  );
+
+  /// Create a copy of MiddleArea
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MiddleAreaImplCopyWith<_$MiddleAreaImpl> get copyWith =>
+      __$$MiddleAreaImplCopyWithImpl<_$MiddleAreaImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$MiddleAreaImplToJson(this);
+  }
+}
+
+abstract class _MiddleArea implements MiddleArea {
+  const factory _MiddleArea({
+    @SafeStringConverter()
+    @JsonKey(name: 'code', defaultValue: '')
+    required final String code,
+    @SafeStringConverter()
+    @JsonKey(name: 'name', defaultValue: '')
+    required final String name,
+    @JsonKey(name: 'large_area') required final CodeName largeArea,
+    @JsonKey(name: 'service_area') required final CodeName serviceArea,
+    @JsonKey(name: 'large_service_area')
+    required final CodeName largeServiceArea,
+  }) = _$MiddleAreaImpl;
+
+  factory _MiddleArea.fromJson(Map<String, dynamic> json) =
+      _$MiddleAreaImpl.fromJson;
+
+  @override
+  @SafeStringConverter()
+  @JsonKey(name: 'code', defaultValue: '')
+  String get code;
+  @override
+  @SafeStringConverter()
+  @JsonKey(name: 'name', defaultValue: '')
+  String get name;
+  @override
+  @JsonKey(name: 'large_area')
+  CodeName get largeArea;
+  @override
+  @JsonKey(name: 'service_area')
+  CodeName get serviceArea;
+  @override
+  @JsonKey(name: 'large_service_area')
+  CodeName get largeServiceArea;
+
+  /// Create a copy of MiddleArea
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$MiddleAreaImplCopyWith<_$MiddleAreaImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+MiddleAreaResponse _$MiddleAreaResponseFromJson(Map<String, dynamic> json) {
+  return _MiddleAreaResponse.fromJson(json);
+}
+
+/// @nodoc
+mixin _$MiddleAreaResponse {
+  @SafeStringConverter()
+  @JsonKey(name: 'api_version', defaultValue: 'unknown')
+  String get apiVersion => throw _privateConstructorUsedError;
+  @SafeIntConverter()
+  @JsonKey(name: 'results_available', defaultValue: 0)
+  int get resultsAvailable => throw _privateConstructorUsedError;
+  @SafeIntConverter()
+  @JsonKey(name: 'results_returned', defaultValue: 0)
+  int get resultsReturned => throw _privateConstructorUsedError;
+  @SafeIntConverter()
+  @JsonKey(name: 'results_start', defaultValue: 0)
+  int get resultsStart => throw _privateConstructorUsedError;
+  @JsonKey(name: 'middle_area', defaultValue: <MiddleArea>[])
+  List<MiddleArea> get middleAreas => throw _privateConstructorUsedError;
+
+  /// Serializes this MiddleAreaResponse to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of MiddleAreaResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $MiddleAreaResponseCopyWith<MiddleAreaResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $MiddleAreaResponseCopyWith<$Res> {
+  factory $MiddleAreaResponseCopyWith(
+    MiddleAreaResponse value,
+    $Res Function(MiddleAreaResponse) then,
+  ) = _$MiddleAreaResponseCopyWithImpl<$Res, MiddleAreaResponse>;
+  @useResult
+  $Res call({
+    @SafeStringConverter()
+    @JsonKey(name: 'api_version', defaultValue: 'unknown')
+    String apiVersion,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_available', defaultValue: 0)
+    int resultsAvailable,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_returned', defaultValue: 0)
+    int resultsReturned,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_start', defaultValue: 0)
+    int resultsStart,
+    @JsonKey(name: 'middle_area', defaultValue: <MiddleArea>[])
+    List<MiddleArea> middleAreas,
+  });
+}
+
+/// @nodoc
+class _$MiddleAreaResponseCopyWithImpl<$Res, $Val extends MiddleAreaResponse>
+    implements $MiddleAreaResponseCopyWith<$Res> {
+  _$MiddleAreaResponseCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of MiddleAreaResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? apiVersion = null,
+    Object? resultsAvailable = null,
+    Object? resultsReturned = null,
+    Object? resultsStart = null,
+    Object? middleAreas = null,
+  }) {
+    return _then(
+      _value.copyWith(
+            apiVersion:
+                null == apiVersion
+                    ? _value.apiVersion
+                    : apiVersion // ignore: cast_nullable_to_non_nullable
+                        as String,
+            resultsAvailable:
+                null == resultsAvailable
+                    ? _value.resultsAvailable
+                    : resultsAvailable // ignore: cast_nullable_to_non_nullable
+                        as int,
+            resultsReturned:
+                null == resultsReturned
+                    ? _value.resultsReturned
+                    : resultsReturned // ignore: cast_nullable_to_non_nullable
+                        as int,
+            resultsStart:
+                null == resultsStart
+                    ? _value.resultsStart
+                    : resultsStart // ignore: cast_nullable_to_non_nullable
+                        as int,
+            middleAreas:
+                null == middleAreas
+                    ? _value.middleAreas
+                    : middleAreas // ignore: cast_nullable_to_non_nullable
+                        as List<MiddleArea>,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$MiddleAreaResponseImplCopyWith<$Res>
+    implements $MiddleAreaResponseCopyWith<$Res> {
+  factory _$$MiddleAreaResponseImplCopyWith(
+    _$MiddleAreaResponseImpl value,
+    $Res Function(_$MiddleAreaResponseImpl) then,
+  ) = __$$MiddleAreaResponseImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({
+    @SafeStringConverter()
+    @JsonKey(name: 'api_version', defaultValue: 'unknown')
+    String apiVersion,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_available', defaultValue: 0)
+    int resultsAvailable,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_returned', defaultValue: 0)
+    int resultsReturned,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_start', defaultValue: 0)
+    int resultsStart,
+    @JsonKey(name: 'middle_area', defaultValue: <MiddleArea>[])
+    List<MiddleArea> middleAreas,
+  });
+}
+
+/// @nodoc
+class __$$MiddleAreaResponseImplCopyWithImpl<$Res>
+    extends _$MiddleAreaResponseCopyWithImpl<$Res, _$MiddleAreaResponseImpl>
+    implements _$$MiddleAreaResponseImplCopyWith<$Res> {
+  __$$MiddleAreaResponseImplCopyWithImpl(
+    _$MiddleAreaResponseImpl _value,
+    $Res Function(_$MiddleAreaResponseImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of MiddleAreaResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? apiVersion = null,
+    Object? resultsAvailable = null,
+    Object? resultsReturned = null,
+    Object? resultsStart = null,
+    Object? middleAreas = null,
+  }) {
+    return _then(
+      _$MiddleAreaResponseImpl(
+        apiVersion:
+            null == apiVersion
+                ? _value.apiVersion
+                : apiVersion // ignore: cast_nullable_to_non_nullable
+                    as String,
+        resultsAvailable:
+            null == resultsAvailable
+                ? _value.resultsAvailable
+                : resultsAvailable // ignore: cast_nullable_to_non_nullable
+                    as int,
+        resultsReturned:
+            null == resultsReturned
+                ? _value.resultsReturned
+                : resultsReturned // ignore: cast_nullable_to_non_nullable
+                    as int,
+        resultsStart:
+            null == resultsStart
+                ? _value.resultsStart
+                : resultsStart // ignore: cast_nullable_to_non_nullable
+                    as int,
+        middleAreas:
+            null == middleAreas
+                ? _value._middleAreas
+                : middleAreas // ignore: cast_nullable_to_non_nullable
+                    as List<MiddleArea>,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$MiddleAreaResponseImpl implements _MiddleAreaResponse {
+  const _$MiddleAreaResponseImpl({
+    @SafeStringConverter()
+    @JsonKey(name: 'api_version', defaultValue: 'unknown')
+    required this.apiVersion,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_available', defaultValue: 0)
+    required this.resultsAvailable,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_returned', defaultValue: 0)
+    required this.resultsReturned,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_start', defaultValue: 0)
+    required this.resultsStart,
+    @JsonKey(name: 'middle_area', defaultValue: <MiddleArea>[])
+    required final List<MiddleArea> middleAreas,
+  }) : _middleAreas = middleAreas;
+
+  factory _$MiddleAreaResponseImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MiddleAreaResponseImplFromJson(json);
+
+  @override
+  @SafeStringConverter()
+  @JsonKey(name: 'api_version', defaultValue: 'unknown')
+  final String apiVersion;
+  @override
+  @SafeIntConverter()
+  @JsonKey(name: 'results_available', defaultValue: 0)
+  final int resultsAvailable;
+  @override
+  @SafeIntConverter()
+  @JsonKey(name: 'results_returned', defaultValue: 0)
+  final int resultsReturned;
+  @override
+  @SafeIntConverter()
+  @JsonKey(name: 'results_start', defaultValue: 0)
+  final int resultsStart;
+  final List<MiddleArea> _middleAreas;
+  @override
+  @JsonKey(name: 'middle_area', defaultValue: <MiddleArea>[])
+  List<MiddleArea> get middleAreas {
+    if (_middleAreas is EqualUnmodifiableListView) return _middleAreas;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_middleAreas);
+  }
+
+  @override
+  String toString() {
+    return 'MiddleAreaResponse(apiVersion: $apiVersion, resultsAvailable: $resultsAvailable, resultsReturned: $resultsReturned, resultsStart: $resultsStart, middleAreas: $middleAreas)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MiddleAreaResponseImpl &&
+            (identical(other.apiVersion, apiVersion) ||
+                other.apiVersion == apiVersion) &&
+            (identical(other.resultsAvailable, resultsAvailable) ||
+                other.resultsAvailable == resultsAvailable) &&
+            (identical(other.resultsReturned, resultsReturned) ||
+                other.resultsReturned == resultsReturned) &&
+            (identical(other.resultsStart, resultsStart) ||
+                other.resultsStart == resultsStart) &&
+            const DeepCollectionEquality().equals(
+              other._middleAreas,
+              _middleAreas,
+            ));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+    runtimeType,
+    apiVersion,
+    resultsAvailable,
+    resultsReturned,
+    resultsStart,
+    const DeepCollectionEquality().hash(_middleAreas),
+  );
+
+  /// Create a copy of MiddleAreaResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MiddleAreaResponseImplCopyWith<_$MiddleAreaResponseImpl> get copyWith =>
+      __$$MiddleAreaResponseImplCopyWithImpl<_$MiddleAreaResponseImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$MiddleAreaResponseImplToJson(this);
+  }
+}
+
+abstract class _MiddleAreaResponse implements MiddleAreaResponse {
+  const factory _MiddleAreaResponse({
+    @SafeStringConverter()
+    @JsonKey(name: 'api_version', defaultValue: 'unknown')
+    required final String apiVersion,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_available', defaultValue: 0)
+    required final int resultsAvailable,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_returned', defaultValue: 0)
+    required final int resultsReturned,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_start', defaultValue: 0)
+    required final int resultsStart,
+    @JsonKey(name: 'middle_area', defaultValue: <MiddleArea>[])
+    required final List<MiddleArea> middleAreas,
+  }) = _$MiddleAreaResponseImpl;
+
+  factory _MiddleAreaResponse.fromJson(Map<String, dynamic> json) =
+      _$MiddleAreaResponseImpl.fromJson;
+
+  @override
+  @SafeStringConverter()
+  @JsonKey(name: 'api_version', defaultValue: 'unknown')
+  String get apiVersion;
+  @override
+  @SafeIntConverter()
+  @JsonKey(name: 'results_available', defaultValue: 0)
+  int get resultsAvailable;
+  @override
+  @SafeIntConverter()
+  @JsonKey(name: 'results_returned', defaultValue: 0)
+  int get resultsReturned;
+  @override
+  @SafeIntConverter()
+  @JsonKey(name: 'results_start', defaultValue: 0)
+  int get resultsStart;
+  @override
+  @JsonKey(name: 'middle_area', defaultValue: <MiddleArea>[])
+  List<MiddleArea> get middleAreas;
+
+  /// Create a copy of MiddleAreaResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$MiddleAreaResponseImplCopyWith<_$MiddleAreaResponseImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}

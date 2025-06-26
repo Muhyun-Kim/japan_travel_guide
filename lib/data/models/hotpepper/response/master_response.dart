@@ -239,3 +239,69 @@ class LargeAreaResponse with _$LargeAreaResponse {
     return LargeAreaResponse.fromJson(results);
   }
 }
+
+// ============================================================================
+// MiddleArea 모델 (중분류 지역 - Y055, Y010 등)
+// ============================================================================
+
+@freezed
+class MiddleArea with _$MiddleArea {
+  const factory MiddleArea({
+    @SafeStringConverter()
+    @JsonKey(name: 'code', defaultValue: '')
+    required String code,
+    @SafeStringConverter()
+    @JsonKey(name: 'name', defaultValue: '')
+    required String name,
+    @JsonKey(name: 'large_area')
+    required CodeName largeArea,
+    @JsonKey(name: 'service_area')
+    required CodeName serviceArea,
+    @JsonKey(name: 'large_service_area')
+    required CodeName largeServiceArea,
+  }) = _MiddleArea;
+
+  factory MiddleArea.fromJson(Map<String, dynamic> json) =>
+      _$MiddleAreaFromJson(json);
+}
+
+// ============================================================================
+// MiddleAreaResponse 모델
+// ============================================================================
+
+@freezed
+class MiddleAreaResponse with _$MiddleAreaResponse {
+  const factory MiddleAreaResponse({
+    @SafeStringConverter()
+    @JsonKey(name: 'api_version', defaultValue: 'unknown')
+    required String apiVersion,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_available', defaultValue: 0)
+    required int resultsAvailable,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_returned', defaultValue: 0)
+    required int resultsReturned,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_start', defaultValue: 0)
+    required int resultsStart,
+    @JsonKey(name: 'middle_area', defaultValue: <MiddleArea>[])
+    required List<MiddleArea> middleAreas,
+  }) = _MiddleAreaResponse;
+
+  factory MiddleAreaResponse.fromJson(Map<String, dynamic> json) =>
+      _$MiddleAreaResponseFromJson(json);
+
+  /// Hot Pepper API 응답 전용 파싱
+  factory MiddleAreaResponse.fromHotPepperApi(
+    Map<String, dynamic> json,
+  ) {
+    final results = json['results'] as Map<String, dynamic>;
+
+    if (results.containsKey('error')) {
+      final error = results['error'] as Map<String, dynamic>;
+      throw Exception('API Error: ${error['message']}');
+    }
+
+    return MiddleAreaResponse.fromJson(results);
+  }
+}
