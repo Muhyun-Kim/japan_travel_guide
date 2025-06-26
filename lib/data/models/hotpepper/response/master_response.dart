@@ -7,6 +7,65 @@ part 'master_response.freezed.dart';
 part 'master_response.g.dart';
 
 // ============================================================================
+// 공통 모델
+// ============================================================================
+@freezed
+class MasterBaseResponse<T> with _$MasterBaseResponse<T> {
+  const factory MasterBaseResponse({
+    @SafeStringConverter()
+    @JsonKey(name: 'api_version', defaultValue: 'unknown')
+    required String apiVersion,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_available', defaultValue: 0)
+    required int resultsAvailable,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_returned', defaultValue: 0)
+    required int resultsReturned,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_start', defaultValue: 0)
+    required int resultsStart,
+    required T data,
+  }) = _MasterBaseResponse<T>;
+
+  // fromJson 메서드 제거하고 fromHotPepperApi만 사용
+  factory MasterBaseResponse.fromHotPepperApi(
+    Map<String, dynamic> json,
+    String dataKey,
+    T Function(List<dynamic>) dataParser,
+  ) {
+    final results = json['results'] as Map<String, dynamic>;
+
+    if (results.containsKey('error')) {
+      final error = results['error'] as Map<String, dynamic>;
+      throw Exception('API Error: ${error['message']}');
+    }
+
+    // SafeIntConverter 로직 수동 적용
+    int parseIntSafely(dynamic value) {
+      if (value == null) return 0;
+      if (value is int) return value;
+      if (value is String) {
+        return int.tryParse(value) ?? 0;
+      }
+      return 0;
+    }
+
+    String parseStringSafely(dynamic value) {
+      if (value == null) return 'unknown';
+      return value.toString();
+    }
+
+    return MasterBaseResponse<T>(
+      apiVersion: parseStringSafely(results['api_version']),
+      resultsAvailable: parseIntSafely(results['results_available']),
+      resultsReturned: parseIntSafely(results['results_returned']),
+      resultsStart: parseIntSafely(results['results_start']),
+      data: dataParser(results[dataKey] as List<dynamic>? ?? []),
+    );
+  }
+}
+
+// ============================================================================
 // Budget 모델
 // ============================================================================
 
@@ -29,91 +88,13 @@ class CodeName with _$CodeName {
 // BudgetResponse 모델
 // ============================================================================
 
-@freezed
-class BudgetResponse with _$BudgetResponse {
-  const factory BudgetResponse({
-    @SafeStringConverter()
-    @JsonKey(name: 'api_version', defaultValue: 'unknown')
-    required String apiVersion,
-    @SafeIntConverter()
-    @JsonKey(name: 'results_available', defaultValue: 0)
-    required int resultsAvailable,
-    @SafeIntConverter()
-    @JsonKey(name: 'results_returned', defaultValue: 0)
-    required int resultsReturned,
-    @SafeIntConverter()
-    @JsonKey(name: 'results_start', defaultValue: 0)
-    required int resultsStart,
-    @JsonKey(name: 'budget', defaultValue: <CodeName>[])
-    required List<CodeName> budgets,
-  }) = _BudgetResponse;
-
-  /// 표준 JSON 직렬화 (freezed 자동 생성)
-  factory BudgetResponse.fromJson(Map<String, dynamic> json) =>
-      _$BudgetResponseFromJson(json);
-
-  /// Hot Pepper API 응답 전용 파싱
-  ///
-  /// HotPepper API의 특수한 응답 구조를 처리합니다.
-  /// - 'results' 래퍼 제거
-  /// - 에러 응답 체크
-  /// - json_serializable의 기본 파싱 활용
-  factory BudgetResponse.fromHotPepperApi(Map<String, dynamic> json) {
-    final results = json['results'] as Map<String, dynamic>;
-
-    // 에러 응답 체크
-    if (results.containsKey('error')) {
-      final error = results['error'] as Map<String, dynamic>;
-      throw Exception('API Error: ${error['message']}');
-    }
-
-    // json_serializable의 기본 파싱 사용
-    // @JsonKey의 defaultValue와 name 매핑이 자동으로 처리됨
-    return BudgetResponse.fromJson(results);
-  }
-}
+typedef BudgetResponse = MasterBaseResponse<List<CodeName>>;
 
 // ============================================================================
 // LargeServiceAreaResponse 모델
 // ============================================================================
 
-@freezed
-class LargeServiceAreaResponse with _$LargeServiceAreaResponse {
-  const factory LargeServiceAreaResponse({
-    @SafeStringConverter()
-    @JsonKey(name: 'api_version', defaultValue: 'unknown')
-    required String apiVersion,
-    @SafeIntConverter()
-    @JsonKey(name: 'results_available', defaultValue: 0)
-    required int resultsAvailable,
-    @SafeIntConverter()
-    @JsonKey(name: 'results_returned', defaultValue: 0)
-    required int resultsReturned,
-    @SafeIntConverter()
-    @JsonKey(name: 'results_start', defaultValue: 0)
-    required int resultsStart,
-    @JsonKey(name: 'large_service_area', defaultValue: <CodeName>[])
-    required List<CodeName> largeServiceAreas,
-  }) = _LargeServiceAreaResponse;
-
-  factory LargeServiceAreaResponse.fromJson(
-    Map<String, dynamic> json,
-  ) => _$LargeServiceAreaResponseFromJson(json);
-
-  /// Hot Pepper API 응답 전용 파싱
-  factory LargeServiceAreaResponse.fromHotPepperApi(
-    Map<String, dynamic> json,
-  ) {
-    final results = json['results'] as Map<String, dynamic>;
-
-    if (results.containsKey('error')) {
-      final error = results['error'] as Map<String, dynamic>;
-      throw Exception('API Error: ${error['message']}');
-    }
-
-    return LargeServiceAreaResponse.fromJson(results);
-  }
-}
+typedef LargeServiceAreaResponse = MasterBaseResponse<List<CodeName>>;
 
 // ============================================================================
 // ServiceArea 모델 (서비스 지역 - SA11, SA12 등)
@@ -140,42 +121,7 @@ class ServiceArea with _$ServiceArea {
 // ServiceAreaResponse 모델
 // ============================================================================
 
-@freezed
-class ServiceAreaResponse with _$ServiceAreaResponse {
-  const factory ServiceAreaResponse({
-    @SafeStringConverter()
-    @JsonKey(name: 'api_version', defaultValue: 'unknown')
-    required String apiVersion,
-    @SafeIntConverter()
-    @JsonKey(name: 'results_available', defaultValue: 0)
-    required int resultsAvailable,
-    @SafeIntConverter()
-    @JsonKey(name: 'results_returned', defaultValue: 0)
-    required int resultsReturned,
-    @SafeIntConverter()
-    @JsonKey(name: 'results_start', defaultValue: 0)
-    required int resultsStart,
-    @JsonKey(name: 'service_area', defaultValue: <ServiceArea>[])
-    required List<ServiceArea> serviceAreas,
-  }) = _ServiceAreaResponse;
-
-  factory ServiceAreaResponse.fromJson(Map<String, dynamic> json) =>
-      _$ServiceAreaResponseFromJson(json);
-
-  /// Hot Pepper API 응답 전용 파싱
-  factory ServiceAreaResponse.fromHotPepperApi(
-    Map<String, dynamic> json,
-  ) {
-    final results = json['results'] as Map<String, dynamic>;
-
-    if (results.containsKey('error')) {
-      final error = results['error'] as Map<String, dynamic>;
-      throw Exception('API Error: ${error['message']}');
-    }
-
-    return ServiceAreaResponse.fromJson(results);
-  }
-}
+typedef ServiceAreaResponse = MasterBaseResponse<List<ServiceArea>>;
 
 // ============================================================================
 // LargeArea 모델 (대지역 - Z011, Z012 등)
@@ -203,42 +149,7 @@ class LargeArea with _$LargeArea {
 // LargeAreaResponse 모델
 // ============================================================================
 
-@freezed
-class LargeAreaResponse with _$LargeAreaResponse {
-  const factory LargeAreaResponse({
-    @SafeStringConverter()
-    @JsonKey(name: 'api_version', defaultValue: 'unknown')
-    required String apiVersion,
-    @SafeIntConverter()
-    @JsonKey(name: 'results_available', defaultValue: 0)
-    required int resultsAvailable,
-    @SafeIntConverter()
-    @JsonKey(name: 'results_returned', defaultValue: 0)
-    required int resultsReturned,
-    @SafeIntConverter()
-    @JsonKey(name: 'results_start', defaultValue: 0)
-    required int resultsStart,
-    @JsonKey(name: 'large_area', defaultValue: <LargeArea>[])
-    required List<LargeArea> largeAreas,
-  }) = _LargeAreaResponse;
-
-  factory LargeAreaResponse.fromJson(Map<String, dynamic> json) =>
-      _$LargeAreaResponseFromJson(json);
-
-  /// Hot Pepper API 응답 전용 파싱
-  factory LargeAreaResponse.fromHotPepperApi(
-    Map<String, dynamic> json,
-  ) {
-    final results = json['results'] as Map<String, dynamic>;
-
-    if (results.containsKey('error')) {
-      final error = results['error'] as Map<String, dynamic>;
-      throw Exception('API Error: ${error['message']}');
-    }
-
-    return LargeAreaResponse.fromJson(results);
-  }
-}
+typedef LargeAreaResponse = MasterBaseResponse<List<LargeArea>>;
 
 // ============================================================================
 // MiddleArea 모델 (중분류 지역 - Y055, Y010 등)
@@ -267,42 +178,7 @@ class MiddleArea with _$MiddleArea {
 // MiddleAreaResponse 모델
 // ============================================================================
 
-@freezed
-class MiddleAreaResponse with _$MiddleAreaResponse {
-  const factory MiddleAreaResponse({
-    @SafeStringConverter()
-    @JsonKey(name: 'api_version', defaultValue: 'unknown')
-    required String apiVersion,
-    @SafeIntConverter()
-    @JsonKey(name: 'results_available', defaultValue: 0)
-    required int resultsAvailable,
-    @SafeIntConverter()
-    @JsonKey(name: 'results_returned', defaultValue: 0)
-    required int resultsReturned,
-    @SafeIntConverter()
-    @JsonKey(name: 'results_start', defaultValue: 0)
-    required int resultsStart,
-    @JsonKey(name: 'middle_area', defaultValue: <MiddleArea>[])
-    required List<MiddleArea> middleAreas,
-  }) = _MiddleAreaResponse;
-
-  factory MiddleAreaResponse.fromJson(Map<String, dynamic> json) =>
-      _$MiddleAreaResponseFromJson(json);
-
-  /// Hot Pepper API 응답 전용 파싱
-  factory MiddleAreaResponse.fromHotPepperApi(
-    Map<String, dynamic> json,
-  ) {
-    final results = json['results'] as Map<String, dynamic>;
-
-    if (results.containsKey('error')) {
-      final error = results['error'] as Map<String, dynamic>;
-      throw Exception('API Error: ${error['message']}');
-    }
-
-    return MiddleAreaResponse.fromJson(results);
-  }
-}
+typedef MiddleAreaResponse = MasterBaseResponse<List<MiddleArea>>;
 
 // ============================================================================
 // SmallArea 모델 (소분류 지역 - X001, X002 등)
@@ -332,39 +208,4 @@ class SmallArea with _$SmallArea {
 // SmallAreaResponse 모델
 // ============================================================================
 
-@freezed
-class SmallAreaResponse with _$SmallAreaResponse {
-  const factory SmallAreaResponse({
-    @SafeStringConverter()
-    @JsonKey(name: 'api_version', defaultValue: 'unknown')
-    required String apiVersion,
-    @SafeIntConverter()
-    @JsonKey(name: 'results_available', defaultValue: 0)
-    required int resultsAvailable,
-    @SafeIntConverter()
-    @JsonKey(name: 'results_returned', defaultValue: 0)
-    required int resultsReturned,
-    @SafeIntConverter()
-    @JsonKey(name: 'results_start', defaultValue: 0)
-    required int resultsStart,
-    @JsonKey(name: 'small_area', defaultValue: <SmallArea>[])
-    required List<SmallArea> smallAreas,
-  }) = _SmallAreaResponse;
-
-  factory SmallAreaResponse.fromJson(Map<String, dynamic> json) =>
-      _$SmallAreaResponseFromJson(json);
-
-  /// Hot Pepper API 응답 전용 파싱
-  factory SmallAreaResponse.fromHotPepperApi(
-    Map<String, dynamic> json,
-  ) {
-    final results = json['results'] as Map<String, dynamic>;
-
-    if (results.containsKey('error')) {
-      final error = results['error'] as Map<String, dynamic>;
-      throw Exception('API Error: ${error['message']}');
-    }
-
-    return SmallAreaResponse.fromJson(results);
-  }
-}
+typedef SmallAreaResponse = MasterBaseResponse<List<SmallArea>>;

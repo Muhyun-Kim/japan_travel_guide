@@ -24,81 +24,6 @@ Map<String, dynamic> _$$CodeNameImplToJson(_$CodeNameImpl instance) =>
       'name': const SafeStringConverter().toJson(instance.name),
     };
 
-_$BudgetResponseImpl _$$BudgetResponseImplFromJson(Map<String, dynamic> json) =>
-    _$BudgetResponseImpl(
-      apiVersion:
-          json['api_version'] == null
-              ? 'unknown'
-              : const SafeStringConverter().fromJson(json['api_version']),
-      resultsAvailable:
-          json['results_available'] == null
-              ? 0
-              : const SafeIntConverter().fromJson(json['results_available']),
-      resultsReturned:
-          json['results_returned'] == null
-              ? 0
-              : const SafeIntConverter().fromJson(json['results_returned']),
-      resultsStart:
-          json['results_start'] == null
-              ? 0
-              : const SafeIntConverter().fromJson(json['results_start']),
-      budgets:
-          (json['budget'] as List<dynamic>?)
-              ?.map((e) => CodeName.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          [],
-    );
-
-Map<String, dynamic> _$$BudgetResponseImplToJson(
-  _$BudgetResponseImpl instance,
-) => <String, dynamic>{
-  'api_version': const SafeStringConverter().toJson(instance.apiVersion),
-  'results_available': const SafeIntConverter().toJson(
-    instance.resultsAvailable,
-  ),
-  'results_returned': const SafeIntConverter().toJson(instance.resultsReturned),
-  'results_start': const SafeIntConverter().toJson(instance.resultsStart),
-  'budget': instance.budgets,
-};
-
-_$LargeServiceAreaResponseImpl _$$LargeServiceAreaResponseImplFromJson(
-  Map<String, dynamic> json,
-) => _$LargeServiceAreaResponseImpl(
-  apiVersion:
-      json['api_version'] == null
-          ? 'unknown'
-          : const SafeStringConverter().fromJson(json['api_version']),
-  resultsAvailable:
-      json['results_available'] == null
-          ? 0
-          : const SafeIntConverter().fromJson(json['results_available']),
-  resultsReturned:
-      json['results_returned'] == null
-          ? 0
-          : const SafeIntConverter().fromJson(json['results_returned']),
-  resultsStart:
-      json['results_start'] == null
-          ? 0
-          : const SafeIntConverter().fromJson(json['results_start']),
-  largeServiceAreas:
-      (json['large_service_area'] as List<dynamic>?)
-          ?.map((e) => CodeName.fromJson(e as Map<String, dynamic>))
-          .toList() ??
-      [],
-);
-
-Map<String, dynamic> _$$LargeServiceAreaResponseImplToJson(
-  _$LargeServiceAreaResponseImpl instance,
-) => <String, dynamic>{
-  'api_version': const SafeStringConverter().toJson(instance.apiVersion),
-  'results_available': const SafeIntConverter().toJson(
-    instance.resultsAvailable,
-  ),
-  'results_returned': const SafeIntConverter().toJson(instance.resultsReturned),
-  'results_start': const SafeIntConverter().toJson(instance.resultsStart),
-  'large_service_area': instance.largeServiceAreas,
-};
-
 _$ServiceAreaImpl _$$ServiceAreaImplFromJson(Map<String, dynamic> json) =>
     _$ServiceAreaImpl(
       code:
@@ -120,44 +45,6 @@ Map<String, dynamic> _$$ServiceAreaImplToJson(_$ServiceAreaImpl instance) =>
       'name': const SafeStringConverter().toJson(instance.name),
       'large_service_area': instance.largeServiceArea,
     };
-
-_$ServiceAreaResponseImpl _$$ServiceAreaResponseImplFromJson(
-  Map<String, dynamic> json,
-) => _$ServiceAreaResponseImpl(
-  apiVersion:
-      json['api_version'] == null
-          ? 'unknown'
-          : const SafeStringConverter().fromJson(json['api_version']),
-  resultsAvailable:
-      json['results_available'] == null
-          ? 0
-          : const SafeIntConverter().fromJson(json['results_available']),
-  resultsReturned:
-      json['results_returned'] == null
-          ? 0
-          : const SafeIntConverter().fromJson(json['results_returned']),
-  resultsStart:
-      json['results_start'] == null
-          ? 0
-          : const SafeIntConverter().fromJson(json['results_start']),
-  serviceAreas:
-      (json['service_area'] as List<dynamic>?)
-          ?.map((e) => ServiceArea.fromJson(e as Map<String, dynamic>))
-          .toList() ??
-      [],
-);
-
-Map<String, dynamic> _$$ServiceAreaResponseImplToJson(
-  _$ServiceAreaResponseImpl instance,
-) => <String, dynamic>{
-  'api_version': const SafeStringConverter().toJson(instance.apiVersion),
-  'results_available': const SafeIntConverter().toJson(
-    instance.resultsAvailable,
-  ),
-  'results_returned': const SafeIntConverter().toJson(instance.resultsReturned),
-  'results_start': const SafeIntConverter().toJson(instance.resultsStart),
-  'service_area': instance.serviceAreas,
-};
 
 _$LargeAreaImpl _$$LargeAreaImplFromJson(Map<String, dynamic> json) =>
     _$LargeAreaImpl(
@@ -184,44 +71,6 @@ Map<String, dynamic> _$$LargeAreaImplToJson(_$LargeAreaImpl instance) =>
       'service_area': instance.serviceArea,
       'large_service_area': instance.largeServiceArea,
     };
-
-_$LargeAreaResponseImpl _$$LargeAreaResponseImplFromJson(
-  Map<String, dynamic> json,
-) => _$LargeAreaResponseImpl(
-  apiVersion:
-      json['api_version'] == null
-          ? 'unknown'
-          : const SafeStringConverter().fromJson(json['api_version']),
-  resultsAvailable:
-      json['results_available'] == null
-          ? 0
-          : const SafeIntConverter().fromJson(json['results_available']),
-  resultsReturned:
-      json['results_returned'] == null
-          ? 0
-          : const SafeIntConverter().fromJson(json['results_returned']),
-  resultsStart:
-      json['results_start'] == null
-          ? 0
-          : const SafeIntConverter().fromJson(json['results_start']),
-  largeAreas:
-      (json['large_area'] as List<dynamic>?)
-          ?.map((e) => LargeArea.fromJson(e as Map<String, dynamic>))
-          .toList() ??
-      [],
-);
-
-Map<String, dynamic> _$$LargeAreaResponseImplToJson(
-  _$LargeAreaResponseImpl instance,
-) => <String, dynamic>{
-  'api_version': const SafeStringConverter().toJson(instance.apiVersion),
-  'results_available': const SafeIntConverter().toJson(
-    instance.resultsAvailable,
-  ),
-  'results_returned': const SafeIntConverter().toJson(instance.resultsReturned),
-  'results_start': const SafeIntConverter().toJson(instance.resultsStart),
-  'large_area': instance.largeAreas,
-};
 
 _$MiddleAreaImpl _$$MiddleAreaImplFromJson(Map<String, dynamic> json) =>
     _$MiddleAreaImpl(
@@ -251,44 +100,6 @@ Map<String, dynamic> _$$MiddleAreaImplToJson(_$MiddleAreaImpl instance) =>
       'large_service_area': instance.largeServiceArea,
     };
 
-_$MiddleAreaResponseImpl _$$MiddleAreaResponseImplFromJson(
-  Map<String, dynamic> json,
-) => _$MiddleAreaResponseImpl(
-  apiVersion:
-      json['api_version'] == null
-          ? 'unknown'
-          : const SafeStringConverter().fromJson(json['api_version']),
-  resultsAvailable:
-      json['results_available'] == null
-          ? 0
-          : const SafeIntConverter().fromJson(json['results_available']),
-  resultsReturned:
-      json['results_returned'] == null
-          ? 0
-          : const SafeIntConverter().fromJson(json['results_returned']),
-  resultsStart:
-      json['results_start'] == null
-          ? 0
-          : const SafeIntConverter().fromJson(json['results_start']),
-  middleAreas:
-      (json['middle_area'] as List<dynamic>?)
-          ?.map((e) => MiddleArea.fromJson(e as Map<String, dynamic>))
-          .toList() ??
-      [],
-);
-
-Map<String, dynamic> _$$MiddleAreaResponseImplToJson(
-  _$MiddleAreaResponseImpl instance,
-) => <String, dynamic>{
-  'api_version': const SafeStringConverter().toJson(instance.apiVersion),
-  'results_available': const SafeIntConverter().toJson(
-    instance.resultsAvailable,
-  ),
-  'results_returned': const SafeIntConverter().toJson(instance.resultsReturned),
-  'results_start': const SafeIntConverter().toJson(instance.resultsStart),
-  'middle_area': instance.middleAreas,
-};
-
 _$SmallAreaImpl _$$SmallAreaImplFromJson(
   Map<String, dynamic> json,
 ) => _$SmallAreaImpl(
@@ -317,41 +128,3 @@ Map<String, dynamic> _$$SmallAreaImplToJson(_$SmallAreaImpl instance) =>
       'service_area': instance.serviceArea,
       'large_service_area': instance.largeServiceArea,
     };
-
-_$SmallAreaResponseImpl _$$SmallAreaResponseImplFromJson(
-  Map<String, dynamic> json,
-) => _$SmallAreaResponseImpl(
-  apiVersion:
-      json['api_version'] == null
-          ? 'unknown'
-          : const SafeStringConverter().fromJson(json['api_version']),
-  resultsAvailable:
-      json['results_available'] == null
-          ? 0
-          : const SafeIntConverter().fromJson(json['results_available']),
-  resultsReturned:
-      json['results_returned'] == null
-          ? 0
-          : const SafeIntConverter().fromJson(json['results_returned']),
-  resultsStart:
-      json['results_start'] == null
-          ? 0
-          : const SafeIntConverter().fromJson(json['results_start']),
-  smallAreas:
-      (json['small_area'] as List<dynamic>?)
-          ?.map((e) => SmallArea.fromJson(e as Map<String, dynamic>))
-          .toList() ??
-      [],
-);
-
-Map<String, dynamic> _$$SmallAreaResponseImplToJson(
-  _$SmallAreaResponseImpl instance,
-) => <String, dynamic>{
-  'api_version': const SafeStringConverter().toJson(instance.apiVersion),
-  'results_available': const SafeIntConverter().toJson(
-    instance.resultsAvailable,
-  ),
-  'results_returned': const SafeIntConverter().toJson(instance.resultsReturned),
-  'results_start': const SafeIntConverter().toJson(instance.resultsStart),
-  'small_area': instance.smallAreas,
-};

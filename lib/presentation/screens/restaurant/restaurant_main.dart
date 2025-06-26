@@ -18,9 +18,9 @@ class RestaurantMain extends ConsumerWidget {
       appBar: AppBar(title: Text('맛집')),
       body: Center(
         child: TextButton(
-          onPressed: () {
-            final res = HotPepperApi().getSmallAreaMaster();
-            print(res);
+          onPressed: () async {
+            final res = await HotPepperApi().getSmallAreaMaster();
+            print("res.data: ${res.data}");
           },
           child: Text('test'),
         ),

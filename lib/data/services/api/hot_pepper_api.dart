@@ -85,7 +85,11 @@ class HotPepperApi {
       final jsonData =
           jsonDecode(response.body) as Map<String, dynamic>;
 
-      final res = BudgetResponse.fromHotPepperApi(jsonData);
+      final res = BudgetResponse.fromHotPepperApi(
+        jsonData,
+        'budget',
+        (json) => json.map((e) => CodeName.fromJson(e)).toList(),
+      );
       return res;
     } catch (e) {
       throw Exception('Budget Master API 호출 실패: $e');
@@ -109,7 +113,11 @@ class HotPepperApi {
       final jsonData =
           jsonDecode(response.body) as Map<String, dynamic>;
 
-      final res = LargeServiceAreaResponse.fromHotPepperApi(jsonData);
+      final res = LargeServiceAreaResponse.fromHotPepperApi(
+        jsonData,
+        'large_service_area',
+        (json) => json.map((e) => CodeName.fromJson(e)).toList(),
+      );
       print(res);
       return res;
     } catch (e) {
@@ -135,7 +143,11 @@ class HotPepperApi {
           jsonDecode(response.body) as Map<String, dynamic>;
       print(jsonData);
 
-      final res = ServiceAreaResponse.fromHotPepperApi(jsonData);
+      final res = ServiceAreaResponse.fromHotPepperApi(
+        jsonData,
+        'service_area',
+        (json) => json.map((e) => ServiceArea.fromJson(e)).toList(),
+      );
       print(res);
       return res;
     } catch (e) {
@@ -161,7 +173,11 @@ class HotPepperApi {
           jsonDecode(response.body) as Map<String, dynamic>;
       print(jsonData);
 
-      final res = LargeAreaResponse.fromHotPepperApi(jsonData);
+      final res = LargeAreaResponse.fromHotPepperApi(
+        jsonData,
+        'large_area',
+        (json) => json.map((e) => LargeArea.fromJson(e)).toList(),
+      );
       print(res);
       return res;
     } catch (e) {
@@ -227,7 +243,11 @@ class HotPepperApi {
       final jsonData =
           jsonDecode(response.body) as Map<String, dynamic>;
 
-      final res = MiddleAreaResponse.fromHotPepperApi(jsonData);
+      final res = MiddleAreaResponse.fromHotPepperApi(
+        jsonData,
+        'middle_area',
+        (json) => json.map((e) => MiddleArea.fromJson(e)).toList(),
+      );
       return res;
     } catch (e) {
       throw Exception('Middle Area Master API 호출 실패: $e');
@@ -258,7 +278,11 @@ class HotPepperApi {
           jsonDecode(response.body) as Map<String, dynamic>;
       print(jsonData);
 
-      final res = SmallAreaResponse.fromHotPepperApi(jsonData);
+      final res = SmallAreaResponse.fromHotPepperApi(
+        jsonData,
+        'small_area',
+        (json) => json.map((e) => SmallArea.fromJson(e)).toList(),
+      );
       return res;
     } catch (e) {
       throw Exception('Small Area Master API 호출 실패: $e');
