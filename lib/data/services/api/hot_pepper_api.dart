@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:japan_travel_guide/core/constants/api_constants.dart';
 
-// Response 모델들
-import '../../models/hotpepper/response/master_response.dart';
 // Request 모델들
 import '../../models/hotpepper/request/master_requests.dart';
+// Response 모델들
+import '../../models/hotpepper/response/master_response.dart';
 
 /// Hot Pepper API 서비스 클래스
 ///
@@ -24,6 +24,27 @@ class HotPepperApi {
   /// 리소스 정리
   void dispose() {
     _client.close();
+  }
+
+  // ==========================================================================
+  // Private 헬퍼 메서드들 (향후 파라미터가 있는 API를 위해 유지)
+  // ==========================================================================
+
+  /// URL과 쿼리 파라미터를 조합하여 최종 URL을 생성
+  ///
+  /// [baseUrl] - 기본 URL (이미 API key와 format이 포함됨)
+  /// [params] - 추가 쿼리 파라미터
+  String _buildUrl(String baseUrl, Map<String, String> params) {
+    if (params.isEmpty) return baseUrl;
+
+    final queryString = params.entries
+        .map(
+          (e) =>
+              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}',
+        )
+        .join('&');
+
+    return '$baseUrl&$queryString';
   }
 
   // ==========================================================================
@@ -162,20 +183,20 @@ class HotPepperApi {
   /// 사용 예시:
   /// ```dart
   /// final api = HotPepperApi();
-  /// 
+  ///
   /// // 모든 중분류 지역 조회
   /// final allAreas = await api.getMiddleAreaMaster();
-  /// 
+  ///
   /// // 특정 대지역에 속한 중분류 지역들 조회
   /// final tokyoAreas = await api.getMiddleAreaMaster(
   ///   MiddleAreaMasterRequest(largeAreaCode: 'Z011')
   /// );
-  /// 
+  ///
   /// // 키워드로 검색
   /// final shinjukuAreas = await api.getMiddleAreaMaster(
   ///   MiddleAreaMasterRequest(keyword: '신주쿠')
   /// );
-  /// 
+  ///
   /// for (final area in tokyoAreas.middleAreas) {
   ///   print('중분류 지역: ${area.name} (${area.code})');
   ///   print('대지역: ${area.largeArea.name}');
@@ -189,7 +210,8 @@ class HotPepperApi {
     try {
       // 기본 URL에 요청 파라미터 추가
       final baseUrl = HotPepperEndpoints.master.middleArea;
-      final queryParams = request?.toQueryParams() ?? <String, String>{};
+      final queryParams =
+          request?.toQueryParams() ?? <String, String>{};
       final url = _buildUrl(baseUrl, queryParams);
 
       // HTTP GET 요청
@@ -212,24 +234,34 @@ class HotPepperApi {
     }
   }
 
-  // ==========================================================================
-  // Private 헬퍼 메서드들 (향후 파라미터가 있는 API를 위해 유지)
-  // ==========================================================================
+  Future<SmallAreaResponse> getSmallAreaMaster([
+    SmallAreaMasterRequest? request,
+  ]) async {
+    try {
+      // 기본 URL에 요청 파라미터 추가
+      final baseUrl = HotPepperEndpoints.master.smallArea;
+      final queryParams =
+          request?.toQueryParams() ?? <String, String>{};
+      final url = _buildUrl(baseUrl, queryParams);
 
-  /// URL과 쿼리 파라미터를 조합하여 최종 URL을 생성
-  ///
-  /// [baseUrl] - 기본 URL (이미 API key와 format이 포함됨)
-  /// [params] - 추가 쿼리 파라미터
-  String _buildUrl(String baseUrl, Map<String, String> params) {
-    if (params.isEmpty) return baseUrl;
+      // HTTP GET 요청
+      final response = await _client.get(Uri.parse(url));
 
-    final queryString = params.entries
-        .map(
-          (e) =>
-              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}',
-        )
-        .join('&');
+      // HTTP 상태 코드 체크
+      if (response.statusCode != 200) {
+        throw Exception(
+          'HTTP ${response.statusCode}: ${response.reasonPhrase}',
+        );
+      }
 
-    return '$baseUrl&$queryString';
+      final jsonData =
+          jsonDecode(response.body) as Map<String, dynamic>;
+      print(jsonData);
+
+      final res = SmallAreaResponse.fromHotPepperApi(jsonData);
+      return res;
+    } catch (e) {
+      throw Exception('Small Area Master API 호출 실패: $e');
+    }
   }
 }

@@ -288,3 +288,70 @@ Map<String, dynamic> _$$MiddleAreaResponseImplToJson(
   'results_start': const SafeIntConverter().toJson(instance.resultsStart),
   'middle_area': instance.middleAreas,
 };
+
+_$SmallAreaImpl _$$SmallAreaImplFromJson(
+  Map<String, dynamic> json,
+) => _$SmallAreaImpl(
+  code:
+      json['code'] == null
+          ? ''
+          : const SafeStringConverter().fromJson(json['code']),
+  name:
+      json['name'] == null
+          ? ''
+          : const SafeStringConverter().fromJson(json['name']),
+  middleArea: CodeName.fromJson(json['middle_area'] as Map<String, dynamic>),
+  largeArea: CodeName.fromJson(json['large_area'] as Map<String, dynamic>),
+  serviceArea: CodeName.fromJson(json['service_area'] as Map<String, dynamic>),
+  largeServiceArea: CodeName.fromJson(
+    json['large_service_area'] as Map<String, dynamic>,
+  ),
+);
+
+Map<String, dynamic> _$$SmallAreaImplToJson(_$SmallAreaImpl instance) =>
+    <String, dynamic>{
+      'code': const SafeStringConverter().toJson(instance.code),
+      'name': const SafeStringConverter().toJson(instance.name),
+      'middle_area': instance.middleArea,
+      'large_area': instance.largeArea,
+      'service_area': instance.serviceArea,
+      'large_service_area': instance.largeServiceArea,
+    };
+
+_$SmallAreaResponseImpl _$$SmallAreaResponseImplFromJson(
+  Map<String, dynamic> json,
+) => _$SmallAreaResponseImpl(
+  apiVersion:
+      json['api_version'] == null
+          ? 'unknown'
+          : const SafeStringConverter().fromJson(json['api_version']),
+  resultsAvailable:
+      json['results_available'] == null
+          ? 0
+          : const SafeIntConverter().fromJson(json['results_available']),
+  resultsReturned:
+      json['results_returned'] == null
+          ? 0
+          : const SafeIntConverter().fromJson(json['results_returned']),
+  resultsStart:
+      json['results_start'] == null
+          ? 0
+          : const SafeIntConverter().fromJson(json['results_start']),
+  smallAreas:
+      (json['small_area'] as List<dynamic>?)
+          ?.map((e) => SmallArea.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      [],
+);
+
+Map<String, dynamic> _$$SmallAreaResponseImplToJson(
+  _$SmallAreaResponseImpl instance,
+) => <String, dynamic>{
+  'api_version': const SafeStringConverter().toJson(instance.apiVersion),
+  'results_available': const SafeIntConverter().toJson(
+    instance.resultsAvailable,
+  ),
+  'results_returned': const SafeIntConverter().toJson(instance.resultsReturned),
+  'results_start': const SafeIntConverter().toJson(instance.resultsStart),
+  'small_area': instance.smallAreas,
+};

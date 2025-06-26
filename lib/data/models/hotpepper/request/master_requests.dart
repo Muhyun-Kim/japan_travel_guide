@@ -3,15 +3,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'master_requests.freezed.dart';
 part 'master_requests.g.dart';
 
-// 현재 Budget Master API는 추가 파라미터가 필요 없어서
-// Request 모델이 불필요합니다.
-//
-// format=json과 API key는 이미 HotPepperEndpoints에서
-// 자동으로 추가되므로 별도 Request 클래스가 필요하지 않습니다.
-//
-// 향후 다른 Master API에서 파라미터가 필요한 경우
-// 해당 API용 Request 모델을 이 파일에 추가할 수 있습니다.
-
 // ============================================================================
 // Middle Area Master API Request 모델
 // ============================================================================
@@ -81,6 +72,65 @@ extension MiddleAreaMasterRequestExtension
     }
     if (largeAreaCode != null) {
       params['large_area'] = largeAreaCode!;
+    }
+    if (keyword != null) {
+      params['keyword'] = keyword!;
+    }
+    if (start != null) {
+      params['start'] = start.toString();
+    }
+    if (count != null) {
+      params['count'] = count.toString();
+    }
+
+    return params;
+  }
+}
+
+@freezed
+class SmallAreaMasterRequest with _$SmallAreaMasterRequest {
+  const factory SmallAreaMasterRequest({
+    @JsonKey(name: 'small_area') String? smallAreaCode,
+    @JsonKey(name: 'middle_area') String? middleAreaCode,
+    String? keyword,
+    int? start,
+    int? count,
+  }) = _SmallAreaMasterRequest;
+
+  factory SmallAreaMasterRequest.fromJson(
+    Map<String, dynamic> json,
+  ) => _$SmallAreaMasterRequestFromJson(json);
+}
+
+// ============================================================================
+// MiddleAreaMasterRequest Extension - 유틸리티 메소드들
+// ============================================================================
+
+/// MiddleAreaMasterRequest 확장 메소드들
+///
+/// Freezed 클래스에 직접 추가할 수 없는 커스텀 메소드들을
+/// extension으로 제공합니다.
+extension SmallAreaMasterRequestExtension on SmallAreaMasterRequest {
+  /// Request 객체를 URL 쿼리 파라미터 Map으로 변환
+  /// null인 파라미터들은 제외됩니다.
+  ///
+  /// 사용 예시:
+  /// ```dart
+  /// final request = MiddleAreaMasterRequest(
+  ///   largeAreaCode: 'Z011',
+  ///   keyword: '신주쿠',
+  /// );
+  /// final params = request.toQueryParams();
+  /// // 결과: {'large_area': 'Z011', 'keyword': '신주쿠'}
+  /// ```
+  Map<String, String> toQueryParams() {
+    final params = <String, String>{};
+
+    if (smallAreaCode != null) {
+      params['small_area'] = smallAreaCode!;
+    }
+    if (middleAreaCode != null) {
+      params['middle_area'] = middleAreaCode!;
     }
     if (keyword != null) {
       params['keyword'] = keyword!;

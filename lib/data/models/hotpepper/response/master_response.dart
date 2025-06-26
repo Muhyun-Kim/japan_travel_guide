@@ -253,10 +253,8 @@ class MiddleArea with _$MiddleArea {
     @SafeStringConverter()
     @JsonKey(name: 'name', defaultValue: '')
     required String name,
-    @JsonKey(name: 'large_area')
-    required CodeName largeArea,
-    @JsonKey(name: 'service_area')
-    required CodeName serviceArea,
+    @JsonKey(name: 'large_area') required CodeName largeArea,
+    @JsonKey(name: 'service_area') required CodeName serviceArea,
     @JsonKey(name: 'large_service_area')
     required CodeName largeServiceArea,
   }) = _MiddleArea;
@@ -303,5 +301,70 @@ class MiddleAreaResponse with _$MiddleAreaResponse {
     }
 
     return MiddleAreaResponse.fromJson(results);
+  }
+}
+
+// ============================================================================
+// SmallArea 모델 (소분류 지역 - X001, X002 등)
+// ============================================================================
+
+@freezed
+class SmallArea with _$SmallArea {
+  const factory SmallArea({
+    @SafeStringConverter()
+    @JsonKey(name: 'code', defaultValue: '')
+    required String code,
+    @SafeStringConverter()
+    @JsonKey(name: 'name', defaultValue: '')
+    required String name,
+    @JsonKey(name: 'middle_area') required CodeName middleArea,
+    @JsonKey(name: 'large_area') required CodeName largeArea,
+    @JsonKey(name: 'service_area') required CodeName serviceArea,
+    @JsonKey(name: 'large_service_area')
+    required CodeName largeServiceArea,
+  }) = _SmallArea;
+
+  factory SmallArea.fromJson(Map<String, dynamic> json) =>
+      _$SmallAreaFromJson(json);
+}
+
+// ============================================================================
+// SmallAreaResponse 모델
+// ============================================================================
+
+@freezed
+class SmallAreaResponse with _$SmallAreaResponse {
+  const factory SmallAreaResponse({
+    @SafeStringConverter()
+    @JsonKey(name: 'api_version', defaultValue: 'unknown')
+    required String apiVersion,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_available', defaultValue: 0)
+    required int resultsAvailable,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_returned', defaultValue: 0)
+    required int resultsReturned,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_start', defaultValue: 0)
+    required int resultsStart,
+    @JsonKey(name: 'small_area', defaultValue: <SmallArea>[])
+    required List<SmallArea> smallAreas,
+  }) = _SmallAreaResponse;
+
+  factory SmallAreaResponse.fromJson(Map<String, dynamic> json) =>
+      _$SmallAreaResponseFromJson(json);
+
+  /// Hot Pepper API 응답 전용 파싱
+  factory SmallAreaResponse.fromHotPepperApi(
+    Map<String, dynamic> json,
+  ) {
+    final results = json['results'] as Map<String, dynamic>;
+
+    if (results.containsKey('error')) {
+      final error = results['error'] as Map<String, dynamic>;
+      throw Exception('API Error: ${error['message']}');
+    }
+
+    return SmallAreaResponse.fromJson(results);
   }
 }

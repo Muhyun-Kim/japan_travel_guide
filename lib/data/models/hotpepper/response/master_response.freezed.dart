@@ -2777,3 +2777,713 @@ abstract class _MiddleAreaResponse implements MiddleAreaResponse {
   _$$MiddleAreaResponseImplCopyWith<_$MiddleAreaResponseImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+SmallArea _$SmallAreaFromJson(Map<String, dynamic> json) {
+  return _SmallArea.fromJson(json);
+}
+
+/// @nodoc
+mixin _$SmallArea {
+  @SafeStringConverter()
+  @JsonKey(name: 'code', defaultValue: '')
+  String get code => throw _privateConstructorUsedError;
+  @SafeStringConverter()
+  @JsonKey(name: 'name', defaultValue: '')
+  String get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'middle_area')
+  CodeName get middleArea => throw _privateConstructorUsedError;
+  @JsonKey(name: 'large_area')
+  CodeName get largeArea => throw _privateConstructorUsedError;
+  @JsonKey(name: 'service_area')
+  CodeName get serviceArea => throw _privateConstructorUsedError;
+  @JsonKey(name: 'large_service_area')
+  CodeName get largeServiceArea => throw _privateConstructorUsedError;
+
+  /// Serializes this SmallArea to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of SmallArea
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $SmallAreaCopyWith<SmallArea> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $SmallAreaCopyWith<$Res> {
+  factory $SmallAreaCopyWith(SmallArea value, $Res Function(SmallArea) then) =
+      _$SmallAreaCopyWithImpl<$Res, SmallArea>;
+  @useResult
+  $Res call({
+    @SafeStringConverter() @JsonKey(name: 'code', defaultValue: '') String code,
+    @SafeStringConverter() @JsonKey(name: 'name', defaultValue: '') String name,
+    @JsonKey(name: 'middle_area') CodeName middleArea,
+    @JsonKey(name: 'large_area') CodeName largeArea,
+    @JsonKey(name: 'service_area') CodeName serviceArea,
+    @JsonKey(name: 'large_service_area') CodeName largeServiceArea,
+  });
+
+  $CodeNameCopyWith<$Res> get middleArea;
+  $CodeNameCopyWith<$Res> get largeArea;
+  $CodeNameCopyWith<$Res> get serviceArea;
+  $CodeNameCopyWith<$Res> get largeServiceArea;
+}
+
+/// @nodoc
+class _$SmallAreaCopyWithImpl<$Res, $Val extends SmallArea>
+    implements $SmallAreaCopyWith<$Res> {
+  _$SmallAreaCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of SmallArea
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? code = null,
+    Object? name = null,
+    Object? middleArea = null,
+    Object? largeArea = null,
+    Object? serviceArea = null,
+    Object? largeServiceArea = null,
+  }) {
+    return _then(
+      _value.copyWith(
+            code:
+                null == code
+                    ? _value.code
+                    : code // ignore: cast_nullable_to_non_nullable
+                        as String,
+            name:
+                null == name
+                    ? _value.name
+                    : name // ignore: cast_nullable_to_non_nullable
+                        as String,
+            middleArea:
+                null == middleArea
+                    ? _value.middleArea
+                    : middleArea // ignore: cast_nullable_to_non_nullable
+                        as CodeName,
+            largeArea:
+                null == largeArea
+                    ? _value.largeArea
+                    : largeArea // ignore: cast_nullable_to_non_nullable
+                        as CodeName,
+            serviceArea:
+                null == serviceArea
+                    ? _value.serviceArea
+                    : serviceArea // ignore: cast_nullable_to_non_nullable
+                        as CodeName,
+            largeServiceArea:
+                null == largeServiceArea
+                    ? _value.largeServiceArea
+                    : largeServiceArea // ignore: cast_nullable_to_non_nullable
+                        as CodeName,
+          )
+          as $Val,
+    );
+  }
+
+  /// Create a copy of SmallArea
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CodeNameCopyWith<$Res> get middleArea {
+    return $CodeNameCopyWith<$Res>(_value.middleArea, (value) {
+      return _then(_value.copyWith(middleArea: value) as $Val);
+    });
+  }
+
+  /// Create a copy of SmallArea
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CodeNameCopyWith<$Res> get largeArea {
+    return $CodeNameCopyWith<$Res>(_value.largeArea, (value) {
+      return _then(_value.copyWith(largeArea: value) as $Val);
+    });
+  }
+
+  /// Create a copy of SmallArea
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CodeNameCopyWith<$Res> get serviceArea {
+    return $CodeNameCopyWith<$Res>(_value.serviceArea, (value) {
+      return _then(_value.copyWith(serviceArea: value) as $Val);
+    });
+  }
+
+  /// Create a copy of SmallArea
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CodeNameCopyWith<$Res> get largeServiceArea {
+    return $CodeNameCopyWith<$Res>(_value.largeServiceArea, (value) {
+      return _then(_value.copyWith(largeServiceArea: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$SmallAreaImplCopyWith<$Res>
+    implements $SmallAreaCopyWith<$Res> {
+  factory _$$SmallAreaImplCopyWith(
+    _$SmallAreaImpl value,
+    $Res Function(_$SmallAreaImpl) then,
+  ) = __$$SmallAreaImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({
+    @SafeStringConverter() @JsonKey(name: 'code', defaultValue: '') String code,
+    @SafeStringConverter() @JsonKey(name: 'name', defaultValue: '') String name,
+    @JsonKey(name: 'middle_area') CodeName middleArea,
+    @JsonKey(name: 'large_area') CodeName largeArea,
+    @JsonKey(name: 'service_area') CodeName serviceArea,
+    @JsonKey(name: 'large_service_area') CodeName largeServiceArea,
+  });
+
+  @override
+  $CodeNameCopyWith<$Res> get middleArea;
+  @override
+  $CodeNameCopyWith<$Res> get largeArea;
+  @override
+  $CodeNameCopyWith<$Res> get serviceArea;
+  @override
+  $CodeNameCopyWith<$Res> get largeServiceArea;
+}
+
+/// @nodoc
+class __$$SmallAreaImplCopyWithImpl<$Res>
+    extends _$SmallAreaCopyWithImpl<$Res, _$SmallAreaImpl>
+    implements _$$SmallAreaImplCopyWith<$Res> {
+  __$$SmallAreaImplCopyWithImpl(
+    _$SmallAreaImpl _value,
+    $Res Function(_$SmallAreaImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of SmallArea
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? code = null,
+    Object? name = null,
+    Object? middleArea = null,
+    Object? largeArea = null,
+    Object? serviceArea = null,
+    Object? largeServiceArea = null,
+  }) {
+    return _then(
+      _$SmallAreaImpl(
+        code:
+            null == code
+                ? _value.code
+                : code // ignore: cast_nullable_to_non_nullable
+                    as String,
+        name:
+            null == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                    as String,
+        middleArea:
+            null == middleArea
+                ? _value.middleArea
+                : middleArea // ignore: cast_nullable_to_non_nullable
+                    as CodeName,
+        largeArea:
+            null == largeArea
+                ? _value.largeArea
+                : largeArea // ignore: cast_nullable_to_non_nullable
+                    as CodeName,
+        serviceArea:
+            null == serviceArea
+                ? _value.serviceArea
+                : serviceArea // ignore: cast_nullable_to_non_nullable
+                    as CodeName,
+        largeServiceArea:
+            null == largeServiceArea
+                ? _value.largeServiceArea
+                : largeServiceArea // ignore: cast_nullable_to_non_nullable
+                    as CodeName,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$SmallAreaImpl implements _SmallArea {
+  const _$SmallAreaImpl({
+    @SafeStringConverter()
+    @JsonKey(name: 'code', defaultValue: '')
+    required this.code,
+    @SafeStringConverter()
+    @JsonKey(name: 'name', defaultValue: '')
+    required this.name,
+    @JsonKey(name: 'middle_area') required this.middleArea,
+    @JsonKey(name: 'large_area') required this.largeArea,
+    @JsonKey(name: 'service_area') required this.serviceArea,
+    @JsonKey(name: 'large_service_area') required this.largeServiceArea,
+  });
+
+  factory _$SmallAreaImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SmallAreaImplFromJson(json);
+
+  @override
+  @SafeStringConverter()
+  @JsonKey(name: 'code', defaultValue: '')
+  final String code;
+  @override
+  @SafeStringConverter()
+  @JsonKey(name: 'name', defaultValue: '')
+  final String name;
+  @override
+  @JsonKey(name: 'middle_area')
+  final CodeName middleArea;
+  @override
+  @JsonKey(name: 'large_area')
+  final CodeName largeArea;
+  @override
+  @JsonKey(name: 'service_area')
+  final CodeName serviceArea;
+  @override
+  @JsonKey(name: 'large_service_area')
+  final CodeName largeServiceArea;
+
+  @override
+  String toString() {
+    return 'SmallArea(code: $code, name: $name, middleArea: $middleArea, largeArea: $largeArea, serviceArea: $serviceArea, largeServiceArea: $largeServiceArea)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SmallAreaImpl &&
+            (identical(other.code, code) || other.code == code) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.middleArea, middleArea) ||
+                other.middleArea == middleArea) &&
+            (identical(other.largeArea, largeArea) ||
+                other.largeArea == largeArea) &&
+            (identical(other.serviceArea, serviceArea) ||
+                other.serviceArea == serviceArea) &&
+            (identical(other.largeServiceArea, largeServiceArea) ||
+                other.largeServiceArea == largeServiceArea));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+    runtimeType,
+    code,
+    name,
+    middleArea,
+    largeArea,
+    serviceArea,
+    largeServiceArea,
+  );
+
+  /// Create a copy of SmallArea
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SmallAreaImplCopyWith<_$SmallAreaImpl> get copyWith =>
+      __$$SmallAreaImplCopyWithImpl<_$SmallAreaImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$SmallAreaImplToJson(this);
+  }
+}
+
+abstract class _SmallArea implements SmallArea {
+  const factory _SmallArea({
+    @SafeStringConverter()
+    @JsonKey(name: 'code', defaultValue: '')
+    required final String code,
+    @SafeStringConverter()
+    @JsonKey(name: 'name', defaultValue: '')
+    required final String name,
+    @JsonKey(name: 'middle_area') required final CodeName middleArea,
+    @JsonKey(name: 'large_area') required final CodeName largeArea,
+    @JsonKey(name: 'service_area') required final CodeName serviceArea,
+    @JsonKey(name: 'large_service_area')
+    required final CodeName largeServiceArea,
+  }) = _$SmallAreaImpl;
+
+  factory _SmallArea.fromJson(Map<String, dynamic> json) =
+      _$SmallAreaImpl.fromJson;
+
+  @override
+  @SafeStringConverter()
+  @JsonKey(name: 'code', defaultValue: '')
+  String get code;
+  @override
+  @SafeStringConverter()
+  @JsonKey(name: 'name', defaultValue: '')
+  String get name;
+  @override
+  @JsonKey(name: 'middle_area')
+  CodeName get middleArea;
+  @override
+  @JsonKey(name: 'large_area')
+  CodeName get largeArea;
+  @override
+  @JsonKey(name: 'service_area')
+  CodeName get serviceArea;
+  @override
+  @JsonKey(name: 'large_service_area')
+  CodeName get largeServiceArea;
+
+  /// Create a copy of SmallArea
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SmallAreaImplCopyWith<_$SmallAreaImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+SmallAreaResponse _$SmallAreaResponseFromJson(Map<String, dynamic> json) {
+  return _SmallAreaResponse.fromJson(json);
+}
+
+/// @nodoc
+mixin _$SmallAreaResponse {
+  @SafeStringConverter()
+  @JsonKey(name: 'api_version', defaultValue: 'unknown')
+  String get apiVersion => throw _privateConstructorUsedError;
+  @SafeIntConverter()
+  @JsonKey(name: 'results_available', defaultValue: 0)
+  int get resultsAvailable => throw _privateConstructorUsedError;
+  @SafeIntConverter()
+  @JsonKey(name: 'results_returned', defaultValue: 0)
+  int get resultsReturned => throw _privateConstructorUsedError;
+  @SafeIntConverter()
+  @JsonKey(name: 'results_start', defaultValue: 0)
+  int get resultsStart => throw _privateConstructorUsedError;
+  @JsonKey(name: 'small_area', defaultValue: <SmallArea>[])
+  List<SmallArea> get smallAreas => throw _privateConstructorUsedError;
+
+  /// Serializes this SmallAreaResponse to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of SmallAreaResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $SmallAreaResponseCopyWith<SmallAreaResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $SmallAreaResponseCopyWith<$Res> {
+  factory $SmallAreaResponseCopyWith(
+    SmallAreaResponse value,
+    $Res Function(SmallAreaResponse) then,
+  ) = _$SmallAreaResponseCopyWithImpl<$Res, SmallAreaResponse>;
+  @useResult
+  $Res call({
+    @SafeStringConverter()
+    @JsonKey(name: 'api_version', defaultValue: 'unknown')
+    String apiVersion,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_available', defaultValue: 0)
+    int resultsAvailable,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_returned', defaultValue: 0)
+    int resultsReturned,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_start', defaultValue: 0)
+    int resultsStart,
+    @JsonKey(name: 'small_area', defaultValue: <SmallArea>[])
+    List<SmallArea> smallAreas,
+  });
+}
+
+/// @nodoc
+class _$SmallAreaResponseCopyWithImpl<$Res, $Val extends SmallAreaResponse>
+    implements $SmallAreaResponseCopyWith<$Res> {
+  _$SmallAreaResponseCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of SmallAreaResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? apiVersion = null,
+    Object? resultsAvailable = null,
+    Object? resultsReturned = null,
+    Object? resultsStart = null,
+    Object? smallAreas = null,
+  }) {
+    return _then(
+      _value.copyWith(
+            apiVersion:
+                null == apiVersion
+                    ? _value.apiVersion
+                    : apiVersion // ignore: cast_nullable_to_non_nullable
+                        as String,
+            resultsAvailable:
+                null == resultsAvailable
+                    ? _value.resultsAvailable
+                    : resultsAvailable // ignore: cast_nullable_to_non_nullable
+                        as int,
+            resultsReturned:
+                null == resultsReturned
+                    ? _value.resultsReturned
+                    : resultsReturned // ignore: cast_nullable_to_non_nullable
+                        as int,
+            resultsStart:
+                null == resultsStart
+                    ? _value.resultsStart
+                    : resultsStart // ignore: cast_nullable_to_non_nullable
+                        as int,
+            smallAreas:
+                null == smallAreas
+                    ? _value.smallAreas
+                    : smallAreas // ignore: cast_nullable_to_non_nullable
+                        as List<SmallArea>,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$SmallAreaResponseImplCopyWith<$Res>
+    implements $SmallAreaResponseCopyWith<$Res> {
+  factory _$$SmallAreaResponseImplCopyWith(
+    _$SmallAreaResponseImpl value,
+    $Res Function(_$SmallAreaResponseImpl) then,
+  ) = __$$SmallAreaResponseImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({
+    @SafeStringConverter()
+    @JsonKey(name: 'api_version', defaultValue: 'unknown')
+    String apiVersion,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_available', defaultValue: 0)
+    int resultsAvailable,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_returned', defaultValue: 0)
+    int resultsReturned,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_start', defaultValue: 0)
+    int resultsStart,
+    @JsonKey(name: 'small_area', defaultValue: <SmallArea>[])
+    List<SmallArea> smallAreas,
+  });
+}
+
+/// @nodoc
+class __$$SmallAreaResponseImplCopyWithImpl<$Res>
+    extends _$SmallAreaResponseCopyWithImpl<$Res, _$SmallAreaResponseImpl>
+    implements _$$SmallAreaResponseImplCopyWith<$Res> {
+  __$$SmallAreaResponseImplCopyWithImpl(
+    _$SmallAreaResponseImpl _value,
+    $Res Function(_$SmallAreaResponseImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of SmallAreaResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? apiVersion = null,
+    Object? resultsAvailable = null,
+    Object? resultsReturned = null,
+    Object? resultsStart = null,
+    Object? smallAreas = null,
+  }) {
+    return _then(
+      _$SmallAreaResponseImpl(
+        apiVersion:
+            null == apiVersion
+                ? _value.apiVersion
+                : apiVersion // ignore: cast_nullable_to_non_nullable
+                    as String,
+        resultsAvailable:
+            null == resultsAvailable
+                ? _value.resultsAvailable
+                : resultsAvailable // ignore: cast_nullable_to_non_nullable
+                    as int,
+        resultsReturned:
+            null == resultsReturned
+                ? _value.resultsReturned
+                : resultsReturned // ignore: cast_nullable_to_non_nullable
+                    as int,
+        resultsStart:
+            null == resultsStart
+                ? _value.resultsStart
+                : resultsStart // ignore: cast_nullable_to_non_nullable
+                    as int,
+        smallAreas:
+            null == smallAreas
+                ? _value._smallAreas
+                : smallAreas // ignore: cast_nullable_to_non_nullable
+                    as List<SmallArea>,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$SmallAreaResponseImpl implements _SmallAreaResponse {
+  const _$SmallAreaResponseImpl({
+    @SafeStringConverter()
+    @JsonKey(name: 'api_version', defaultValue: 'unknown')
+    required this.apiVersion,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_available', defaultValue: 0)
+    required this.resultsAvailable,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_returned', defaultValue: 0)
+    required this.resultsReturned,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_start', defaultValue: 0)
+    required this.resultsStart,
+    @JsonKey(name: 'small_area', defaultValue: <SmallArea>[])
+    required final List<SmallArea> smallAreas,
+  }) : _smallAreas = smallAreas;
+
+  factory _$SmallAreaResponseImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SmallAreaResponseImplFromJson(json);
+
+  @override
+  @SafeStringConverter()
+  @JsonKey(name: 'api_version', defaultValue: 'unknown')
+  final String apiVersion;
+  @override
+  @SafeIntConverter()
+  @JsonKey(name: 'results_available', defaultValue: 0)
+  final int resultsAvailable;
+  @override
+  @SafeIntConverter()
+  @JsonKey(name: 'results_returned', defaultValue: 0)
+  final int resultsReturned;
+  @override
+  @SafeIntConverter()
+  @JsonKey(name: 'results_start', defaultValue: 0)
+  final int resultsStart;
+  final List<SmallArea> _smallAreas;
+  @override
+  @JsonKey(name: 'small_area', defaultValue: <SmallArea>[])
+  List<SmallArea> get smallAreas {
+    if (_smallAreas is EqualUnmodifiableListView) return _smallAreas;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_smallAreas);
+  }
+
+  @override
+  String toString() {
+    return 'SmallAreaResponse(apiVersion: $apiVersion, resultsAvailable: $resultsAvailable, resultsReturned: $resultsReturned, resultsStart: $resultsStart, smallAreas: $smallAreas)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SmallAreaResponseImpl &&
+            (identical(other.apiVersion, apiVersion) ||
+                other.apiVersion == apiVersion) &&
+            (identical(other.resultsAvailable, resultsAvailable) ||
+                other.resultsAvailable == resultsAvailable) &&
+            (identical(other.resultsReturned, resultsReturned) ||
+                other.resultsReturned == resultsReturned) &&
+            (identical(other.resultsStart, resultsStart) ||
+                other.resultsStart == resultsStart) &&
+            const DeepCollectionEquality().equals(
+              other._smallAreas,
+              _smallAreas,
+            ));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+    runtimeType,
+    apiVersion,
+    resultsAvailable,
+    resultsReturned,
+    resultsStart,
+    const DeepCollectionEquality().hash(_smallAreas),
+  );
+
+  /// Create a copy of SmallAreaResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SmallAreaResponseImplCopyWith<_$SmallAreaResponseImpl> get copyWith =>
+      __$$SmallAreaResponseImplCopyWithImpl<_$SmallAreaResponseImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$SmallAreaResponseImplToJson(this);
+  }
+}
+
+abstract class _SmallAreaResponse implements SmallAreaResponse {
+  const factory _SmallAreaResponse({
+    @SafeStringConverter()
+    @JsonKey(name: 'api_version', defaultValue: 'unknown')
+    required final String apiVersion,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_available', defaultValue: 0)
+    required final int resultsAvailable,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_returned', defaultValue: 0)
+    required final int resultsReturned,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_start', defaultValue: 0)
+    required final int resultsStart,
+    @JsonKey(name: 'small_area', defaultValue: <SmallArea>[])
+    required final List<SmallArea> smallAreas,
+  }) = _$SmallAreaResponseImpl;
+
+  factory _SmallAreaResponse.fromJson(Map<String, dynamic> json) =
+      _$SmallAreaResponseImpl.fromJson;
+
+  @override
+  @SafeStringConverter()
+  @JsonKey(name: 'api_version', defaultValue: 'unknown')
+  String get apiVersion;
+  @override
+  @SafeIntConverter()
+  @JsonKey(name: 'results_available', defaultValue: 0)
+  int get resultsAvailable;
+  @override
+  @SafeIntConverter()
+  @JsonKey(name: 'results_returned', defaultValue: 0)
+  int get resultsReturned;
+  @override
+  @SafeIntConverter()
+  @JsonKey(name: 'results_start', defaultValue: 0)
+  int get resultsStart;
+  @override
+  @JsonKey(name: 'small_area', defaultValue: <SmallArea>[])
+  List<SmallArea> get smallAreas;
+
+  /// Create a copy of SmallAreaResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SmallAreaResponseImplCopyWith<_$SmallAreaResponseImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
