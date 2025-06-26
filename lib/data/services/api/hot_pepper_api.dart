@@ -288,4 +288,62 @@ class HotPepperApi {
       throw Exception('Small Area Master API 호출 실패: $e');
     }
   }
+
+  Future<GenreResponse> getGenreMaster() async {
+    try {
+      // URL은 이미 필요한 모든 파라미터(API key, format)를 포함
+      final url = HotPepperEndpoints.master.genre;
+
+      // HTTP GET 요청
+      final response = await _client.get(Uri.parse(url));
+
+      // HTTP 상태 코드 체크
+      if (response.statusCode != 200) {
+        throw Exception(
+          'HTTP ${response.statusCode}: ${response.reasonPhrase}',
+        );
+      }
+
+      final jsonData =
+          jsonDecode(response.body) as Map<String, dynamic>;
+
+      final res = GenreResponse.fromHotPepperApi(
+        jsonData,
+        'genre',
+        (json) => json.map((e) => CodeName.fromJson(e)).toList(),
+      );
+      return res;
+    } catch (e) {
+      throw Exception('Genre Master API 호출 실패: $e');
+    }
+  }
+
+  Future<CreditCardResponse> getCreditCardMaster() async {
+    try {
+      // URL은 이미 필요한 모든 파라미터(API key, format)를 포함
+      final url = HotPepperEndpoints.master.creditCard;
+
+      // HTTP GET 요청
+      final response = await _client.get(Uri.parse(url));
+
+      // HTTP 상태 코드 체크
+      if (response.statusCode != 200) {
+        throw Exception(
+          'HTTP ${response.statusCode}: ${response.reasonPhrase}',
+        );
+      }
+
+      final jsonData =
+          jsonDecode(response.body) as Map<String, dynamic>;
+
+      final res = CreditCardResponse.fromHotPepperApi(
+        jsonData,
+        'credit_card',
+        (json) => json.map((e) => CodeName.fromJson(e)).toList(),
+      );
+      return res;
+    } catch (e) {
+      throw Exception('Credit Card Master API 호출 실패: $e');
+    }
+  }
 }

@@ -84,15 +84,7 @@ class CodeName with _$CodeName {
       _$CodeNameFromJson(json);
 }
 
-// ============================================================================
-// BudgetResponse 모델
-// ============================================================================
-
 typedef BudgetResponse = MasterBaseResponse<List<CodeName>>;
-
-// ============================================================================
-// LargeServiceAreaResponse 모델
-// ============================================================================
 
 typedef LargeServiceAreaResponse = MasterBaseResponse<List<CodeName>>;
 
@@ -116,10 +108,6 @@ class ServiceArea with _$ServiceArea {
   factory ServiceArea.fromJson(Map<String, dynamic> json) =>
       _$ServiceAreaFromJson(json);
 }
-
-// ============================================================================
-// ServiceAreaResponse 모델
-// ============================================================================
 
 typedef ServiceAreaResponse = MasterBaseResponse<List<ServiceArea>>;
 
@@ -145,10 +133,6 @@ class LargeArea with _$LargeArea {
       _$LargeAreaFromJson(json);
 }
 
-// ============================================================================
-// LargeAreaResponse 모델
-// ============================================================================
-
 typedef LargeAreaResponse = MasterBaseResponse<List<LargeArea>>;
 
 // ============================================================================
@@ -173,10 +157,6 @@ class MiddleArea with _$MiddleArea {
   factory MiddleArea.fromJson(Map<String, dynamic> json) =>
       _$MiddleAreaFromJson(json);
 }
-
-// ============================================================================
-// MiddleAreaResponse 모델
-// ============================================================================
 
 typedef MiddleAreaResponse = MasterBaseResponse<List<MiddleArea>>;
 
@@ -204,8 +184,8 @@ class SmallArea with _$SmallArea {
       _$SmallAreaFromJson(json);
 }
 
-// ============================================================================
-// SmallAreaResponse 모델
-// ============================================================================
-
 typedef SmallAreaResponse = MasterBaseResponse<List<SmallArea>>;
+
+typedef GenreResponse = MasterBaseResponse<List<CodeName>>;
+
+typedef CreditCardResponse = MasterBaseResponse<List<CodeName>>;
