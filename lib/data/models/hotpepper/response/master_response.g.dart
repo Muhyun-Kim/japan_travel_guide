@@ -24,6 +24,43 @@ Map<String, dynamic> _$$CodeNameImplToJson(_$CodeNameImpl instance) =>
       'name': const SafeStringConverter().toJson(instance.name),
     };
 
+_$BudgetResponseImpl _$$BudgetResponseImplFromJson(Map<String, dynamic> json) =>
+    _$BudgetResponseImpl(
+      apiVersion:
+          json['api_version'] == null
+              ? 'unknown'
+              : const SafeStringConverter().fromJson(json['api_version']),
+      resultsAvailable:
+          json['results_available'] == null
+              ? 0
+              : const SafeIntConverter().fromJson(json['results_available']),
+      resultsReturned:
+          json['results_returned'] == null
+              ? 0
+              : const SafeIntConverter().fromJson(json['results_returned']),
+      resultsStart:
+          json['results_start'] == null
+              ? 0
+              : const SafeIntConverter().fromJson(json['results_start']),
+      budgets:
+          (json['budget'] as List<dynamic>?)
+              ?.map((e) => CodeName.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+    );
+
+Map<String, dynamic> _$$BudgetResponseImplToJson(
+  _$BudgetResponseImpl instance,
+) => <String, dynamic>{
+  'api_version': const SafeStringConverter().toJson(instance.apiVersion),
+  'results_available': const SafeIntConverter().toJson(
+    instance.resultsAvailable,
+  ),
+  'results_returned': const SafeIntConverter().toJson(instance.resultsReturned),
+  'results_start': const SafeIntConverter().toJson(instance.resultsStart),
+  'budget': instance.budgets,
+};
+
 _$ServiceAreaImpl _$$ServiceAreaImplFromJson(Map<String, dynamic> json) =>
     _$ServiceAreaImpl(
       code:

@@ -19,8 +19,8 @@ class RestaurantMain extends ConsumerWidget {
       body: Center(
         child: TextButton(
           onPressed: () async {
-            final res = await HotPepperApi().getCreditCardMaster();
-            print("res.data: ${res.data}");
+            final res = await HotPepperApi().getBudgetMaster();
+            print("res: ${res}");
           },
           child: Text('test'),
         ),

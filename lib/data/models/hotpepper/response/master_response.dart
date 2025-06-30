@@ -84,7 +84,46 @@ class CodeName with _$CodeName {
       _$CodeNameFromJson(json);
 }
 
-typedef BudgetResponse = MasterBaseResponse<List<CodeName>>;
+// ============================================================================
+// BudgetResponse 모델
+// ============================================================================
+
+@freezed
+class BudgetResponse with _$BudgetResponse {
+  const factory BudgetResponse({
+    @SafeStringConverter()
+    @JsonKey(name: 'api_version', defaultValue: 'unknown')
+    required String apiVersion,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_available', defaultValue: 0)
+    required int resultsAvailable,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_returned', defaultValue: 0)
+    required int resultsReturned,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_start', defaultValue: 0)
+    required int resultsStart,
+    @JsonKey(name: 'budget', defaultValue: <CodeName>[])
+    required List<CodeName> budgets,
+  }) = _BudgetResponse;
+
+  factory BudgetResponse.fromJson(Map<String, dynamic> json) =>
+      _$BudgetResponseFromJson(json);
+
+  /// Hot Pepper API 응답 전용 파싱
+  factory BudgetResponse.fromHotPepperApi(Map<String, dynamic> json) {
+    final results = json['results'] as Map<String, dynamic>;
+
+    // 에러 응답 체크
+    if (results.containsKey('error')) {
+      final error = results['error'] as Map<String, dynamic>;
+      throw Exception('API Error: ${error['message']}');
+    }
+
+    // json_serializable의 기본 파싱 사용
+    return BudgetResponse.fromJson(results);
+  }
+}
 
 typedef LargeServiceAreaResponse = MasterBaseResponse<List<CodeName>>;
 

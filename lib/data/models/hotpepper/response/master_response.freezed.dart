@@ -524,6 +524,339 @@ abstract class _CodeName implements CodeName {
       throw _privateConstructorUsedError;
 }
 
+BudgetResponse _$BudgetResponseFromJson(Map<String, dynamic> json) {
+  return _BudgetResponse.fromJson(json);
+}
+
+/// @nodoc
+mixin _$BudgetResponse {
+  @SafeStringConverter()
+  @JsonKey(name: 'api_version', defaultValue: 'unknown')
+  String get apiVersion => throw _privateConstructorUsedError;
+  @SafeIntConverter()
+  @JsonKey(name: 'results_available', defaultValue: 0)
+  int get resultsAvailable => throw _privateConstructorUsedError;
+  @SafeIntConverter()
+  @JsonKey(name: 'results_returned', defaultValue: 0)
+  int get resultsReturned => throw _privateConstructorUsedError;
+  @SafeIntConverter()
+  @JsonKey(name: 'results_start', defaultValue: 0)
+  int get resultsStart => throw _privateConstructorUsedError;
+  @JsonKey(name: 'budget', defaultValue: <CodeName>[])
+  List<CodeName> get budgets => throw _privateConstructorUsedError;
+
+  /// Serializes this BudgetResponse to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of BudgetResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $BudgetResponseCopyWith<BudgetResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $BudgetResponseCopyWith<$Res> {
+  factory $BudgetResponseCopyWith(
+    BudgetResponse value,
+    $Res Function(BudgetResponse) then,
+  ) = _$BudgetResponseCopyWithImpl<$Res, BudgetResponse>;
+  @useResult
+  $Res call({
+    @SafeStringConverter()
+    @JsonKey(name: 'api_version', defaultValue: 'unknown')
+    String apiVersion,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_available', defaultValue: 0)
+    int resultsAvailable,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_returned', defaultValue: 0)
+    int resultsReturned,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_start', defaultValue: 0)
+    int resultsStart,
+    @JsonKey(name: 'budget', defaultValue: <CodeName>[]) List<CodeName> budgets,
+  });
+}
+
+/// @nodoc
+class _$BudgetResponseCopyWithImpl<$Res, $Val extends BudgetResponse>
+    implements $BudgetResponseCopyWith<$Res> {
+  _$BudgetResponseCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of BudgetResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? apiVersion = null,
+    Object? resultsAvailable = null,
+    Object? resultsReturned = null,
+    Object? resultsStart = null,
+    Object? budgets = null,
+  }) {
+    return _then(
+      _value.copyWith(
+            apiVersion:
+                null == apiVersion
+                    ? _value.apiVersion
+                    : apiVersion // ignore: cast_nullable_to_non_nullable
+                        as String,
+            resultsAvailable:
+                null == resultsAvailable
+                    ? _value.resultsAvailable
+                    : resultsAvailable // ignore: cast_nullable_to_non_nullable
+                        as int,
+            resultsReturned:
+                null == resultsReturned
+                    ? _value.resultsReturned
+                    : resultsReturned // ignore: cast_nullable_to_non_nullable
+                        as int,
+            resultsStart:
+                null == resultsStart
+                    ? _value.resultsStart
+                    : resultsStart // ignore: cast_nullable_to_non_nullable
+                        as int,
+            budgets:
+                null == budgets
+                    ? _value.budgets
+                    : budgets // ignore: cast_nullable_to_non_nullable
+                        as List<CodeName>,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$BudgetResponseImplCopyWith<$Res>
+    implements $BudgetResponseCopyWith<$Res> {
+  factory _$$BudgetResponseImplCopyWith(
+    _$BudgetResponseImpl value,
+    $Res Function(_$BudgetResponseImpl) then,
+  ) = __$$BudgetResponseImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({
+    @SafeStringConverter()
+    @JsonKey(name: 'api_version', defaultValue: 'unknown')
+    String apiVersion,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_available', defaultValue: 0)
+    int resultsAvailable,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_returned', defaultValue: 0)
+    int resultsReturned,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_start', defaultValue: 0)
+    int resultsStart,
+    @JsonKey(name: 'budget', defaultValue: <CodeName>[]) List<CodeName> budgets,
+  });
+}
+
+/// @nodoc
+class __$$BudgetResponseImplCopyWithImpl<$Res>
+    extends _$BudgetResponseCopyWithImpl<$Res, _$BudgetResponseImpl>
+    implements _$$BudgetResponseImplCopyWith<$Res> {
+  __$$BudgetResponseImplCopyWithImpl(
+    _$BudgetResponseImpl _value,
+    $Res Function(_$BudgetResponseImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of BudgetResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? apiVersion = null,
+    Object? resultsAvailable = null,
+    Object? resultsReturned = null,
+    Object? resultsStart = null,
+    Object? budgets = null,
+  }) {
+    return _then(
+      _$BudgetResponseImpl(
+        apiVersion:
+            null == apiVersion
+                ? _value.apiVersion
+                : apiVersion // ignore: cast_nullable_to_non_nullable
+                    as String,
+        resultsAvailable:
+            null == resultsAvailable
+                ? _value.resultsAvailable
+                : resultsAvailable // ignore: cast_nullable_to_non_nullable
+                    as int,
+        resultsReturned:
+            null == resultsReturned
+                ? _value.resultsReturned
+                : resultsReturned // ignore: cast_nullable_to_non_nullable
+                    as int,
+        resultsStart:
+            null == resultsStart
+                ? _value.resultsStart
+                : resultsStart // ignore: cast_nullable_to_non_nullable
+                    as int,
+        budgets:
+            null == budgets
+                ? _value._budgets
+                : budgets // ignore: cast_nullable_to_non_nullable
+                    as List<CodeName>,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$BudgetResponseImpl implements _BudgetResponse {
+  const _$BudgetResponseImpl({
+    @SafeStringConverter()
+    @JsonKey(name: 'api_version', defaultValue: 'unknown')
+    required this.apiVersion,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_available', defaultValue: 0)
+    required this.resultsAvailable,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_returned', defaultValue: 0)
+    required this.resultsReturned,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_start', defaultValue: 0)
+    required this.resultsStart,
+    @JsonKey(name: 'budget', defaultValue: <CodeName>[])
+    required final List<CodeName> budgets,
+  }) : _budgets = budgets;
+
+  factory _$BudgetResponseImpl.fromJson(Map<String, dynamic> json) =>
+      _$$BudgetResponseImplFromJson(json);
+
+  @override
+  @SafeStringConverter()
+  @JsonKey(name: 'api_version', defaultValue: 'unknown')
+  final String apiVersion;
+  @override
+  @SafeIntConverter()
+  @JsonKey(name: 'results_available', defaultValue: 0)
+  final int resultsAvailable;
+  @override
+  @SafeIntConverter()
+  @JsonKey(name: 'results_returned', defaultValue: 0)
+  final int resultsReturned;
+  @override
+  @SafeIntConverter()
+  @JsonKey(name: 'results_start', defaultValue: 0)
+  final int resultsStart;
+  final List<CodeName> _budgets;
+  @override
+  @JsonKey(name: 'budget', defaultValue: <CodeName>[])
+  List<CodeName> get budgets {
+    if (_budgets is EqualUnmodifiableListView) return _budgets;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_budgets);
+  }
+
+  @override
+  String toString() {
+    return 'BudgetResponse(apiVersion: $apiVersion, resultsAvailable: $resultsAvailable, resultsReturned: $resultsReturned, resultsStart: $resultsStart, budgets: $budgets)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$BudgetResponseImpl &&
+            (identical(other.apiVersion, apiVersion) ||
+                other.apiVersion == apiVersion) &&
+            (identical(other.resultsAvailable, resultsAvailable) ||
+                other.resultsAvailable == resultsAvailable) &&
+            (identical(other.resultsReturned, resultsReturned) ||
+                other.resultsReturned == resultsReturned) &&
+            (identical(other.resultsStart, resultsStart) ||
+                other.resultsStart == resultsStart) &&
+            const DeepCollectionEquality().equals(other._budgets, _budgets));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+    runtimeType,
+    apiVersion,
+    resultsAvailable,
+    resultsReturned,
+    resultsStart,
+    const DeepCollectionEquality().hash(_budgets),
+  );
+
+  /// Create a copy of BudgetResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$BudgetResponseImplCopyWith<_$BudgetResponseImpl> get copyWith =>
+      __$$BudgetResponseImplCopyWithImpl<_$BudgetResponseImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$BudgetResponseImplToJson(this);
+  }
+}
+
+abstract class _BudgetResponse implements BudgetResponse {
+  const factory _BudgetResponse({
+    @SafeStringConverter()
+    @JsonKey(name: 'api_version', defaultValue: 'unknown')
+    required final String apiVersion,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_available', defaultValue: 0)
+    required final int resultsAvailable,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_returned', defaultValue: 0)
+    required final int resultsReturned,
+    @SafeIntConverter()
+    @JsonKey(name: 'results_start', defaultValue: 0)
+    required final int resultsStart,
+    @JsonKey(name: 'budget', defaultValue: <CodeName>[])
+    required final List<CodeName> budgets,
+  }) = _$BudgetResponseImpl;
+
+  factory _BudgetResponse.fromJson(Map<String, dynamic> json) =
+      _$BudgetResponseImpl.fromJson;
+
+  @override
+  @SafeStringConverter()
+  @JsonKey(name: 'api_version', defaultValue: 'unknown')
+  String get apiVersion;
+  @override
+  @SafeIntConverter()
+  @JsonKey(name: 'results_available', defaultValue: 0)
+  int get resultsAvailable;
+  @override
+  @SafeIntConverter()
+  @JsonKey(name: 'results_returned', defaultValue: 0)
+  int get resultsReturned;
+  @override
+  @SafeIntConverter()
+  @JsonKey(name: 'results_start', defaultValue: 0)
+  int get resultsStart;
+  @override
+  @JsonKey(name: 'budget', defaultValue: <CodeName>[])
+  List<CodeName> get budgets;
+
+  /// Create a copy of BudgetResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$BudgetResponseImplCopyWith<_$BudgetResponseImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 ServiceArea _$ServiceAreaFromJson(Map<String, dynamic> json) {
   return _ServiceArea.fromJson(json);
 }

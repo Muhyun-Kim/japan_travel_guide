@@ -7,6 +7,10 @@ import 'package:japan_travel_guide/core/constants/api_constants.dart';
 import '../../models/hotpepper/request/master_requests.dart';
 // Response 모델들
 import '../../models/hotpepper/response/master_response.dart';
+// API Result Union 타입
+import '../../models/common/api_result.dart';
+// Error 모델
+import '../../models/hotpepper/common/error.dart';
 
 /// Hot Pepper API 서비스 클래스
 ///
@@ -61,13 +65,20 @@ class HotPepperApi {
   /// 사용 예시:
   /// ```dart
   /// final api = HotPepperApi();
-  /// final budgets = await api.getBudgetMaster();
+  /// final result = await api.getBudgetMaster();
   ///
-  /// for (final budget in budgets.budgets) {
-  ///   print('${budget.name}: ${budget.code}');
-  /// }
+  /// result.when(
+  ///   success: (budgets) {
+  ///     for (final budget in budgets.budgets) {
+  ///       print('${budget.name}: ${budget.code}');
+  ///     }
+  ///   },
+  ///   apiError: (error) => print('API 에러: ${error.error.message}'),
+  ///   httpError: (code, message) => print('HTTP $code: $message'),
+  ///   networkError: (message) => print('네트워크 에러: $message'),
+  /// );
   /// ```
-  Future<BudgetResponse> getBudgetMaster() async {
+  Future<ApiResult<BudgetResponse>> getBudgetMaster() async {
     try {
       // URL은 이미 필요한 모든 파라미터(API key, format)를 포함
       final url = HotPepperEndpoints.master.budget;
@@ -77,22 +88,29 @@ class HotPepperApi {
 
       // HTTP 상태 코드 체크
       if (response.statusCode != 200) {
-        throw Exception(
-          'HTTP ${response.statusCode}: ${response.reasonPhrase}',
+        return ApiResult.httpError(
+          response.statusCode,
+          response.reasonPhrase ?? 'Unknown HTTP error',
         );
       }
 
-      final jsonData =
-          jsonDecode(response.body) as Map<String, dynamic>;
+      final jsonData = jsonDecode(response.body) as Map<String, dynamic>;
+      final results = jsonData['results'] as Map<String, dynamic>;
 
-      final res = BudgetResponse.fromHotPepperApi(
-        jsonData,
-        'budget',
-        (json) => json.map((e) => CodeName.fromJson(e)).toList(),
-      );
-      return res;
+      // HotPepper API 에러 체크
+      if (results.containsKey('error')) {
+        final hotPepperError = HotPepperError.fromJson(jsonData);
+        return ApiResult.apiError(hotPepperError);
+      }
+
+      // 성공 응답 파싱
+      final budgetResponse = BudgetResponse.fromJson(results);
+      return ApiResult.success(budgetResponse);
+      
+    } on FormatException catch (e) {
+      return ApiResult.networkError('JSON 파싱 오류: ${e.message}');
     } catch (e) {
-      throw Exception('Budget Master API 호출 실패: $e');
+      return ApiResult.networkError('네트워크 오류: $e');
     }
   }
 
