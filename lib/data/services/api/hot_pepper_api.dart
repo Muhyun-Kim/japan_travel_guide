@@ -3,20 +3,15 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:japan_travel_guide/core/constants/api_constants.dart';
 
-// Request 모델들
-import '../../models/hotpepper/request/master_requests.dart';
-// Response 모델들
-import '../../models/hotpepper/response/master_response.dart';
 // API Result Union 타입
 import '../../models/common/api_result.dart';
 // Error 모델
 import '../../models/hotpepper/common/error.dart';
+// Request 모델들
+import '../../models/hotpepper/request/master_requests.dart';
+// Response 모델들
+import '../../models/hotpepper/response/master_response.dart';
 
-/// Hot Pepper API 서비스 클래스
-///
-/// Hot Pepper의 Master API들을 제공합니다:
-/// - Budget Master API (예산 구간 마스터)
-/// - 향후 Genre Master, Credit Card Master 등 추가 예정
 class HotPepperApi {
   final http.Client _client;
 
@@ -55,29 +50,6 @@ class HotPepperApi {
   // Master APIs
   // ==========================================================================
 
-  /// Budget Master API - 예산 구간 마스터 데이터 조회
-  ///
-  /// Hot Pepper에서 제공하는 예산 구간 정보를 가져옵니다.
-  /// 예: "~1000엔", "1001~1500엔", "1501~2000엔" 등
-  ///
-  /// 추가 파라미터가 필요하지 않은 단순한 마스터 데이터 조회입니다.
-  ///
-  /// 사용 예시:
-  /// ```dart
-  /// final api = HotPepperApi();
-  /// final result = await api.getBudgetMaster();
-  ///
-  /// result.when(
-  ///   success: (budgets) {
-  ///     for (final budget in budgets.budgets) {
-  ///       print('${budget.name}: ${budget.code}');
-  ///     }
-  ///   },
-  ///   apiError: (error) => print('API 에러: ${error.error.message}'),
-  ///   httpError: (code, message) => print('HTTP $code: $message'),
-  ///   networkError: (message) => print('네트워크 에러: $message'),
-  /// );
-  /// ```
   Future<ApiResult<BudgetResponse>> getBudgetMaster() async {
     try {
       // URL은 이미 필요한 모든 파라미터(API key, format)를 포함
@@ -94,7 +66,8 @@ class HotPepperApi {
         );
       }
 
-      final jsonData = jsonDecode(response.body) as Map<String, dynamic>;
+      final jsonData =
+          jsonDecode(response.body) as Map<String, dynamic>;
       final results = jsonData['results'] as Map<String, dynamic>;
 
       // HotPepper API 에러 체크
@@ -106,7 +79,6 @@ class HotPepperApi {
       // 성공 응답 파싱
       final budgetResponse = BudgetResponse.fromJson(results);
       return ApiResult.success(budgetResponse);
-      
     } on FormatException catch (e) {
       return ApiResult.networkError('JSON 파싱 오류: ${e.message}');
     } catch (e) {
@@ -203,41 +175,6 @@ class HotPepperApi {
     }
   }
 
-  /// Middle Area Master API - 중분류 지역 마스터 데이터 조회
-  ///
-  /// Hot Pepper에서 제공하는 중분류 지역 정보를 가져옵니다.
-  /// 예: "신주쿠", "시부야", "우에노" 등
-  ///
-  /// 이 API는 다양한 필터링 옵션을 제공합니다:
-  /// - 특정 중분류 지역 코드로 조회
-  /// - 특정 대분류 지역에 속한 중분류 지역들 조회
-  /// - 지역명 키워드로 부분 검색
-  /// - 페이징 처리
-  ///
-  /// 사용 예시:
-  /// ```dart
-  /// final api = HotPepperApi();
-  ///
-  /// // 모든 중분류 지역 조회
-  /// final allAreas = await api.getMiddleAreaMaster();
-  ///
-  /// // 특정 대지역에 속한 중분류 지역들 조회
-  /// final tokyoAreas = await api.getMiddleAreaMaster(
-  ///   MiddleAreaMasterRequest(largeAreaCode: 'Z011')
-  /// );
-  ///
-  /// // 키워드로 검색
-  /// final shinjukuAreas = await api.getMiddleAreaMaster(
-  ///   MiddleAreaMasterRequest(keyword: '신주쿠')
-  /// );
-  ///
-  /// for (final area in tokyoAreas.middleAreas) {
-  ///   print('중분류 지역: ${area.name} (${area.code})');
-  ///   print('대지역: ${area.largeArea.name}');
-  ///   print('서비스지역: ${area.serviceArea.name}');
-  ///   print('대서비스지역: ${area.largeServiceArea.name}');
-  /// }
-  /// ```
   Future<MiddleAreaResponse> getMiddleAreaMaster([
     MiddleAreaMasterRequest? request,
   ]) async {

@@ -5,6 +5,7 @@ import 'package:japan_travel_guide/core/constants/app_constants.dart';
 import 'package:japan_travel_guide/core/utils/region_utils.dart';
 import 'package:japan_travel_guide/presentation/providers/selected_regions_provider.dart';
 import 'package:japan_travel_guide/presentation/screens/region_select/others_screen.dart';
+import 'package:japan_travel_guide/presentation/widgets/debug/debug_controls.dart';
 
 class RegionSelectMain extends ConsumerWidget {
   const RegionSelectMain({super.key});
@@ -45,6 +46,10 @@ class RegionSelectMain extends ConsumerWidget {
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         centerTitle: false,
+        actions: [
+          // 🔧 개발 중에만 보이는 디버그 버튼
+          DebugControls(),
+        ],
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
