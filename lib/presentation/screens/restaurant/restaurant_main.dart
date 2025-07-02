@@ -21,8 +21,8 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
   @override
   Widget build(BuildContext context) {
     final selectedRegions = ref.watch(selectedRegionsProvider);
-    final selectedRegionsJp = selectedRegions[0].name;
-    print(selectedRegionsJp);
+    final serviceArea = selectedRegions[0].code;
+    print(serviceArea);
     return Scaffold(
       appBar: AppBar(
         title: Text('맛집'),
