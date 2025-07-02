@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:japan_travel_guide/core/utils/region_utils.dart';
 import 'package:japan_travel_guide/data/services/api/hot_pepper_api.dart';
 import 'package:japan_travel_guide/presentation/providers/selected_regions_provider.dart';
 import 'package:japan_travel_guide/presentation/widgets/debug/debug_controls.dart';
@@ -22,9 +21,7 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
   @override
   Widget build(BuildContext context) {
     final selectedRegions = ref.watch(selectedRegionsProvider);
-    final selectedRegionsJp =
-        RegionUtils.searchRegionsByEn(selectedRegions)[0]['jp'] ??
-        '東京';
+    final selectedRegionsJp = selectedRegions[0].name;
     print(selectedRegionsJp);
     return Scaffold(
       appBar: AppBar(

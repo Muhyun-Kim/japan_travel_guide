@@ -7,11 +7,7 @@ final List<Map<String, String>> regions = [
   {'en': 'hokkaido', 'jp': '北海道', 'kr': '홋카이도'},
 
   // 관동 지역
-  {
-    'en': 'kanagawa',
-    'jp': '神奈川',
-    'kr': '가나가와현 (요코하마)',
-  },
+  {'en': 'kanagawa', 'jp': '神奈川', 'kr': '가나가와현 (요코하마)'},
   {'en': 'saitama', 'jp': '埼玉', 'kr': '사이타마현'},
   {'en': 'chiba', 'jp': '千葉', 'kr': '치바현'},
   {'en': 'ibaraki', 'jp': '茨城', 'kr': '이바라키현'},
@@ -31,11 +27,7 @@ final List<Map<String, String>> regions = [
   {'en': 'nagano', 'jp': '長野', 'kr': '나가노현'},
   {'en': 'yamanashi', 'jp': '山梨', 'kr': '야마나시현'},
   {'en': 'niigata', 'jp': '新潟', 'kr': '니가타현'},
-  {
-    'en': 'ishikawa',
-    'jp': '石川',
-    'kr': '이시카와현 (가나자와)',
-  },
+  {'en': 'ishikawa', 'jp': '石川', 'kr': '이시카와현 (가나자와)'},
   {'en': 'toyama', 'jp': '富山', 'kr': '도야마현'},
   {'en': 'fukui', 'jp': '福井', 'kr': '후쿠이현'},
   {'en': 'mie', 'jp': '三重', 'kr': '미에현'},
@@ -63,11 +55,7 @@ final List<Map<String, String>> regions = [
   {'en': 'okinawa', 'jp': '沖縄', 'kr': '오키나와현'},
 
   // 도호쿠 지역
-  {
-    'en': 'miyagi',
-    'jp': '宮城',
-    'kr': '미야기현 (센다이)',
-  },
+  {'en': 'miyagi', 'jp': '宮城', 'kr': '미야기현 (센다이)'},
   {'en': 'fukushima', 'jp': '福島', 'kr': '후쿠시마현'},
   {'en': 'aomori', 'jp': '青森', 'kr': '아오모리현'},
   {'en': 'iwate', 'jp': '岩手', 'kr': '이와테현'},

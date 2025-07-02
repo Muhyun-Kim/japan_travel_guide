@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:japan_travel_guide/data/models/region/region_data.dart';
+import 'package:japan_travel_guide/presentation/providers/selected_regions_provider.dart';
 
-class OthersScreen extends StatelessWidget {
+class OthersScreen extends ConsumerWidget {
   const OthersScreen({
     super.key,
     required this.regions,
@@ -9,7 +13,8 @@ class OthersScreen extends StatelessWidget {
   final List<Map<String, String>> regions;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final notifier = ref.read(selectedRegionsProvider.notifier);
     return Scaffold(
       appBar: AppBar(
         title: Text('아래에서 지역을 선택해주세요'),
@@ -69,9 +74,23 @@ class OthersScreen extends StatelessWidget {
                 size: 16,
                 color: Colors.grey[400],
               ),
-              onTap: () {
-                print('${region['kr']} 선택됨');
-                Navigator.pop(context, region);
+              onTap: () async {
+                final regionMap = regions[index];
+                print('${regionMap['kr']} 선택됨');
+                
+                // Map 데이터를 RegionData로 변환
+                final regionData = RegionData(
+                  code: regionMap['en']!.toUpperCase(), // sa11 -> SA11
+                  name: regionMap['jp']!,
+                );
+                
+                // Provider에 지역 추가
+                await notifier.addRegion(regionData);
+                
+                // 레스토랑 화면으로 이동
+                if (context.mounted) {
+                  context.go('/restaurant');
+                }
               },
             ),
           );

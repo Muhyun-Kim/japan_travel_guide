@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../presentation/screens/place/place_main.dart';
 import '../presentation/screens/region_select/region_select_main.dart';
 import '../presentation/screens/restaurant/restaurant_main.dart';
 import '../presentation/screens/splash_screen.dart';
-import '../presentation/widgets/debug/debug_controls.dart';
 
 // router 정의 추가
 final GoRouter router = GoRouter(
