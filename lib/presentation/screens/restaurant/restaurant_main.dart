@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:japan_travel_guide/data/models/hotpepper/request/gourmet_search_request.dart';
 import 'package:japan_travel_guide/data/models/hotpepper/response/gourmet_response.dart';
 import 'package:japan_travel_guide/data/services/api/hot_pepper_api.dart';
+import 'package:japan_travel_guide/data/services/translation_service.dart';
 import 'package:japan_travel_guide/presentation/providers/selected_regions_provider.dart';
 import 'package:japan_travel_guide/presentation/widgets/debug/debug_controls.dart';
 
@@ -18,6 +19,9 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
   // HotPepper API 인스턴스
   late final HotPepperApi _hotPepperApi;
 
+  // 번역 서비스 인스턴스
+  late final TranslationService _translationService;
+
   // 스크롤 컨트롤러
   late final ScrollController _scrollController;
 
@@ -31,6 +35,12 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
   // 로드된 맛집 데이터
   List<Shop> _shops = [];
 
+  // 번역된 맛집 데이터 (shopId -> 번역된 정보)
+  Map<String, Map<String, String?>> _translatedShops = {};
+
+  // 번역 중인 맛집들
+  Set<String> _translatingShops = {};
+
   // 더 로드할 데이터가 있는지
   bool _hasMoreData = true;
 
@@ -41,6 +51,7 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
   void initState() {
     super.initState();
     _hotPepperApi = HotPepperApi();
+    _translationService = TranslationService();
     _scrollController = ScrollController();
 
     // 스크롤 리스너 추가
@@ -110,6 +121,9 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
             _hasMoreData = response.hasMoreData;
             _currentRequest = _currentRequest!.nextPage(count: 20);
           });
+          
+          // 새로 로드된 맛집들 번역 시작
+          _translateNewShops(response.shops);
         },
         httpError: (code, message) {
           setState(() {
@@ -156,6 +170,9 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
             _hasMoreData = response.hasMoreData;
             _currentRequest = _currentRequest!.nextPage(count: 20);
           });
+          
+          // 새로 로드된 맛집들 번역 시작
+          _translateNewShops(response.shops);
         },
         httpError: (code, message) {
           // 에러 시 스낵바로 표시
@@ -189,8 +206,69 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
     }
   }
 
+  /// 새로 로드된 맛집들 번역 시작
+  Future<void> _translateNewShops(List<Shop> newShops) async {
+    for (final shop in newShops) {
+      // 이미 번역 중이거나 번역된 맛집은 건너뛰기
+      if (_translatingShops.contains(shop.id) || _translatedShops.containsKey(shop.id)) {
+        continue;
+      }
+
+      // 번역 중 상태로 설정
+      setState(() {
+        _translatingShops.add(shop.id);
+      });
+
+      // 번역 실행 (비동기)
+      _translateSingleShop(shop);
+    }
+  }
+
+  /// 개별 맛집 번역
+  Future<void> _translateSingleShop(Shop shop) async {
+    try {
+      final translatedInfo = await _translationService.translateRestaurantInfo(
+        name: shop.name,
+        catchPhrase: shop.catchPhrase,
+        address: shop.address,
+        access: shop.access,
+        budget: shop.displayBudget,
+      );
+
+      if (mounted) {
+        setState(() {
+          _translatedShops[shop.id] = translatedInfo;
+          _translatingShops.remove(shop.id);
+        });
+      }
+    } catch (e) {
+      print('번역 실패 - 맛집 ID: ${shop.id}, 에러: $e');
+      if (mounted) {
+        setState(() {
+          _translatingShops.remove(shop.id);
+        });
+      }
+    }
+  }
+
+  /// 번역된 텍스트 가져오기 (번역 실패 시 원문 반환)
+  String _getTranslatedText(String shopId, String field, String originalText) {
+    final translatedData = _translatedShops[shopId];
+    if (translatedData != null && translatedData[field] != null) {
+      return translatedData[field]!;
+    }
+    return originalText; // 번역 실패 시 원문 표시
+  }
+
+  /// 맛집 번역 상태 확인
+  bool _isTranslating(String shopId) {
+    return _translatingShops.contains(shopId);
+  }
+
   /// 맛집 카드 위젯 빌드
   Widget _buildShopCard(Shop shop) {
+    final isTranslating = _isTranslating(shop.id);
+    
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       elevation: 2,
@@ -199,22 +277,36 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // 맛집 이름
-            Text(
-              shop.name,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
+            // 맛집 이름 + 번역 상태 표시
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    _getTranslatedText(shop.id, 'name', shop.name),
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                if (isTranslating)
+                  const SizedBox(
+                    width: 16,
+                    height: 16,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                    ),
+                  ),
+              ],
             ),
             const SizedBox(height: 8),
 
             // 캐치 프레이즈
             if (shop.catchPhrase.isNotEmpty)
               Text(
-                shop.catchPhrase,
+                _getTranslatedText(shop.id, 'catchPhrase', shop.catchPhrase),
                 style: TextStyle(
                   fontSize: 14,
                   color: Colors.grey[600],
@@ -253,12 +345,12 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
                   const SizedBox(width: 4),
                   Flexible(
                     child: Text(
-                      shop.displayBudget,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey[700],
-                      ),
-                      overflow: TextOverflow.ellipsis,
+                    _getTranslatedText(shop.id, 'budget', shop.displayBudget),
+                    style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey[700],
+                    ),
+                    overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ],
@@ -278,7 +370,7 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
                 const SizedBox(width: 4),
                 Expanded(
                   child: Text(
-                    shop.address,
+                    _getTranslatedText(shop.id, 'address', shop.address),
                     style: TextStyle(
                       fontSize: 13,
                       color: Colors.grey[600],
@@ -304,7 +396,7 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
                   const SizedBox(width: 4),
                   Expanded(
                     child: Text(
-                      shop.access,
+                      _getTranslatedText(shop.id, 'access', shop.access),
                       style: TextStyle(
                         fontSize: 13,
                         color: Colors.grey[600],
