@@ -103,11 +103,11 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
     });
 
     try {
-      // 첫 페이지 요청 생성
+      // 첫 페이지 요청 생성 (빠른 로딩을 위해 적은 수량)
       _currentRequest = GourmetSearchRequest(
         serviceArea: serviceArea,
         start: 1,
-        count: 20, // 무한스크롤용으로 적당한 양
+        count: 5, // 첫 로딩은 5개만 (번역 시간 단축)
       );
 
       final result = await _hotPepperApi.searchGourmet(
@@ -119,9 +119,11 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
           setState(() {
             _shops.addAll(response.shops);
             _hasMoreData = response.hasMoreData;
-            _currentRequest = _currentRequest!.nextPage(count: 20);
+            _currentRequest = _currentRequest!.nextPage(
+              count: 3,
+            ); // 다음 페이지는 3개씩
           });
-          
+
           // 새로 로드된 맛집들 번역 시작
           _translateNewShops(response.shops);
         },
@@ -168,9 +170,11 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
           setState(() {
             _shops.addAll(response.shops);
             _hasMoreData = response.hasMoreData;
-            _currentRequest = _currentRequest!.nextPage(count: 20);
+            _currentRequest = _currentRequest!.nextPage(
+              count: 3,
+            ); // 무한스크롤도 3개씩
           });
-          
+
           // 새로 로드된 맛집들 번역 시작
           _translateNewShops(response.shops);
         },
@@ -210,7 +214,8 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
   Future<void> _translateNewShops(List<Shop> newShops) async {
     for (final shop in newShops) {
       // 이미 번역 중이거나 번역된 맛집은 건너뛰기
-      if (_translatingShops.contains(shop.id) || _translatedShops.containsKey(shop.id)) {
+      if (_translatingShops.contains(shop.id) ||
+          _translatedShops.containsKey(shop.id)) {
         continue;
       }
 
@@ -227,13 +232,14 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
   /// 개별 맛집 번역
   Future<void> _translateSingleShop(Shop shop) async {
     try {
-      final translatedInfo = await _translationService.translateRestaurantInfo(
-        name: shop.name,
-        catchPhrase: shop.catchPhrase,
-        address: shop.address,
-        access: shop.access,
-        budget: shop.displayBudget,
-      );
+      final translatedInfo = await _translationService
+          .translateRestaurantInfo(
+            name: shop.name,
+            catchPhrase: shop.catchPhrase,
+            address: shop.address,
+            access: shop.access,
+            budget: shop.displayBudget,
+          );
 
       if (mounted) {
         setState(() {
@@ -252,7 +258,11 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
   }
 
   /// 번역된 텍스트 가져오기 (번역 실패 시 원문 반환)
-  String _getTranslatedText(String shopId, String field, String originalText) {
+  String _getTranslatedText(
+    String shopId,
+    String field,
+    String originalText,
+  ) {
     final translatedData = _translatedShops[shopId];
     if (translatedData != null && translatedData[field] != null) {
       return translatedData[field]!;
@@ -268,7 +278,7 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
   /// 맛집 카드 위젯 빌드
   Widget _buildShopCard(Shop shop) {
     final isTranslating = _isTranslating(shop.id);
-    
+
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       elevation: 2,
@@ -295,9 +305,7 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
                   const SizedBox(
                     width: 16,
                     height: 16,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                    ),
+                    child: CircularProgressIndicator(strokeWidth: 2),
                   ),
               ],
             ),
@@ -306,7 +314,11 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
             // 캐치 프레이즈
             if (shop.catchPhrase.isNotEmpty)
               Text(
-                _getTranslatedText(shop.id, 'catchPhrase', shop.catchPhrase),
+                _getTranslatedText(
+                  shop.id,
+                  'catchPhrase',
+                  shop.catchPhrase,
+                ),
                 style: TextStyle(
                   fontSize: 14,
                   color: Colors.grey[600],
@@ -345,12 +357,16 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
                   const SizedBox(width: 4),
                   Flexible(
                     child: Text(
-                    _getTranslatedText(shop.id, 'budget', shop.displayBudget),
-                    style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey[700],
-                    ),
-                    overflow: TextOverflow.ellipsis,
+                      _getTranslatedText(
+                        shop.id,
+                        'budget',
+                        shop.displayBudget,
+                      ),
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey[700],
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ],
@@ -370,7 +386,11 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
                 const SizedBox(width: 4),
                 Expanded(
                   child: Text(
-                    _getTranslatedText(shop.id, 'address', shop.address),
+                    _getTranslatedText(
+                      shop.id,
+                      'address',
+                      shop.address,
+                    ),
                     style: TextStyle(
                       fontSize: 13,
                       color: Colors.grey[600],
@@ -396,7 +416,11 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
                   const SizedBox(width: 4),
                   Expanded(
                     child: Text(
-                      _getTranslatedText(shop.id, 'access', shop.access),
+                      _getTranslatedText(
+                        shop.id,
+                        'access',
+                        shop.access,
+                      ),
                       style: TextStyle(
                         fontSize: 13,
                         color: Colors.grey[600],

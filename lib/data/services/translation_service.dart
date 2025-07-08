@@ -159,8 +159,8 @@ class TranslationService {
           final translated = await translateText(text);
           results.add(translated);
           
-          // API 호출 간격 (무료 플랜 rate limit 고려)
-          await Future.delayed(const Duration(seconds: 2));
+          // API 호출 간격 (무료 플랜 rate limit 고려 - 최적화됨)
+          await Future.delayed(const Duration(milliseconds: 500));
         }
       }
       
@@ -240,10 +240,10 @@ class TranslationService {
           print('번역 실패: $fieldName - 원문 유지');
         }
         
-        // API 호출 간격 (rate limit 방지)
+        // API 호출 간격 (rate limit 방지 - 최적화됨)
         if (i < translationTasks.length - 1) {
-          print('다음 번역까지 2초 대기...');
-          await Future.delayed(const Duration(seconds: 2));
+          print('다음 번역까지 500ms 대기...');
+          await Future.delayed(const Duration(milliseconds: 500));
         }
       } catch (e) {
         print('필드 번역 실패: $fieldName, 에러: $e');
