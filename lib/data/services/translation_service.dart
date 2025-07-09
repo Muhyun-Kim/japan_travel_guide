@@ -183,6 +183,7 @@ class TranslationService {
     required String address,
     required String access,
     required String budget,
+    required String genre, // 장르 추가
   }) async {
     print('맛집 정보 번역 시작:');
     print('  이름: "$name"');
@@ -190,6 +191,7 @@ class TranslationService {
     print('  주소: "$address" (영어로 번역)');
     print('  교통정보: "$access"');
     print('  예산: "$budget"');
+    print('  장르: "$genre"');
     
     // 번역할 텍스트들과 타겟 언어 설정
     final translationTasks = <Map<String, dynamic>>[];
@@ -209,6 +211,9 @@ class TranslationService {
     if (budget.isNotEmpty) {
       translationTasks.add({'field': 'budget', 'text': budget, 'lang': 'KO'});
     }
+    if (genre.isNotEmpty) {
+      translationTasks.add({'field': 'genre', 'text': genre, 'lang': 'KO'});
+    }
 
     print('번역 대상: ${translationTasks.length}개 필드');
 
@@ -219,6 +224,7 @@ class TranslationService {
       'address': null,
       'access': null,
       'budget': null,
+      'genre': null, // 장르 필드 추가
     };
     
     // 개별 번역 (안전하고 rate limit 고려)

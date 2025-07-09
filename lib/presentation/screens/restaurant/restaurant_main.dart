@@ -6,6 +6,10 @@ import 'package:japan_travel_guide/data/services/api/hot_pepper_api.dart';
 import 'package:japan_travel_guide/data/services/translation_service.dart';
 import 'package:japan_travel_guide/presentation/providers/selected_regions_provider.dart';
 import 'package:japan_travel_guide/presentation/widgets/debug/debug_controls.dart';
+import 'package:japan_travel_guide/presentation/screens/restaurant/restaurant_detail.dart';
+import 'package:japan_travel_guide/presentation/screens/restaurant/widgets/shop_card.dart';
+import 'package:japan_travel_guide/presentation/screens/restaurant/widgets/restaurant_error_state.dart';
+import 'package:japan_travel_guide/presentation/screens/restaurant/widgets/restaurant_empty_state.dart';
 
 class RestaurantMain extends ConsumerStatefulWidget {
   const RestaurantMain({super.key});
@@ -239,6 +243,7 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
             address: shop.address,
             access: shop.access,
             budget: shop.displayBudget,
+            genre: shop.genre.name, // 장르 정보 추가
           );
 
       if (mounted) {
@@ -275,166 +280,29 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
     return _translatingShops.contains(shopId);
   }
 
+  /// 상세 페이지로 이동
+  void _navigateToDetail(Shop shop) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => RestaurantDetailScreen(
+          shop: shop,
+          translatedData: _translatedShops[shop.id] ?? {},
+        ),
+      ),
+    );
+  }
+
   /// 맛집 카드 위젯 빌드
   Widget _buildShopCard(Shop shop) {
     final isTranslating = _isTranslating(shop.id);
+    final translatedData = _translatedShops[shop.id] ?? {};
 
-    return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      elevation: 2,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // 맛집 이름 + 번역 상태 표시
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    _getTranslatedText(shop.id, 'name', shop.name),
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                if (isTranslating)
-                  const SizedBox(
-                    width: 16,
-                    height: 16,
-                    child: CircularProgressIndicator(strokeWidth: 2),
-                  ),
-              ],
-            ),
-            const SizedBox(height: 8),
-
-            // 캐치 프레이즈
-            if (shop.catchPhrase.isNotEmpty)
-              Text(
-                _getTranslatedText(
-                  shop.id,
-                  'catchPhrase',
-                  shop.catchPhrase,
-                ),
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey[600],
-                ),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-            const SizedBox(height: 8),
-
-            // 장르와 예산
-            Row(
-              children: [
-                Icon(
-                  Icons.restaurant,
-                  size: 16,
-                  color: Colors.grey[600],
-                ),
-                const SizedBox(width: 4),
-                Expanded(
-                  child: Text(
-                    shop.genre.name,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey[700],
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                if (shop.displayBudget.isNotEmpty) ...[
-                  const SizedBox(width: 8),
-                  Icon(
-                    Icons.attach_money,
-                    size: 16,
-                    color: Colors.grey[600],
-                  ),
-                  const SizedBox(width: 4),
-                  Flexible(
-                    child: Text(
-                      _getTranslatedText(
-                        shop.id,
-                        'budget',
-                        shop.displayBudget,
-                      ),
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey[700],
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
-              ],
-            ),
-            const SizedBox(height: 8),
-
-            // 주소
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Icon(
-                  Icons.location_on,
-                  size: 16,
-                  color: Colors.grey[600],
-                ),
-                const SizedBox(width: 4),
-                Expanded(
-                  child: Text(
-                    _getTranslatedText(
-                      shop.id,
-                      'address',
-                      shop.address,
-                    ),
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.grey[600],
-                    ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ],
-            ),
-
-            // 액세스 정보
-            if (shop.access.isNotEmpty) ...[
-              const SizedBox(height: 4),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(
-                    Icons.train,
-                    size: 16,
-                    color: Colors.grey[600],
-                  ),
-                  const SizedBox(width: 4),
-                  Expanded(
-                    child: Text(
-                      _getTranslatedText(
-                        shop.id,
-                        'access',
-                        shop.access,
-                      ),
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey[600],
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ],
-        ),
-      ),
+    return ShopCard(
+      shop: shop,
+      translatedData: translatedData,
+      isTranslating: isTranslating,
+      onTap: () => _navigateToDetail(shop),
     );
   }
 
@@ -462,46 +330,15 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
 
     // 에러 상태
     if (_errorMessage != null && _shops.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.error_outline,
-              size: 64,
-              color: Colors.grey[400],
-            ),
-            const SizedBox(height: 16),
-            Text(
-              _errorMessage!,
-              style: TextStyle(fontSize: 16, color: Colors.grey[600]),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: _loadFirstPage,
-              child: const Text('다시 시도'),
-            ),
-          ],
-        ),
+      return RestaurantErrorState(
+        errorMessage: _errorMessage!,
+        onRetry: _loadFirstPage,
       );
     }
 
     // 데이터가 없는 경우
     if (_shops.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.restaurant, size: 64, color: Colors.grey[400]),
-            const SizedBox(height: 16),
-            Text(
-              '맛집 데이터가 없습니다.',
-              style: TextStyle(fontSize: 16, color: Colors.grey[600]),
-            ),
-          ],
-        ),
-      );
+      return const RestaurantEmptyState();
     }
 
     // 무한스크롤 리스트
