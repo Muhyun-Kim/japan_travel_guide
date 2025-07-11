@@ -51,6 +51,11 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
   // 에러 상태
   String? _errorMessage;
 
+  // 검색 관련 상태
+  final TextEditingController _searchController = TextEditingController();
+  String _searchKeyword = '';
+  bool _isSearchMode = false;
+
   @override
   void initState() {
     super.initState();
@@ -71,6 +76,7 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
   void dispose() {
     // 리소스 정리
     _scrollController.dispose();
+    _searchController.dispose();
     _hotPepperApi.dispose();
     super.dispose();
   }
@@ -318,7 +324,12 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
           const DebugControls(),
         ],
       ),
-      body: _buildBody(),
+      body: Column(
+        children: [
+          _buildSearchBar(),
+          Expanded(child: _buildBody()),
+        ],
+      ),
     );
   }
 
@@ -377,5 +388,165 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
         },
       ),
     );
+  }
+
+  /// 검색 바 UI
+  Widget _buildSearchBar() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        children: [
+          Expanded(
+            child: TextField(
+              controller: _searchController,
+              decoration: const InputDecoration(
+                hintText: '맛집을 검색하세요 (한국어)',
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(),
+                contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              ),
+              onSubmitted: (value) {
+                _performSearch(value);
+              },
+            ),
+          ),
+          const SizedBox(width: 8),
+          ElevatedButton(
+            onPressed: () {
+              _performSearch(_searchController.text);
+            },
+            child: const Text('검색'),
+          ),
+          if (_isSearchMode) ...[
+            const SizedBox(width: 8),
+            ElevatedButton(
+              onPressed: _clearSearch,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.grey[300],
+              ),
+              child: const Text('초기화'),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  /// 검색 실행
+  Future<void> _performSearch(String keyword) async {
+    if (keyword.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('검색어를 입력해주세요')),
+      );
+      return;
+    }
+
+    setState(() {
+      _searchKeyword = keyword.trim();
+      _isSearchMode = true;
+    });
+
+    await _loadSearchResults();
+  }
+
+  /// 검색 초기화
+  Future<void> _clearSearch() async {
+    setState(() {
+      _searchController.clear();
+      _searchKeyword = '';
+      _isSearchMode = false;
+    });
+
+    await _loadFirstPage();
+  }
+
+  /// 검색 결과 로드
+  Future<void> _loadSearchResults() async {
+    if (_isLoading) return;
+
+    final selectedRegions = ref.read(selectedRegionsProvider);
+    if (selectedRegions.isEmpty) {
+      setState(() {
+        _errorMessage = '선택된 지역이 없습니다.';
+      });
+      return;
+    }
+
+    final serviceArea = selectedRegions[0].code;
+
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+      _shops.clear();
+      _hasMoreData = true;
+    });
+
+    try {
+      // 한국어 검색어를 일본어로 번역
+      String? translatedKeyword = await _translationService.translateText(
+        _searchKeyword,
+        targetLang: 'JA',
+      );
+
+      if (translatedKeyword == null) {
+        setState(() {
+          _errorMessage = '검색어 번역에 실패했습니다. 다시 시도해주세요.';
+        });
+        return;
+      }
+
+      print('검색어 번역: "$_searchKeyword" -> "$translatedKeyword"');
+
+      // 검색 요청 생성
+      _currentRequest = GourmetSearchRequest(
+        serviceArea: serviceArea,
+        keyword: translatedKeyword,
+        start: 1,
+        count: 10,
+      );
+
+      final result = await _hotPepperApi.searchGourmet(_currentRequest!);
+
+      result.when(
+        success: (response) {
+          setState(() {
+            _shops.addAll(response.shops);
+            _hasMoreData = response.hasMoreData;
+            _currentRequest = _currentRequest!.nextPage(count: 10);
+          });
+
+          if (response.shops.isEmpty) {
+            setState(() {
+              _errorMessage = '검색 결과가 없습니다.';
+            });
+          } else {
+            _translateNewShops(response.shops);
+          }
+        },
+        httpError: (code, message) {
+          setState(() {
+            _errorMessage = 'HTTP 에러: $code $message';
+          });
+        },
+        apiError: (error) {
+          setState(() {
+            _errorMessage = 'API 에러: ${error.error.message}';
+          });
+        },
+        networkError: (message) {
+          setState(() {
+            _errorMessage = '네트워크 에러: $message';
+          });
+        },
+      );
+    } catch (e) {
+      setState(() {
+        _errorMessage = '검색 중 오류가 발생했습니다: $e';
+      });
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 }
