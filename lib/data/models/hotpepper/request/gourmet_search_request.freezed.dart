@@ -49,6 +49,12 @@ mixin _$GourmetSearchRequest {
   /// 4: 추천순 (기본값)
   int? get order => throw _privateConstructorUsedError;
 
+  /// 소지역 코드 (중간 단계 지역 필터링)
+  /// 예: "X050" (신주쿠), "X051" (시부야) 등
+  /// service_area 내에서 더 세분화된 검색 가능
+  @JsonKey(name: 'small_area')
+  String? get smallArea => throw _privateConstructorUsedError;
+
   /// Serializes this GourmetSearchRequest to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
@@ -72,6 +78,7 @@ abstract class $GourmetSearchRequestCopyWith<$Res> {
     int? count,
     String? keyword,
     int? order,
+    @JsonKey(name: 'small_area') String? smallArea,
   });
 }
 
@@ -98,6 +105,7 @@ class _$GourmetSearchRequestCopyWithImpl<
     Object? count = freezed,
     Object? keyword = freezed,
     Object? order = freezed,
+    Object? smallArea = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -126,6 +134,11 @@ class _$GourmetSearchRequestCopyWithImpl<
                     ? _value.order
                     : order // ignore: cast_nullable_to_non_nullable
                         as int?,
+            smallArea:
+                freezed == smallArea
+                    ? _value.smallArea
+                    : smallArea // ignore: cast_nullable_to_non_nullable
+                        as String?,
           )
           as $Val,
     );
@@ -147,6 +160,7 @@ abstract class _$$GourmetSearchRequestImplCopyWith<$Res>
     int? count,
     String? keyword,
     int? order,
+    @JsonKey(name: 'small_area') String? smallArea,
   });
 }
 
@@ -169,6 +183,7 @@ class __$$GourmetSearchRequestImplCopyWithImpl<$Res>
     Object? count = freezed,
     Object? keyword = freezed,
     Object? order = freezed,
+    Object? smallArea = freezed,
   }) {
     return _then(
       _$GourmetSearchRequestImpl(
@@ -197,6 +212,11 @@ class __$$GourmetSearchRequestImplCopyWithImpl<$Res>
                 ? _value.order
                 : order // ignore: cast_nullable_to_non_nullable
                     as int?,
+        smallArea:
+            freezed == smallArea
+                ? _value.smallArea
+                : smallArea // ignore: cast_nullable_to_non_nullable
+                    as String?,
       ),
     );
   }
@@ -211,6 +231,7 @@ class _$GourmetSearchRequestImpl implements _GourmetSearchRequest {
     this.count,
     this.keyword,
     this.order,
+    @JsonKey(name: 'small_area') this.smallArea,
   });
 
   factory _$GourmetSearchRequestImpl.fromJson(Map<String, dynamic> json) =>
@@ -249,9 +270,16 @@ class _$GourmetSearchRequestImpl implements _GourmetSearchRequest {
   @override
   final int? order;
 
+  /// 소지역 코드 (중간 단계 지역 필터링)
+  /// 예: "X050" (신주쿠), "X051" (시부야) 등
+  /// service_area 내에서 더 세분화된 검색 가능
+  @override
+  @JsonKey(name: 'small_area')
+  final String? smallArea;
+
   @override
   String toString() {
-    return 'GourmetSearchRequest(serviceArea: $serviceArea, start: $start, count: $count, keyword: $keyword, order: $order)';
+    return 'GourmetSearchRequest(serviceArea: $serviceArea, start: $start, count: $count, keyword: $keyword, order: $order, smallArea: $smallArea)';
   }
 
   @override
@@ -264,13 +292,22 @@ class _$GourmetSearchRequestImpl implements _GourmetSearchRequest {
             (identical(other.start, start) || other.start == start) &&
             (identical(other.count, count) || other.count == count) &&
             (identical(other.keyword, keyword) || other.keyword == keyword) &&
-            (identical(other.order, order) || other.order == order));
+            (identical(other.order, order) || other.order == order) &&
+            (identical(other.smallArea, smallArea) ||
+                other.smallArea == smallArea));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, serviceArea, start, count, keyword, order);
+  int get hashCode => Object.hash(
+    runtimeType,
+    serviceArea,
+    start,
+    count,
+    keyword,
+    order,
+    smallArea,
+  );
 
   /// Create a copy of GourmetSearchRequest
   /// with the given fields replaced by the non-null parameter values.
@@ -297,6 +334,7 @@ abstract class _GourmetSearchRequest implements GourmetSearchRequest {
     final int? count,
     final String? keyword,
     final int? order,
+    @JsonKey(name: 'small_area') final String? smallArea,
   }) = _$GourmetSearchRequestImpl;
 
   factory _GourmetSearchRequest.fromJson(Map<String, dynamic> json) =
@@ -334,6 +372,13 @@ abstract class _GourmetSearchRequest implements GourmetSearchRequest {
   /// 4: 추천순 (기본값)
   @override
   int? get order;
+
+  /// 소지역 코드 (중간 단계 지역 필터링)
+  /// 예: "X050" (신주쿠), "X051" (시부야) 등
+  /// service_area 내에서 더 세분화된 검색 가능
+  @override
+  @JsonKey(name: 'small_area')
+  String? get smallArea;
 
   /// Create a copy of GourmetSearchRequest
   /// with the given fields replaced by the non-null parameter values.

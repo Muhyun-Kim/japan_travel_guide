@@ -40,6 +40,11 @@ class GourmetSearchRequest with _$GourmetSearchRequest {
     /// 3: 소지역 코드순
     /// 4: 추천순 (기본값)
     int? order,
+
+    /// 소지역 코드 (중간 단계 지역 필터링)
+    /// 예: "X050" (신주쿠), "X051" (시부야) 등
+    /// service_area 내에서 더 세분화된 검색 가능
+    @JsonKey(name: 'small_area') String? smallArea,
   }) = _GourmetSearchRequest;
 
   factory GourmetSearchRequest.fromJson(
@@ -87,6 +92,9 @@ extension GourmetSearchRequestExtension on GourmetSearchRequest {
     }
     if (order != null) {
       params['order'] = order.toString();
+    }
+    if (smallArea != null && smallArea!.isNotEmpty) {
+      params['small_area'] = smallArea!;
     }
 
     return params;

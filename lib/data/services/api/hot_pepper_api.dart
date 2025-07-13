@@ -120,15 +120,19 @@ class HotPepperApi {
   ///
   /// [serviceArea] - 서비스 지역 코드 (예: 'SA11')
   /// [keyword] - 검색 키워드 (선택사항)
+  /// [smallArea] - 소지역 코드 (선택사항, 세부 지역 필터링)
   /// [count] - 한 번에 가져올 개수 (기본값: 100)
   ///
   /// 사용 예시:
   /// ```dart
   /// final result = await hotPepperApi.searchGourmetFirstPage('SA11');
+  /// // 또는 세부 지역 필터링
+  /// final result = await hotPepperApi.searchGourmetFirstPage('SA11', smallArea: 'X050');
   /// ```
   Future<ApiResult<GourmetResponse>> searchGourmetFirstPage(
     String serviceArea, {
     String? keyword,
+    String? smallArea,
     int count = 100,
   }) async {
     final request = GourmetSearchRequest(
@@ -136,6 +140,7 @@ class HotPepperApi {
       start: 1,
       count: count,
       keyword: keyword,
+      smallArea: smallArea,
     );
     return searchGourmet(request);
   }
