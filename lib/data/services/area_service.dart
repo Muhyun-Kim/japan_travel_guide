@@ -1,125 +1,87 @@
 import 'dart:async';
 
-import 'package:japan_travel_guide/data/models/area/area_hierarchy.dart';
-import 'package:japan_travel_guide/data/models/hotpepper/request/master_requests.dart';
-import 'package:japan_travel_guide/data/models/hotpepper/response/master_response.dart';
-import 'package:japan_travel_guide/data/services/api/hot_pepper_api.dart';
+import 'package:japan_travel_guide/data/models/area/localized_area.dart';
+import 'package:japan_travel_guide/data/services/area_master_service.dart';
 
-/// 지역 데이터 관리 서비스
+/// 지역 데이터 관리 서비스 (Deprecated)
 ///
-/// HotPepper API의 Master 데이터를 활용하여 지역 계층 구조를 관리합니다.
+/// 새로운 AreaMasterService와 LocalizedArea 모델을 사용하는 것을 권장합니다.
+/// 현지화된 지역 데이터와 향상된 캐싱 기능을 제공합니다.
+@Deprecated('Use AreaMasterService and LocalizedArea models instead')
 class AreaService {
-  final HotPepperApi _api;
+  final AreaMasterService _areaMasterService;
 
-  // 캐시된 데이터
-  List<ServiceArea>? _cachedServiceAreas;
-  List<LargeArea>? _cachedLargeAreas;
-  final Map<String, List<MiddleArea>> _cachedMiddleAreas = {};
-  final Map<String, List<SmallArea>> _cachedSmallAreas = {};
+  AreaService({AreaMasterService? areaMasterService})
+      : _areaMasterService = areaMasterService ?? AreaMasterService();
 
-  AreaService({HotPepperApi? api}) : _api = api ?? HotPepperApi();
-
-  /// 서비스 지역 목록 가져오기
-  Future<List<ServiceArea>> getServiceAreas() async {
-    _cachedServiceAreas ??= (await _api.getServiceAreaMaster()).data;
-    return _cachedServiceAreas!;
+  /// 현지화된 서비스 지역 목록 가져오기
+  Future<List<LocalizedServiceArea>> getLocalizedServiceAreas() async {
+    await _areaMasterService.initialize();
+    return _areaMasterService.getLocalizedServiceAreas();
   }
 
-  /// 대지역 목록 가져오기
-  Future<List<LargeArea>> getLargeAreas() async {
-    _cachedLargeAreas ??= (await _api.getLargeAreaMaster()).data;
-    return _cachedLargeAreas!;
-  }
-
-  /// 특정 대지역의 중지역 목록 가져오기
-  Future<List<MiddleArea>> getMiddleAreas(
-    String largeAreaCode,
-  ) async {
-    if (!_cachedMiddleAreas.containsKey(largeAreaCode)) {
-      final request = MiddleAreaMasterRequest(
-        largeAreaCode: largeAreaCode,
-      );
-      final response = await _api.getMiddleAreaMaster(request);
-      _cachedMiddleAreas[largeAreaCode] = response.data;
-    }
-    return _cachedMiddleAreas[largeAreaCode]!;
-  }
-
-  /// 특정 중지역의 소지역 목록 가져오기
-  Future<List<SmallArea>> getSmallAreas(String middleAreaCode) async {
-    if (!_cachedSmallAreas.containsKey(middleAreaCode)) {
-      final request = SmallAreaMasterRequest(
-        middleAreaCode: middleAreaCode,
-      );
-      final response = await _api.getSmallAreaMaster(request);
-      _cachedSmallAreas[middleAreaCode] = response.data;
-    }
-    return _cachedSmallAreas[middleAreaCode]!;
-  }
-
-  /// 특정 서비스 지역의 전체 계층 구조 가져오기
-  Future<AreaHierarchy> getAreaHierarchy(
+  /// 특정 서비스 지역의 현지화된 대지역 목록 가져오기
+  Future<List<LocalizedLargeArea>> getLocalizedLargeAreas(
     String serviceAreaCode,
   ) async {
-    final serviceAreas = await getServiceAreas();
-    final serviceArea = serviceAreas.firstWhere(
-      (area) => area.code == serviceAreaCode,
-      orElse:
-          () =>
-              throw Exception(
-                'ServiceArea not found: $serviceAreaCode',
-              ),
-    );
+    await _areaMasterService.initialize();
+    return _areaMasterService.getLocalizedLargeAreas(serviceAreaCode);
+  }
 
-    final largeAreas = await getLargeAreas();
-    final relevantLargeAreas =
-        largeAreas
-            .where(
-              (large) => large.serviceArea.code == serviceAreaCode,
-            )
-            .toList();
+  /// 특정 대지역의 현지화된 중지역 목록 가져오기
+  Future<List<LocalizedMiddleArea>> getLocalizedMiddleAreas(
+    String largeAreaCode,
+  ) async {
+    await _areaMasterService.initialize();
+    return await _areaMasterService.getLocalizedMiddleAreas(largeAreaCode);
+  }
 
-    final List<MiddleArea> allMiddleAreas = [];
-    final List<SmallArea> allSmallAreas = [];
+  /// 특정 중지역의 현지화된 소지역 목록 가져오기
+  Future<List<LocalizedSmallArea>> getLocalizedSmallAreas(
+    String middleAreaCode,
+  ) async {
+    await _areaMasterService.initialize();
+    return await _areaMasterService.getLocalizedSmallAreas(middleAreaCode);
+  }
 
-    // 각 대지역에 대해 중지역과 소지역을 가져오기
-    for (final largeArea in relevantLargeAreas) {
-      final middleAreas = await getMiddleAreas(largeArea.code);
-      allMiddleAreas.addAll(middleAreas);
-
-      for (final middleArea in middleAreas) {
-        final smallAreas = await getSmallAreas(middleArea.code);
-        allSmallAreas.addAll(smallAreas);
-      }
+  /// 특정 서비스 지역의 현지화된 지역 선택 생성
+  Future<LocalizedAreaSelection> createAreaSelection(
+    String serviceAreaCode,
+  ) async {
+    await _areaMasterService.initialize();
+    final serviceArea = _areaMasterService.findServiceAreaByCode(serviceAreaCode);
+    if (serviceArea == null) {
+      throw Exception('ServiceArea not found: $serviceAreaCode');
     }
-
-    return AreaHierarchy(
-      serviceArea: serviceArea,
-      largeAreas: relevantLargeAreas,
-      middleAreas: allMiddleAreas,
-      smallAreas: allSmallAreas,
-    );
+    return LocalizedAreaSelection(serviceArea: serviceArea);
   }
 
   /// 특정 서비스 지역의 소지역 목록 가져오기 (검색용)
-  Future<List<SmallArea>> getSmallAreasForSearch(
+  Future<List<LocalizedSmallArea>> getSmallAreasForSearch(
     String serviceAreaCode,
   ) async {
-    final hierarchy = await getAreaHierarchy(serviceAreaCode);
-    return hierarchy.smallAreas;
+    await _areaMasterService.initialize();
+    final largeAreas = _areaMasterService.getLocalizedLargeAreas(serviceAreaCode);
+    
+    final List<LocalizedSmallArea> allSmallAreas = [];
+    for (final largeArea in largeAreas) {
+      final middleAreas = await _areaMasterService.getLocalizedMiddleAreas(largeArea.code);
+      for (final middleArea in middleAreas) {
+        final smallAreas = await _areaMasterService.getLocalizedSmallAreas(middleArea.code);
+        allSmallAreas.addAll(smallAreas);
+      }
+    }
+    
+    return allSmallAreas;
   }
 
   /// 캐시 초기화
   void clearCache() {
-    _cachedServiceAreas = null;
-    _cachedLargeAreas = null;
-    _cachedMiddleAreas.clear();
-    _cachedSmallAreas.clear();
+    _areaMasterService.clearCache();
   }
 
   /// 리소스 정리
   void dispose() {
-    _api.dispose();
-    clearCache();
+    _areaMasterService.dispose();
   }
 }

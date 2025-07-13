@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:japan_travel_guide/data/models/area/area_hierarchy.dart';
+import 'package:japan_travel_guide/data/models/area/localized_area.dart';
+import 'package:japan_travel_guide/data/models/genre/localized_genre.dart';
 import 'package:japan_travel_guide/data/models/hotpepper/request/gourmet_search_request.dart';
 import 'package:japan_travel_guide/data/models/hotpepper/response/gourmet_response.dart';
 import 'package:japan_travel_guide/data/services/api/hot_pepper_api.dart';
@@ -11,6 +12,7 @@ import 'package:japan_travel_guide/presentation/screens/restaurant/widgets/resta
 import 'package:japan_travel_guide/presentation/screens/restaurant/widgets/restaurant_error_state.dart';
 import 'package:japan_travel_guide/presentation/screens/restaurant/widgets/shop_card.dart';
 import 'package:japan_travel_guide/presentation/widgets/area/area_selector.dart';
+import 'package:japan_travel_guide/presentation/widgets/genre/genre_selector.dart';
 import 'package:japan_travel_guide/presentation/widgets/debug/debug_controls.dart';
 
 class RestaurantMain extends ConsumerStatefulWidget {
@@ -53,17 +55,17 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
   // 에러 상태
   String? _errorMessage;
 
-  // 검색 관련 상태
-  final TextEditingController _searchController =
-      TextEditingController();
-  String _searchKeyword = '';
-  bool _isSearchMode = false;
-
   // 지역 선택기 표시 여부
   bool _showAreaSelector = false;
 
+  // 장르 선택기 표시 여부
+  bool _showGenreSelector = false;
+
   // 선택된 지역
-  AreaSelection? _selectedArea;
+  LocalizedAreaSelection? _selectedArea;
+
+  // 선택된 장르
+  LocalizedGenre? _selectedGenre;
 
   @override
   void initState() {
@@ -85,7 +87,6 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
   void dispose() {
     // 리소스 정리
     _scrollController.dispose();
-    _searchController.dispose();
     _hotPepperApi.dispose();
     super.dispose();
   }
@@ -127,6 +128,8 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
         serviceArea: serviceArea,
         start: 1,
         count: 5, // 첫 로딩은 5개만 (번역 시간 단축)
+        smallArea: _selectedArea?.searchSmallAreaCode,
+        genre: _selectedGenre?.code,
       );
 
       final result = await _hotPepperApi.searchGourmet(
@@ -277,18 +280,6 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
     }
   }
 
-  /// 번역된 텍스트 가져오기 (번역 실패 시 원문 반환)
-  String _getTranslatedText(
-    String shopId,
-    String field,
-    String originalText,
-  ) {
-    final translatedData = _translatedShops[shopId];
-    if (translatedData != null && translatedData[field] != null) {
-      return translatedData[field]!;
-    }
-    return originalText; // 번역 실패 시 원문 표시
-  }
 
   /// 맛집 번역 상태 확인
   bool _isTranslating(String shopId) {
@@ -324,7 +315,6 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
 
   @override
   Widget build(BuildContext context) {
-    final selectedRegions = ref.watch(selectedRegionsProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -332,12 +322,24 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
           children: [
             Expanded(
               child: Text(
-                _isSearchMode ? '검색 결과' : '맛집 정보',
+                '맛집 정보',
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
+            ),
+            IconButton(
+              icon: Icon(
+                _showGenreSelector ? Icons.close : Icons.restaurant_menu,
+                size: 24,
+              ),
+              onPressed: () {
+                setState(() {
+                  _showGenreSelector = !_showGenreSelector;
+                  _showAreaSelector = false; // 장르 선택 시 지역 선택기 닫기
+                });
+              },
             ),
             IconButton(
               icon: Icon(
@@ -347,15 +349,9 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
               onPressed: () {
                 setState(() {
                   _showAreaSelector = !_showAreaSelector;
+                  _showGenreSelector = false; // 지역 선택 시 장르 선택기 닫기
                 });
               },
-            ),
-            IconButton(
-              icon: Icon(
-                _isSearchMode ? Icons.close : Icons.search,
-                size: 28,
-              ),
-              onPressed: _isSearchMode ? _clearSearch : _toggleSearch,
             ),
           ],
         ),
@@ -366,20 +362,37 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
       ),
       body: Column(
         children: [
+          // 장르 선택기
+          if (_showGenreSelector)
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.orange[50],
+                border: Border(
+                  bottom: BorderSide(color: Colors.orange[300]!),
+                ),
+              ),
+              child: _buildGenreSelector(),
+            ),
+
           // 지역 선택기
           if (_showAreaSelector)
             Container(
-              padding: const EdgeInsets.all(16),
+              constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height * 0.5,
+              ),
               decoration: BoxDecoration(
                 color: Colors.grey[50],
                 border: Border(
                   bottom: BorderSide(color: Colors.grey[300]!),
                 ),
               ),
-              child: _buildAreaSelector(),
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(16),
+                child: _buildAreaSelector(),
+              ),
             ),
 
-          _buildSearchBar(),
           Expanded(child: _buildBody()),
         ],
       ),
@@ -443,178 +456,23 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
     );
   }
 
-  /// 검색 바 UI
-  Widget _buildSearchBar() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      child: Row(
-        children: [
-          Expanded(
-            child: TextField(
-              controller: _searchController,
-              decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(),
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 12,
-                ),
-              ),
-              onSubmitted: (value) {
-                _performSearch(value);
-              },
-            ),
-          ),
-          const SizedBox(width: 8),
-          ElevatedButton(
-            onPressed: () {
-              _performSearch(_searchController.text);
-            },
-            child: const Text('검색'),
-          ),
-          if (_isSearchMode) ...[
-            const SizedBox(width: 8),
-            ElevatedButton(
-              onPressed: _clearSearch,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.grey[300],
-              ),
-              child: const Text('초기화'),
-            ),
-          ],
-        ],
-      ),
-    );
-  }
 
-  /// 검색 실행
-  Future<void> _performSearch(String keyword) async {
-    if (keyword.trim().isEmpty) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('검색어를 입력해주세요')));
-      return;
-    }
 
-    setState(() {
-      _searchKeyword = keyword.trim();
-      _isSearchMode = true;
-    });
 
-    await _loadSearchResults();
-  }
 
-  /// 검색 모드 토글
-  void _toggleSearch() {
-    setState(() {
-      _isSearchMode = !_isSearchMode;
-      if (!_isSearchMode) {
-        _searchController.clear();
-        _searchKeyword = '';
-      }
-    });
-  }
 
-  /// 검색 초기화
-  Future<void> _clearSearch() async {
-    setState(() {
-      _searchController.clear();
-      _searchKeyword = '';
-      _isSearchMode = false;
-    });
-
-    await _loadFirstPage();
-  }
-
-  /// 검색 결과 로드
-  Future<void> _loadSearchResults() async {
-    if (_isLoading) return;
-
-    final selectedRegions = ref.read(selectedRegionsProvider);
-    if (selectedRegions.isEmpty) {
-      setState(() {
-        _errorMessage = '선택된 지역이 없습니다.';
-      });
-      return;
-    }
-
-    final serviceArea = selectedRegions[0].code;
-
-    setState(() {
-      _isLoading = true;
-      _errorMessage = null;
-      _shops.clear();
-      _hasMoreData = true;
-    });
-
-    try {
-      // 한국어 검색어를 일본어로 번역
-      String? translatedKeyword = await _translationService
-          .translateText(_searchKeyword, targetLang: 'JA');
-
-      if (translatedKeyword == null) {
+  /// 장르 선택기 빌드
+  Widget _buildGenreSelector() {
+    return GenreSelector(
+      initialSelection: _selectedGenre,
+      onGenreSelected: (genre) {
         setState(() {
-          _errorMessage = '검색어 번역에 실패했습니다. 다시 시도해주세요.';
+          _selectedGenre = genre;
         });
-        return;
-      }
-
-      print('검색어 번역: "$_searchKeyword" -> "$translatedKeyword"');
-
-      // 검색 요청 생성
-      _currentRequest = GourmetSearchRequest(
-        serviceArea: serviceArea,
-        keyword: translatedKeyword,
-        start: 1,
-        count: 10,
-        smallArea: _selectedArea?.searchSmallAreaCode, // 세부 지역 필터링
-      );
-
-      final result = await _hotPepperApi.searchGourmet(
-        _currentRequest!,
-      );
-
-      result.when(
-        success: (response) {
-          setState(() {
-            _shops.addAll(response.shops);
-            _hasMoreData = response.hasMoreData;
-            _currentRequest = _currentRequest!.nextPage(count: 10);
-          });
-
-          if (response.shops.isEmpty) {
-            setState(() {
-              _errorMessage = '검색 결과가 없습니다.';
-            });
-          } else {
-            _translateNewShops(response.shops);
-          }
-        },
-        httpError: (code, message) {
-          setState(() {
-            _errorMessage = 'HTTP 에러: $code $message';
-          });
-        },
-        apiError: (error) {
-          setState(() {
-            _errorMessage = 'API 에러: ${error.error.message}';
-          });
-        },
-        networkError: (message) {
-          setState(() {
-            _errorMessage = '네트워크 에러: $message';
-          });
-        },
-      );
-    } catch (e) {
-      setState(() {
-        _errorMessage = '검색 중 오류가 발생했습니다: $e';
-      });
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
-    }
+        // 장르 변경 시 데이터 새로고침
+        _loadFirstPage();
+      },
+    );
   }
 
   /// 지역 선택기 빌드
@@ -626,7 +484,7 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
 
     final region = selectedRegions[0];
 
-    return AreaSelector(
+    return LocalizedAreaSelector(
       serviceAreaCode: region.code,
       serviceAreaName: region.name,
       initialSelection: _selectedArea,

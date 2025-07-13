@@ -55,6 +55,11 @@ mixin _$GourmetSearchRequest {
   @JsonKey(name: 'small_area')
   String? get smallArea => throw _privateConstructorUsedError;
 
+  /// 장르 코드 (음식 장르 필터링)
+  /// 예: "G001" (이자카야), "G004" (이탈리안) 등
+  /// HotPepper의 Genre Master에서 제공하는 코드 사용
+  String? get genre => throw _privateConstructorUsedError;
+
   /// Serializes this GourmetSearchRequest to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
@@ -79,6 +84,7 @@ abstract class $GourmetSearchRequestCopyWith<$Res> {
     String? keyword,
     int? order,
     @JsonKey(name: 'small_area') String? smallArea,
+    String? genre,
   });
 }
 
@@ -106,6 +112,7 @@ class _$GourmetSearchRequestCopyWithImpl<
     Object? keyword = freezed,
     Object? order = freezed,
     Object? smallArea = freezed,
+    Object? genre = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -139,6 +146,11 @@ class _$GourmetSearchRequestCopyWithImpl<
                     ? _value.smallArea
                     : smallArea // ignore: cast_nullable_to_non_nullable
                         as String?,
+            genre:
+                freezed == genre
+                    ? _value.genre
+                    : genre // ignore: cast_nullable_to_non_nullable
+                        as String?,
           )
           as $Val,
     );
@@ -161,6 +173,7 @@ abstract class _$$GourmetSearchRequestImplCopyWith<$Res>
     String? keyword,
     int? order,
     @JsonKey(name: 'small_area') String? smallArea,
+    String? genre,
   });
 }
 
@@ -184,6 +197,7 @@ class __$$GourmetSearchRequestImplCopyWithImpl<$Res>
     Object? keyword = freezed,
     Object? order = freezed,
     Object? smallArea = freezed,
+    Object? genre = freezed,
   }) {
     return _then(
       _$GourmetSearchRequestImpl(
@@ -217,6 +231,11 @@ class __$$GourmetSearchRequestImplCopyWithImpl<$Res>
                 ? _value.smallArea
                 : smallArea // ignore: cast_nullable_to_non_nullable
                     as String?,
+        genre:
+            freezed == genre
+                ? _value.genre
+                : genre // ignore: cast_nullable_to_non_nullable
+                    as String?,
       ),
     );
   }
@@ -232,6 +251,7 @@ class _$GourmetSearchRequestImpl implements _GourmetSearchRequest {
     this.keyword,
     this.order,
     @JsonKey(name: 'small_area') this.smallArea,
+    this.genre,
   });
 
   factory _$GourmetSearchRequestImpl.fromJson(Map<String, dynamic> json) =>
@@ -277,9 +297,15 @@ class _$GourmetSearchRequestImpl implements _GourmetSearchRequest {
   @JsonKey(name: 'small_area')
   final String? smallArea;
 
+  /// 장르 코드 (음식 장르 필터링)
+  /// 예: "G001" (이자카야), "G004" (이탈리안) 등
+  /// HotPepper의 Genre Master에서 제공하는 코드 사용
+  @override
+  final String? genre;
+
   @override
   String toString() {
-    return 'GourmetSearchRequest(serviceArea: $serviceArea, start: $start, count: $count, keyword: $keyword, order: $order, smallArea: $smallArea)';
+    return 'GourmetSearchRequest(serviceArea: $serviceArea, start: $start, count: $count, keyword: $keyword, order: $order, smallArea: $smallArea, genre: $genre)';
   }
 
   @override
@@ -294,7 +320,8 @@ class _$GourmetSearchRequestImpl implements _GourmetSearchRequest {
             (identical(other.keyword, keyword) || other.keyword == keyword) &&
             (identical(other.order, order) || other.order == order) &&
             (identical(other.smallArea, smallArea) ||
-                other.smallArea == smallArea));
+                other.smallArea == smallArea) &&
+            (identical(other.genre, genre) || other.genre == genre));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -307,6 +334,7 @@ class _$GourmetSearchRequestImpl implements _GourmetSearchRequest {
     keyword,
     order,
     smallArea,
+    genre,
   );
 
   /// Create a copy of GourmetSearchRequest
@@ -335,6 +363,7 @@ abstract class _GourmetSearchRequest implements GourmetSearchRequest {
     final String? keyword,
     final int? order,
     @JsonKey(name: 'small_area') final String? smallArea,
+    final String? genre,
   }) = _$GourmetSearchRequestImpl;
 
   factory _GourmetSearchRequest.fromJson(Map<String, dynamic> json) =
@@ -379,6 +408,12 @@ abstract class _GourmetSearchRequest implements GourmetSearchRequest {
   @override
   @JsonKey(name: 'small_area')
   String? get smallArea;
+
+  /// 장르 코드 (음식 장르 필터링)
+  /// 예: "G001" (이자카야), "G004" (이탈리안) 등
+  /// HotPepper의 Genre Master에서 제공하는 코드 사용
+  @override
+  String? get genre;
 
   /// Create a copy of GourmetSearchRequest
   /// with the given fields replaced by the non-null parameter values.

@@ -15,6 +15,7 @@ _$GourmetSearchRequestImpl _$$GourmetSearchRequestImplFromJson(
   keyword: json['keyword'] as String?,
   order: (json['order'] as num?)?.toInt(),
   smallArea: json['small_area'] as String?,
+  genre: json['genre'] as String?,
 );
 
 Map<String, dynamic> _$$GourmetSearchRequestImplToJson(
@@ -26,4 +27,5 @@ Map<String, dynamic> _$$GourmetSearchRequestImplToJson(
   'keyword': instance.keyword,
   'order': instance.order,
   'small_area': instance.smallArea,
+  'genre': instance.genre,
 };

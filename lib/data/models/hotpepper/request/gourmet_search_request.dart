@@ -45,6 +45,11 @@ class GourmetSearchRequest with _$GourmetSearchRequest {
     /// 예: "X050" (신주쿠), "X051" (시부야) 등
     /// service_area 내에서 더 세분화된 검색 가능
     @JsonKey(name: 'small_area') String? smallArea,
+
+    /// 장르 코드 (음식 장르 필터링)
+    /// 예: "G001" (이자카야), "G004" (이탈리안) 등
+    /// HotPepper의 Genre Master에서 제공하는 코드 사용
+    String? genre,
   }) = _GourmetSearchRequest;
 
   factory GourmetSearchRequest.fromJson(
@@ -95,6 +100,9 @@ extension GourmetSearchRequestExtension on GourmetSearchRequest {
     }
     if (smallArea != null && smallArea!.isNotEmpty) {
       params['small_area'] = smallArea!;
+    }
+    if (genre != null && genre!.isNotEmpty) {
+      params['genre'] = genre!;
     }
 
     return params;
