@@ -49,7 +49,13 @@ mixin _$GourmetSearchRequest {
   /// 4: 추천순 (기본값)
   int? get order => throw _privateConstructorUsedError;
 
-  /// 소지역 코드 (중간 단계 지역 필터링)
+  /// 중지역 코드 (V2 지역 필터링)
+  /// 예: "Y055" (신주쿠), "Y030" (시부야) 등
+  /// service_area 내에서 더 세분화된 검색 가능
+  @JsonKey(name: 'middle_area')
+  String? get middleArea => throw _privateConstructorUsedError;
+
+  /// 소지역 코드 (기존 지역 필터링, 하위 호환성)
   /// 예: "X050" (신주쿠), "X051" (시부야) 등
   /// service_area 내에서 더 세분화된 검색 가능
   @JsonKey(name: 'small_area')
@@ -83,6 +89,7 @@ abstract class $GourmetSearchRequestCopyWith<$Res> {
     int? count,
     String? keyword,
     int? order,
+    @JsonKey(name: 'middle_area') String? middleArea,
     @JsonKey(name: 'small_area') String? smallArea,
     String? genre,
   });
@@ -111,6 +118,7 @@ class _$GourmetSearchRequestCopyWithImpl<
     Object? count = freezed,
     Object? keyword = freezed,
     Object? order = freezed,
+    Object? middleArea = freezed,
     Object? smallArea = freezed,
     Object? genre = freezed,
   }) {
@@ -141,6 +149,11 @@ class _$GourmetSearchRequestCopyWithImpl<
                     ? _value.order
                     : order // ignore: cast_nullable_to_non_nullable
                         as int?,
+            middleArea:
+                freezed == middleArea
+                    ? _value.middleArea
+                    : middleArea // ignore: cast_nullable_to_non_nullable
+                        as String?,
             smallArea:
                 freezed == smallArea
                     ? _value.smallArea
@@ -172,6 +185,7 @@ abstract class _$$GourmetSearchRequestImplCopyWith<$Res>
     int? count,
     String? keyword,
     int? order,
+    @JsonKey(name: 'middle_area') String? middleArea,
     @JsonKey(name: 'small_area') String? smallArea,
     String? genre,
   });
@@ -196,6 +210,7 @@ class __$$GourmetSearchRequestImplCopyWithImpl<$Res>
     Object? count = freezed,
     Object? keyword = freezed,
     Object? order = freezed,
+    Object? middleArea = freezed,
     Object? smallArea = freezed,
     Object? genre = freezed,
   }) {
@@ -226,6 +241,11 @@ class __$$GourmetSearchRequestImplCopyWithImpl<$Res>
                 ? _value.order
                 : order // ignore: cast_nullable_to_non_nullable
                     as int?,
+        middleArea:
+            freezed == middleArea
+                ? _value.middleArea
+                : middleArea // ignore: cast_nullable_to_non_nullable
+                    as String?,
         smallArea:
             freezed == smallArea
                 ? _value.smallArea
@@ -250,6 +270,7 @@ class _$GourmetSearchRequestImpl implements _GourmetSearchRequest {
     this.count,
     this.keyword,
     this.order,
+    @JsonKey(name: 'middle_area') this.middleArea,
     @JsonKey(name: 'small_area') this.smallArea,
     this.genre,
   });
@@ -290,7 +311,14 @@ class _$GourmetSearchRequestImpl implements _GourmetSearchRequest {
   @override
   final int? order;
 
-  /// 소지역 코드 (중간 단계 지역 필터링)
+  /// 중지역 코드 (V2 지역 필터링)
+  /// 예: "Y055" (신주쿠), "Y030" (시부야) 등
+  /// service_area 내에서 더 세분화된 검색 가능
+  @override
+  @JsonKey(name: 'middle_area')
+  final String? middleArea;
+
+  /// 소지역 코드 (기존 지역 필터링, 하위 호환성)
   /// 예: "X050" (신주쿠), "X051" (시부야) 등
   /// service_area 내에서 더 세분화된 검색 가능
   @override
@@ -305,7 +333,7 @@ class _$GourmetSearchRequestImpl implements _GourmetSearchRequest {
 
   @override
   String toString() {
-    return 'GourmetSearchRequest(serviceArea: $serviceArea, start: $start, count: $count, keyword: $keyword, order: $order, smallArea: $smallArea, genre: $genre)';
+    return 'GourmetSearchRequest(serviceArea: $serviceArea, start: $start, count: $count, keyword: $keyword, order: $order, middleArea: $middleArea, smallArea: $smallArea, genre: $genre)';
   }
 
   @override
@@ -319,6 +347,8 @@ class _$GourmetSearchRequestImpl implements _GourmetSearchRequest {
             (identical(other.count, count) || other.count == count) &&
             (identical(other.keyword, keyword) || other.keyword == keyword) &&
             (identical(other.order, order) || other.order == order) &&
+            (identical(other.middleArea, middleArea) ||
+                other.middleArea == middleArea) &&
             (identical(other.smallArea, smallArea) ||
                 other.smallArea == smallArea) &&
             (identical(other.genre, genre) || other.genre == genre));
@@ -333,6 +363,7 @@ class _$GourmetSearchRequestImpl implements _GourmetSearchRequest {
     count,
     keyword,
     order,
+    middleArea,
     smallArea,
     genre,
   );
@@ -362,6 +393,7 @@ abstract class _GourmetSearchRequest implements GourmetSearchRequest {
     final int? count,
     final String? keyword,
     final int? order,
+    @JsonKey(name: 'middle_area') final String? middleArea,
     @JsonKey(name: 'small_area') final String? smallArea,
     final String? genre,
   }) = _$GourmetSearchRequestImpl;
@@ -402,7 +434,14 @@ abstract class _GourmetSearchRequest implements GourmetSearchRequest {
   @override
   int? get order;
 
-  /// 소지역 코드 (중간 단계 지역 필터링)
+  /// 중지역 코드 (V2 지역 필터링)
+  /// 예: "Y055" (신주쿠), "Y030" (시부야) 등
+  /// service_area 내에서 더 세분화된 검색 가능
+  @override
+  @JsonKey(name: 'middle_area')
+  String? get middleArea;
+
+  /// 소지역 코드 (기존 지역 필터링, 하위 호환성)
   /// 예: "X050" (신주쿠), "X051" (시부야) 등
   /// service_area 내에서 더 세분화된 검색 가능
   @override

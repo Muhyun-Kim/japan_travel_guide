@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:japan_travel_guide/data/models/area/localized_area.dart';
+import 'package:japan_travel_guide/data/models/area/area_master_model.dart';
 import 'package:japan_travel_guide/data/models/genre/localized_genre.dart';
 import 'package:japan_travel_guide/data/models/hotpepper/request/gourmet_search_request.dart';
 import 'package:japan_travel_guide/data/models/hotpepper/response/gourmet_response.dart';
@@ -11,7 +12,7 @@ import 'package:japan_travel_guide/presentation/screens/restaurant/restaurant_de
 import 'package:japan_travel_guide/presentation/screens/restaurant/widgets/restaurant_empty_state.dart';
 import 'package:japan_travel_guide/presentation/screens/restaurant/widgets/restaurant_error_state.dart';
 import 'package:japan_travel_guide/presentation/screens/restaurant/widgets/shop_card.dart';
-import 'package:japan_travel_guide/presentation/widgets/area/area_selector.dart';
+import 'package:japan_travel_guide/presentation/widgets/area/area_selector_v2.dart';
 import 'package:japan_travel_guide/presentation/widgets/genre/genre_selector.dart';
 import 'package:japan_travel_guide/presentation/widgets/debug/debug_controls.dart';
 
@@ -61,8 +62,8 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
   // 장르 선택기 표시 여부
   bool _showGenreSelector = false;
 
-  // 선택된 지역
-  LocalizedAreaSelection? _selectedArea;
+  // 선택된 지역 (새 버전)
+  LocalizedAreaSelectionMaster? _selectedArea;
 
   // 선택된 장르
   LocalizedGenre? _selectedGenre;
@@ -128,7 +129,7 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
         serviceArea: serviceArea,
         start: 1,
         count: 5, // 첫 로딩은 5개만 (번역 시간 단축)
-        smallArea: _selectedArea?.searchSmallAreaCode,
+        middleArea: _selectedArea?.searchMiddleAreaCode,
         genre: _selectedGenre?.code,
       );
 
@@ -484,7 +485,7 @@ class _RestaurantMainState extends ConsumerState<RestaurantMain> {
 
     final region = selectedRegions[0];
 
-    return LocalizedAreaSelector(
+    return AreaSelectorV2(
       serviceAreaCode: region.code,
       serviceAreaName: region.name,
       initialSelection: _selectedArea,

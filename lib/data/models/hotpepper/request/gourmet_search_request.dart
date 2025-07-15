@@ -41,7 +41,12 @@ class GourmetSearchRequest with _$GourmetSearchRequest {
     /// 4: 추천순 (기본값)
     int? order,
 
-    /// 소지역 코드 (중간 단계 지역 필터링)
+    /// 중지역 코드 (V2 지역 필터링)
+    /// 예: "Y055" (신주쿠), "Y030" (시부야) 등
+    /// service_area 내에서 더 세분화된 검색 가능
+    @JsonKey(name: 'middle_area') String? middleArea,
+
+    /// 소지역 코드 (기존 지역 필터링, 하위 호환성)
     /// 예: "X050" (신주쿠), "X051" (시부야) 등
     /// service_area 내에서 더 세분화된 검색 가능
     @JsonKey(name: 'small_area') String? smallArea,
@@ -97,6 +102,9 @@ extension GourmetSearchRequestExtension on GourmetSearchRequest {
     }
     if (order != null) {
       params['order'] = order.toString();
+    }
+    if (middleArea != null && middleArea!.isNotEmpty) {
+      params['middle_area'] = middleArea!;
     }
     if (smallArea != null && smallArea!.isNotEmpty) {
       params['small_area'] = smallArea!;
