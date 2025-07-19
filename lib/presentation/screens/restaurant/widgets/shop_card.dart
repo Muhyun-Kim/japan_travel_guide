@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:japan_travel_guide/data/models/hotpepper/response/gourmet_response.dart';
+import 'package:japan_travel_guide/presentation/widgets/skeleton_loader.dart';
 
 class ShopCard extends StatelessWidget {
   final Shop shop;
@@ -23,8 +24,16 @@ class ShopCard extends StatelessWidget {
     return originalText; // 번역 실패 시 원문 표시
   }
 
+  /// 번역 중인지 확인
+  bool get isTextTranslating => isTranslating && translatedData.isEmpty;
+
   @override
   Widget build(BuildContext context) {
+    // 번역 중이고 아직 번역된 데이터가 없으면 스켈레톤 표시
+    if (isTextTranslating) {
+      return const ShopCardSkeleton();
+    }
+
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       elevation: 2,
@@ -50,12 +59,6 @@ class ShopCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  if (isTranslating)
-                    const SizedBox(
-                      width: 16,
-                      height: 16,
-                      child: CircularProgressIndicator(strokeWidth: 2),
-                    ),
                   const SizedBox(width: 8),
                   Icon(
                     Icons.arrow_forward_ios,
